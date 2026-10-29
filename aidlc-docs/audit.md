@@ -586,3 +586,51 @@ X) その他（機能・データ別の目標などを具体的に記入）。
 **AI Prompt**: application-design-plan.mdの質問1〜3の[Answer]:に回答してください。Aは提案、Bは別案または追加範囲、Xはその他です。
 **Context**: .aidlc-rule-details/inception/application-design.md手順6〜9の「Do not proceed until ALL [Answer]: tags are completed」に従い回答待ち。今回の計画承認で設計段階へ進むことは許可済みだが、新たな構成・範囲への回答を推測しない。通常Markdownの表現・見出し・回答欄3件を保存前検証。図・コードなし。拡張規則は既存設定を維持し適用見通しを計画に記載。
 ---
+
+## アプリケーション設計・回答確認とUI参照方針
+**Timestamp**: 2026-10-29T09:37:48Z
+**User Input**:
+# Context from my IDE setup:
+
+## Active file: aidlc-docs/inception/plans/application-design-plan.md
+
+## Open tabs:
+- application-design-plan.md: aidlc-docs/inception/plans/application-design-plan.md
+- workflow-planning-questions.md: aidlc-docs/inception/plans/workflow-planning-questions.md
+- execution-plan.md: aidlc-docs/inception/plans/execution-plan.md
+- stories.md: aidlc-docs/inception/user-stories/stories.md
+- personas.md: aidlc-docs/inception/user-stories/personas.md
+
+## My request:
+アプリケーション設計計画の質問に回答完了しました。今後の詳細UIについては大枠としてデジタル庁の
+[https://www.digital.go.jp/policies/servicedesign/designsystem](https://www.digital.go.jp/policies/servicedesign/designsystem)
+このサイトを参照する形で、さらに詳細は後続で決定する。
+
+**回答ファイル原文**: 質問1 [Answer]: A ／ 質問2 [Answer]: A ／ 質問3 [Answer]: B
+**AI Response**: 回答を分析し単一バックエンドとCSV保留を確認。質問3Bに必要な対象・操作の記入がないため補足質問4を計画に追記。指定公式サイトを閲覧し、案内される専用サイトとUI参照方針、詳細は後続決定を記録。設計成果物生成と追加要件の確定は未実施。
+**AI Prompt**: application-design-plan.mdの質問4で、追加対象の機能・操作と、問い合わせを含める場合の回答方法を記入してください。
+**Context**: .aidlc-rule-details/inception/application-design.md手順8〜9は曖昧な回答を解消してから設計成果物を生成するよう規定。質問3Bは追加希望として受領済みだが範囲を推測できない。通常Markdownの見出し・リンク・選択肢・回答欄1件を追記前に検証。既存の拡張設定を維持、今回は回答分析と方針記録のみで構築・PBT検証はN/A。無効なセキュリティ拡張は適用省略。
+---
+
+## アプリケーション設計・補足回答と変更案
+**Timestamp**: 2026-10-29T10:05:02Z
+**User Input**:
+# Context from my IDE setup:
+
+## Active file: aidlc-docs/inception/plans/application-design-plan.md
+
+## Open tabs:
+- application-design-plan.md: aidlc-docs/inception/plans/application-design-plan.md
+- workflow-planning-questions.md: aidlc-docs/inception/plans/workflow-planning-questions.md
+- execution-plan.md: aidlc-docs/inception/plans/execution-plan.md
+- stories.md: aidlc-docs/inception/user-stories/stories.md
+- personas.md: aidlc-docs/inception/user-stories/personas.md
+
+## My request:
+回答を完了しました
+
+**回答ファイル原文**: [Answer]:C　回答方法は自由記述。
+**AI Response**: 両機能追加と自由記述形式を確認。追加要件FR-15・16とUS-24〜27の受入条件・設計影響をレビュー用変更案に具体化。回答を届ける経路は未指定のため、変更案承認と合わせてアプリ内返信または別窓口を選択する質問を作成。既存要件と23ストーリーは変更していない。
+**AI Prompt**: application-scope-change-questions.mdの質問1で、変更案の承認と問い合わせの回答経路を選択してください。
+**Context**: application-design.md手順8〜9の曖昧さ解消と、承認済み計画の追加要件・ストーリー変更承認を具体的な案で実施。自由記述は形式を示すが伝達経路を確定しない。Markdown見出し・箇条書き・質問1件・ストーリー候補4件を検証。回復力の既存目標を維持、実装・PBT検証はN/A。セキュリティ拡張は無効につき省略。
+---
