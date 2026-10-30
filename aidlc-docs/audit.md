@@ -918,3 +918,24 @@ aidlc-docs/inception/application-design/ 配下の以下5資料。
 **Context**: units-generation.md Step 7で回答の矛盾・曖昧さなしを確認、Step 9の計画承認待ち。質問回答完了と計画全体の承認は区別。計画チェック・進捗を更新し、Markdown・空行・選択肢・回答タグを事前検証。監査は追記のみ。RESILIENCY-01・02・03・11は計画と引継ぎ適合、04〜10・12〜15は構築・設定・試験前につきN/A。PBT必須02・03・07・08・09は実装前でN/A、その他助言。セキュリティ拡張は無効につき読込・適用省略。単位3成果物・コードは未生成。
 
 ---
+## 作業単位生成・計画承認と生成
+**Timestamp**: 2026-10-30T05:41:41Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/inception/plans/unit-of-work-approval-questions.md
+
+## Open tabs:
+- unit-of-work-approval-questions.md: aidlc-docs/inception/plans/unit-of-work-approval-questions.md
+- unit-of-work-plan.md: aidlc-docs/inception/plans/unit-of-work-plan.md
+- application-design-approval-questions.md: aidlc-docs/inception/plans/application-design-approval-questions.md
+- application-design.md: aidlc-docs/inception/application-design/application-design.md
+- stories.md: aidlc-docs/inception/user-stories/stories.md
+
+## My request:
+回答完了しました。次に進んでください。"
+**AI Response**: "計画の承認回答を確認し、承認済みの内容に沿って作業単位・依存関係・ストーリー対応の3資料を作成します。承認回答Aを確認しました。全体を1作業単位とし、内部の4領域と全27ストーリーを対応付けます。アカウント情報の所有元、利用件数の定義、研究承認根拠の反映経路は、機能設計で確認する事項として引き継ぎます。"
+**Action**: 計画承認質問1Aを記録、Part 1完了。承認済み計画を順に実行し必須3資料を生成、各ステップ完了後に計画チェックを更新。書込前に表・Markdown・IDと27ストーリーの一意網羅を検証。U01・G1〜G4・C01〜16・全FR/NFRの対応を確認。計画・進捗・監査を更新、質問1の回答を保持し成果物承認質問2を追記。アプリコードと先行要件・ストーリーは変更なし。
+**AI Prompt**: "作業単位生成の3資料を作成しました。unit-of-work-approval-questions.mdの質問2へ回答してください。承認後はU01全体の機能設計へ進みます。"
+**Context**: units-generation.md Step 17の成果物承認待ち。RESILIENCY-01は重要度・停止影響・依存対応で適合、02・03・11は目標・変更管理・Pilot Light引継ぎ適合。04〜10・12〜15は設定・構築・試験前でN/A。PBT必須02・03・07・08・09はコード・テスト・CIなしでN/A、その他助言。無効セキュリティ拡張は適用省略。図なし、コードテスト・復旧達成実測は未実施。Constructionへは未移行。
+
+---

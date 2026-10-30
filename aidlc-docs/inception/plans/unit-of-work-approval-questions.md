@@ -13,3 +13,15 @@ B) 計画の変更を依頼する。変更対象と希望を追記する。
 X) その他（確認事項や進め方を具体的に記入）。
 
 [Answer]: A
+
+## 質問2：作業単位生成成果物の承認
+
+application-design配下のunit-of-work.md、unit-of-work-dependency.md、unit-of-work-story-map.mdを確認してください。U01全体1単位、内部4領域、全27ストーリーを対応付けました。機能設計への未確定事項も引き継いでいます。
+
+A) 3成果物を承認し、ConstructionのU01機能設計へ進む（Approve & Continue）。
+
+B) 成果物の変更を依頼する。対象と希望を追記する（Request Changes）。
+
+X) その他（確認事項や進め方を具体的に記入）。
+
+[Answer]:

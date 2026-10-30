@@ -45,12 +45,12 @@ X) その他（担当体制と計画への制約を記入）。
 - [x] 6つの分解観点を評価し、計画・質問を作成
 - [x] 拡張設定・引継ぎ・Markdown・質問形式を確認
 - [x] 質問1・2の全回答を受領し、矛盾・曖昧さを解消
-- [ ] 回答を反映した作業単位生成計画の明示承認を受領
-- [ ] aidlc-docs/inception/application-design/unit-of-work.mdを生成し単位・責務・論理領域・対象コンポーネント・内部実装順を定義
-- [ ] aidlc-docs/inception/application-design/unit-of-work-dependency.mdを生成し依存表・共有契約・重要度・停止影響を定義
-- [ ] aidlc-docs/inception/application-design/unit-of-work-story-map.mdを生成しUS-01〜27の主担当と横断依存を対応付け
-- [ ] 単位境界・依存・全27ストーリーの割当とFR-01〜16・NFR-01〜08の追跡を検証
-- [ ] 進捗・監査を更新し生成成果物の承認を案内
+- [x] 回答を反映した作業単位生成計画の明示承認を受領
+- [x] aidlc-docs/inception/application-design/unit-of-work.mdを生成し単位・責務・論理領域・対象コンポーネント・内部実装順を定義
+- [x] aidlc-docs/inception/application-design/unit-of-work-dependency.mdを生成し依存表・共有契約・重要度・停止影響を定義
+- [x] aidlc-docs/inception/application-design/unit-of-work-story-map.mdを生成しUS-01〜27の主担当と横断依存を対応付け
+- [x] 単位境界・依存・全27ストーリーの割当とFR-01〜16・NFR-01〜08の追跡を検証
+- [x] 進捗・監査を更新し生成成果物の承認を案内
 - [ ] 作業単位生成成果物の明示承認を受領しConstructionへ移行
 
 ## 後続への引継ぎ
@@ -81,3 +81,7 @@ AIは未確認案、患者整理は内容確認済み版を管理し、PDFは対
 全体の設計承認後、内部実装は共通基盤→患者支援→運営→研究を基本とし、公開制御等の横断契約を先に扱う。独立サービス化・並行開発・新規機能は追加しない。拡張適合は上記の評価を維持する。
 
 計画内容の回答反映とMarkdown・選択肢・回答タグを点検済み。生成は下記の計画承認を受領してから開始する。
+
+## 最新状態
+
+計画承認質問1Aを確認しPart 1を完了。承認済み手順に従い3資料を生成・検証した。現在は生成成果物の承認待ち。過去の計画承認待ち表記は履歴。Constructionは未開始。
