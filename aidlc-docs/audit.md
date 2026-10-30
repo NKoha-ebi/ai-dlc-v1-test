@@ -877,3 +877,24 @@ aidlc-docs/inception/application-design/ 配下の以下5資料。
 **Context**: 共通規則・application-design.md手順13に従う再承認待ち。RESILIENCY-01・02・03・11は論理設計／目標引継ぎ適合、04〜10・12〜15は具体構築・試験前でN/A。PBT必須02・03・07・08・09は実装前でN/A、その他助言。無効なセキュリティ拡張は読込・適用を省略。実装・復旧目標達成の検証はしていない。次段階は未開始。
 
 ---
+## アプリケーション設計再承認・作業単位生成計画
+**Timestamp**: 2026-10-30T05:21:52Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/inception/plans/application-design-approval-questions.md
+
+## Open tabs:
+- application-design-approval-questions.md: aidlc-docs/inception/plans/application-design-approval-questions.md
+- application-design.md: aidlc-docs/inception/application-design/application-design.md
+- stories.md: aidlc-docs/inception/user-stories/stories.md
+- execution-plan.md: aidlc-docs/inception/plans/execution-plan.md
+- workflow-planning-questions.md: aidlc-docs/inception/plans/workflow-planning-questions.md
+
+## My request:
+アプリケーション設計、再レビュー確認完了しました。次に進んでください"
+**AI Response**: "アプリケーション設計の承認として受け取りました。現在の進行状態とルールを確認し、次のステージへ進めます。再承認の回答Aを確認しました。次は作業単位生成の計画を作成します。単一バックエンドの構成を維持するため、規則にある「モノリスは1作業単位」と、実行計画の基盤・患者・運営・研究という論理分割を整理して提示します。"
+**Action**: 共通規則・継続規則・作業単位生成規則と拡張opt-in・有効拡張、先行成果物を確認。設計承認チェックを更新し、unit-of-work-plan.mdに粒度・担当体制の2問と必須3成果物の生成・検証手順を作成。内容は書込前にMarkdown・タグ・空行・パスを検証。監査ログは追記のみ。
+**AI Prompt**: "作業単位生成の計画を作成しました。unit-of-work-plan.mdの質問1・2の[Answer]:に回答し、完了したらお知らせください。回答確認後、生成計画の承認へ進みます。"
+**Context**: 設計は承認済み、Units Generation Part 1は質問回答待ち。units-generation.mdのStep 6・9により全回答と計画承認後に生成する。RESILIENCY-01・02・03・11は計画／引継ぎ適合、04〜10・12〜15は構築・設定・試験前でN/A。PBT必須02・03・07・08・09は実装前でN/A、その他助言。無効なセキュリティ拡張は読込・適用を省略。単位成果物とコードは未生成。
+
+---
