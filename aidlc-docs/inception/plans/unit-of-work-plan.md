@@ -51,7 +51,7 @@ X) その他（担当体制と計画への制約を記入）。
 - [x] aidlc-docs/inception/application-design/unit-of-work-story-map.mdを生成しUS-01〜27の主担当と横断依存を対応付け
 - [x] 単位境界・依存・全27ストーリーの割当とFR-01〜16・NFR-01〜08の追跡を検証
 - [x] 進捗・監査を更新し生成成果物の承認を案内
-- [ ] 作業単位生成成果物の明示承認を受領しConstructionへ移行
+- [x] 作業単位生成成果物の明示承認を受領しConstructionへ移行
 
 ## 後続への引継ぎ
 
