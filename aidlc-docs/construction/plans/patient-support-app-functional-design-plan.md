@@ -21,6 +21,8 @@
 - [x] 計画チェック・進捗・監査を更新し、4設計成果物のレビューを案内
 - [ ] 機能設計の明示承認を受領し非機能要件へ進む
 
+承認質問1はB（修正依頼）。修正手順の進捗は[レビューB修正計画](patient-support-app-functional-design-revision-plan.md)で管理し、[修正報告](../patient-support-app/functional-design/revision-notes.md)へ記録する。4資料はレビュー案を維持し、本計画の段階承認は未完了。
+
 成果物の保存先はaidlc-docs/construction/patient-support-app/functional-design/。コードは生成しない。回答後に設計成果物を作成し、提案した具体値・ルールは機能設計全体の承認で確定する。追加の機能範囲変更が必要なら別途変更承認する。
 
 ## 8観点の評価
