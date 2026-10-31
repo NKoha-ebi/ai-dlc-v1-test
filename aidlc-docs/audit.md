@@ -960,3 +960,30 @@ aidlc-docs/inception/application-design/ 配下の以下5資料。
 **Context**: functional-design.md Step 5により回答分析・曖昧さ解消後に4設計成果物を生成。撤回について先の会話で説明した案は承認済みとは扱わない。RESILIENCY-01・02・03・11は計画・引継ぎ適合、04〜10・12〜15は設定・実測前でN/A。PBT必須02・03・07・08・09は未実装でN/A、その他助言。無効セキュリティ拡張適用省略。実装・機能設計完了を宣言していない。
 
 ---
+## U01機能設計・回答受領
+**Timestamp**: 2026-10-30T23:50:04Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/plans/patient-support-app-functional-design-plan.md
+
+## Open tabs:
+- patient-support-app-functional-design-plan.md: aidlc-docs/construction/plans/patient-support-app-functional-design-plan.md
+- unit-of-work-approval-questions.md: aidlc-docs/inception/plans/unit-of-work-approval-questions.md
+- unit-of-work-story-map.md: aidlc-docs/inception/application-design/unit-of-work-story-map.md
+- unit-of-work-dependency.md: aidlc-docs/inception/application-design/unit-of-work-dependency.md
+- unit-of-work.md: aidlc-docs/inception/application-design/unit-of-work.md
+
+## My request:
+回答完了しました。次に進んでください"
+**AI Response**: "機能設計計画の回答を読み、矛盾や追加確認が必要な点を確認します。回答が揃っていれば、U01全体の4つの機能設計資料を作成します。Playwright MCPを後続で導入する方針も引き継ぎます。12問ともAを基本とする回答で、設計を妨げる矛盾はありません。追加指定の「複数端末で保存済み内容から再開」「リアルタイム同時編集は不要」を反映します。質問12の追加項目は、画面遷移・入力検証・レスポンシブなど既存の範囲と重なる部分を統合し、成功状態・初期／空状態・操作確認も明示します。これから具体案を作成し、細かなルールや数値は設計レビューで確認いただく形にします。"
+**Context**: 全12回答を確認、質問6の明確なA意思と追加指示を原文保持で解釈。質問11A・公開制御維持、質問12A・重複点検を記録。規則・拡張設定・先行成果物を読込。設計生成開始、段階承認は未受領。
+
+---
+## U01機能設計・生成とレビュー案内
+**Timestamp**: 2026-10-30T23:55:10Z
+**AI Response**: "データモデルと業務フローの案を作成しました。同意撤回は、反映処理の完了を待たずに新しい研究利用を止め、途中失敗しても撤回状態を維持する設計です。複数端末の再開では、保存済みの内容と端末内の未送信入力を区別し、競合時の自動上書きを避けます。続いて、業務ルールと画面設計を具体化します。生成回数・削除期限・研究閲覧項目などの新しい提案は、レビュー時に分かるよう明示します。4資料が揃い、全27ストーリー・16機能要件との対応、表の構造、相対リンクを確認しています。生成上限、削除・保持期限、研究閲覧項目、集計期間は「今回の提案」として一覧にしました。画面設計には、初期・空・成功・失敗・競合時の表示も含めています。Playwrightによる実画面確認と修正は、後続のコード生成で行う手順として記録します。"
+**Action**: 4資料を承認済み計画順に作成し各作成直後にチェック更新。質問6の複数端末、質問11の既存権限制御、質問12の重複統合を反映。C03アカウント所有・C05利用記録、撤回追跡と開示確定順序、AI・版・評価・削除・研究抑制・公開・問い合わせ・画面状態を具体案にした。生成上限・保持期限・研究項目等をD01〜08で明示。Playwright導入とUI反復レビューを実行計画にも補足。文書検証で27US・16FR・8NFRの参照、表列数と相対リンクを確認。初回のID自動検査はNFR-04・05等の省略表記を検出できなかったため、NFR-04・NFR-05のように明示して再検査を通過。コード・実画面・復旧試験は未実施。
+**AI Prompt**: "4設計資料を確認し、patient-support-app-functional-design-approval-questions.mdの質問1でRequest ChangesまたはContinue to Next Stageを選択してください。"
+**Context**: functional-design.md Step 7・8の成果物承認待ち。RESILIENCY-01・02・03は論理設計／引継ぎ適合、10は業務縮退方針を定義し具体設定は後続、11はPilot Light引継ぎ適合で手順・実現性は後続。04〜09・12〜15の具体構成／設定／実測はN/A。PBT-01等の助言で性質を分析、必須02・03のテスト実装と07・08・09の基盤・生成器・縮小・seed・CIは未実装でN/A。セキュリティ拡張は無効で適用省略、元要件は維持。実運用の同意・研究承認を本設計承認と混同しない。次段階は非機能要件、未開始。
+
+---
