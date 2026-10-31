@@ -56,3 +56,10 @@
 - DeletionReceiptは対象要求に対応する受付結果であり、全対象の完了が確認されるまで削除完了を示さない。C09が所有元の処理結果を追跡し、部分失敗・再試行を管理する。
 
 C13の返信下書き・確定、C11の一覧・直接取得での公開確認、C16のrecord／observeの分離は既存表の契約を維持する。
+## 運営用当月集計の追加差分（US-28）
+
+C10の追加契約案：getOperationsAggregate(Context): Result<OperationsAggregate>。運営権限、C12公開可否、BR-11の確定済み対象条件を検証する。当月以外の期間・属性フィルターを外部入力で自由指定させない。返却項目は機能設計domain-entities.mdのOperationsAggregateを正本とする。未確定条件・確認不能・不許可は拒否し、0件応答へ変換しない。
+
+内部参照契約案：C05 summarizeOperationsUsage(ValidatedOperationsScope)で利用者数・初回完了数を、C08 summarizeOperationsRatings(ValidatedOperationsScope)で評価合計・回答件数を提供する。Scopeは信頼された運営用集計サービスが対象期間・基準時点・適格条件・目的を確定して構成し、所有元も検証する。両参照が同じ集合・参照整合境界になる方式は非機能・保存設計で定める。患者明細の全件転送・画面からの直接呼出し・無制約DB参照は許可しない。
+
+既存C14 getAllowedAggregateは外部提供用のまま。運営用Scopeを研究用Scope・提供許可として流用しない。外部提供の開示履歴を省略しない。
