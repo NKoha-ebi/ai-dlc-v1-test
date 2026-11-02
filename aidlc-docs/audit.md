@@ -1509,3 +1509,21 @@ header logo_背景透過.png　でロゴの背景透過版なのでロゴの参�
 **Context**: 通常Markdown・空白を含むパスの文中表記を検証。画像編集・旧画像削除・ダークモード採用・段階承認・移行なし。関連拡張の適用範囲は変更報告に記録。監査は追記のみ。
 
 ---
+
+## がん種・治療時期の登録タイミング変更
+**Timestamp**: 2026-11-02T05:20:42Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- patient-screen-layout.md: aidlc-docs/construction/patient-support-app/functional-design/patient-screen-layout.md
+- patient-support-app-functional-design-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-functional-design-approval-questions.md
+- revision-notes.md: aidlc-docs/construction/patient-support-app/functional-design/revision-notes.md
+- patient-support-app-conversation-mode-questions.md: aidlc-docs/construction/plans/patient-support-app-conversation-mode-questions.md
+- domain-entities.md: aidlc-docs/construction/patient-support-app/functional-design/domain-entities.md
+
+## My request:
+初期設定で癌腫の登録、悩みを作成するごとに（または具体的なプランを考えなきゃいけないときに）治療時期を登録する形に変更して"
+**AI Response**: 初期設定ではがん種を登録し、治療時期は悩みごとに入力・保存する構成へ変更します。具体的なプランを考える際にも、その悩みに登録された治療時期を確認・更新できるよう、データ設計と画面遷移をそろえます。悩み作成ごとの方式を採用し、M4開始時も確認・更新可能とした。治療中の内容入力は同時点へ移し既存条件を維持。共通PatientProfileと悩み単位TreatmentContextを分離し、治療情報の参照版・遅延結果・依存再確認を補足。要件・ストーリー・4設計資料・画面配置・変更報告・承認質問への更新記録・状態・計画チェックを更新。
+**Context**: 通常Markdown・表列構造を確認し、初期設定で治療情報を要求する現行記述がないことと参照元・保存先・遷移を検索照合。既存回答・監査は保持。拡張評価はrevision-notes.mdへ記載、無効セキュリティ拡張はスキップ。実装・移行・実行テスト・段階承認・次段階移行なし。
+
+---

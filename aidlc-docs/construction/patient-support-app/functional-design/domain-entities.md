@@ -1,4 +1,4 @@
-# U01 ドメインエンティティ設計（レビュー案）
+﻿# U01 ドメインエンティティ設計（レビュー案）
 
 質問1〜12のAと追加指定に基づく、言語・DB製品に依存しない設計。既存要件を維持し、本段階で提案する具体値・状態・項目は機能設計承認対象。挙動は[business-logic-model.md](business-logic-model.md)、規則は[business-rules.md](business-rules.md)、画面は[frontend-components.md](frontend-components.md)を参照。
 
@@ -15,9 +15,10 @@ Idは不透明識別子、Revisionは各所有対象の更新競合・整合性�
 | Account | C03 | AccountId、メール、認証資格への参照、年齢確認情報、状態、役割・研究アクセス範囲、Revision。認証秘密は業務APIに返さない |
 | ConsentReceipt | C04 | AccountId、目的（通常利用／未成年本人／保護者等／研究）、文面版、対象研究、意思・確認状態、確認時点、撤回時点、Revision。研究条件と別正本 |
 | WithdrawalRequest | C04 | 要求ID、対象同意、受付時点、撤回確定版、対象所有元ごとの反映状態・最終結果。撤回サービスがC04契約で更新。C09の削除要求とは別 |
-| PatientProfile | C05 | AccountId、がん種選択値（FR-03・BR-03の指定16項目）、治療時期、治療内容の選択、保存版。回答しない・不明・未入力を区別 |
+| PatientProfile | C05 | AccountId、がん種選択値（FR-03・BR-03の指定16項目）、保存版。治療時期・治療内容は悩みごとのTreatmentContextへ分離。回答しない・不明・未入力を区別 |
 | SupportSession | C05 | SessionId、本人、開始時点、初回保存時点、初回完了時点、現在状態、選択支援集合・順序、選択支援ごとの現在判定対象RunId、Revision。利用・完了件数の正本 |
 | ModuleRun | C05 | RunId、セッション、5支援の種別、実行番号、入力版、参照した確認済み版、現在のSnapshot参照、未実施／編集中／確認待ち／確認済み／再確認必要／省略。AI処理状態とは別 |
+| TreatmentContext | C05 | SessionId、治療時期、治療中の治療内容選択、内容版、更新時点。悩みごとに保持し、PatientProfileの共通属性にしない。未入力・不明・回答しないを区別。変更は対象セッションの実際の参照結果だけに影響する |
 | InputRevision | C05 | 本人入力、入力版、更新時点、生成済み結果への依存。旧版参照を残しても患者が修正できる |
 | GeneratedProposal | C05 | 提案ID・版、対象RunId、使用したInputRevisionのID・版、参照SnapshotのID・版、使用したProfileのID・版、C06要求ID、未確認内容・候補、生成状態、適用可否。実際の参照だけを記録。C06に患者整理の独立正本を作らない |
 | ConfirmedSnapshot | C05 | SnapshotId・内容版、対象RunId、本人が編集・確認した結果、使用InputRevision・参照Snapshot・ProfileのIDと版、確認時点、希望／困りごと／選択行動／質問、保存時の集約Revision、現在有効／失効／確認不能の利用判定。更新は新しい内容版として追跡 |
@@ -113,3 +114,8 @@ OperationsAggregateは永続エンティティではなく、BR-11に従う返�
 C06のGenerationRequestには受付時の適用モードを固定して対応付け、GeneratedProposalから使用モードを追跡可能とする。現在選択と生成中要求のモードを区別する。更新は既存の期待Revision・RequestKey・競合処理に従う。モードだけの更新をInputRevisionやSnapshot内容版の変更と同一視せず、内容を失効させない。
 
 DeviceDraftでは未送信のモード変更と入力を保持し、保存成否を区別する。既存の本人限定取得・削除規則を適用し、研究への提供項目は拡張しない。
+
+
+## 治療情報の参照版（2026-11-02）
+
+SupportSessionは自身のTreatmentContextの現在版を参照する。GeneratedProposal・ConfirmedSnapshot・GenerationRequestは、実際に使用したTreatmentContextのSessionIdと内容版を追跡し、Profile参照版とは別に扱う。遅延結果も当該版との適合性を確認する。治療時期を別の悩みから暗黙に引き継がず、他の悩みの保存値・確認済み内容を今回の変更で更新しない。既存保存データがある場合の移行は未実施。
