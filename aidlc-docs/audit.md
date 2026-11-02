@@ -1491,3 +1491,21 @@ aidlc-docs/construction/patient-support-app/functional-design/frontend-component
 **Context**: 状況確認のみ。通常Markdownとして検証し監査へ追記。設計・アプリ変更・承認・段階移行なし。
 
 ---
+
+## 背景透過版ロゴへの参照先変更
+**Timestamp**: 2026-11-02T05:15:58Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- patient-screen-layout.md: aidlc-docs/construction/patient-support-app/functional-design/patient-screen-layout.md
+- patient-support-app-functional-design-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-functional-design-approval-questions.md
+- revision-notes.md: aidlc-docs/construction/patient-support-app/functional-design/revision-notes.md
+- patient-support-app-conversation-mode-questions.md: aidlc-docs/construction/plans/patient-support-app-conversation-mode-questions.md
+- domain-entities.md: aidlc-docs/construction/patient-support-app/functional-design/domain-entities.md
+
+## My request:
+header logo_背景透過.png　でロゴの背景透過版なのでロゴの参照先をC:\Users\khr85\Documents\ai-dlc-v1-test\header logo_背景透過.png に変更してください。影響するファイルを変更してください"
+**AI Response**: 背景透過版の存在を確認し、現行要件・frontend-components.md・patient-screen-layout.mdのロゴ参照を更新。承認質問には過去の指示を保持して最新参照先を追記し、変更報告・状態チェックを更新。全文検索で旧参照は回答履歴と監査のみ、現行3資料は新参照に一致と確認。src/publicに旧ロゴ参照なし。
+**Context**: 通常Markdown・空白を含むパスの文中表記を検証。画像編集・旧画像削除・ダークモード採用・段階承認・移行なし。関連拡張の適用範囲は変更報告に記録。監査は追記のみ。
+
+---
