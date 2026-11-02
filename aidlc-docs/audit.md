@@ -1473,3 +1473,21 @@ aidlc-docs/construction/patient-support-app/functional-design/frontend-component
 **Context**: 指定ロゴ存在確認。要件・既存ストーリー・業務規則・業務フロー・画面表・変更報告・状態・計画チェック更新。書込み前に通常Markdown・表構造と図なしを確認し、書込み後も表列・リンク先・旧トップ表記の置換を確認。セキュリティ拡張は無効のため省略、他拡張の適用とN/Aを変更報告に記録。アプリ実装・実画面試験・段階承認・移行なし。
 
 ---
+
+## ダークモード対応状況の確認
+**Timestamp**: 2026-11-02T05:02:04Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- patient-screen-layout.md: aidlc-docs/construction/patient-support-app/functional-design/patient-screen-layout.md
+- patient-support-app-functional-design-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-functional-design-approval-questions.md
+- revision-notes.md: aidlc-docs/construction/patient-support-app/functional-design/revision-notes.md
+- patient-support-app-conversation-mode-questions.md: aidlc-docs/construction/plans/patient-support-app-conversation-mode-questions.md
+- domain-entities.md: aidlc-docs/construction/patient-support-app/functional-design/domain-entities.md
+
+## My request:
+これって、ダークモードへの対応ってどうなっている？"
+**AI Response**: 設計資料・srcを検索し、患者アプリのダークモード要件は未定義と確認。一方、ひな形src/index.cssにはcolor-schemeとprefers-color-schemeによる端末設定連動の配色が存在。これを患者アプリ全画面の対応済みとは扱わない。追加案として設定の表示テーマに端末設定に合わせる／ライト／ダーク、ロゴ画像の無改変と周囲背景による視認性確保、全画面・ダイアログ・エラー等の両テーマ確認を説明。案の反映・実装は行わない。
+**Context**: 状況確認のみ。通常Markdownとして検証し監査へ追記。設計・アプリ変更・承認・段階移行なし。
+
+---
