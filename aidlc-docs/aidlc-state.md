@@ -311,3 +311,10 @@ personas.mdの承認は維持。運営の追加権限は今回の指示に基づ
 - [x] Markdown・相対リンク・表・差分を検証し、修正計画・変更報告・監査を更新。
 
 機能設計全体は未承認。実装・次段階移行なし。解釈・未確定事項・拡張適合はrevision-notes.md、詳細チェックはpatient-support-app-auth-title-revision-plan.md参照。
+## 最新状態：一問ずつの回答・表示形式の分離
+
+- [x] P06は一問ずつ回答する方式へ確定し、履歴表示とは独立させた。
+- [x] 共通の質問・回答・進行契約とController／Presenterの境界を設計へ反映。
+- [x] 表示変更単独で保存・進行・AI生成を起こさない検証観点を追加し文書検証を完了。
+
+機能設計全体は未承認、実装・次段階移行なし。詳細はpatient-support-app-question-presentation-plan.mdとrevision-notes.md参照。

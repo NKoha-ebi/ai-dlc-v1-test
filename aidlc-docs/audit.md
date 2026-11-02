@@ -1570,3 +1570,45 @@ C:\Users\khr85\Documents\ai-dlc-v1-test\aidlc-docs\construction\patient-support-
 **Context**: 読み取りによる差分確認と監査追記。設計内容の追加変更なし。
 
 ---
+
+
+## UI設計の未確定事項の確認
+**Timestamp**: 2026-11-02T07:20:00Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/functional-design/patient-screen-layout.md
+
+## Open tabs:
+- patient-screen-layout.md: aidlc-docs/construction/patient-support-app/functional-design/patient-screen-layout.md
+- patient-support-app-functional-design-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-functional-design-approval-questions.md
+- revision-notes.md: aidlc-docs/construction/patient-support-app/functional-design/revision-notes.md
+- patient-support-app-conversation-mode-questions.md: aidlc-docs/construction/plans/patient-support-app-conversation-mode-questions.md
+- domain-entities.md: aidlc-docs/construction/patient-support-app/functional-design/domain-entities.md
+
+## My request:
+今UI設計であいまいなぶぶんはどこ？"
+**AI Response**: 現在の画面設計と関連資料を確認し、未確定の箇所と、方針は決まっていて見た目の調整だけが残っている箇所を整理します。対話形式、支援選択手順、がん種選択方式、タイトル仕様、一覧順序、モード変更UI、補助画面詳細、見た目の未確定事項を報告。ユーザー指定済みの認証エラー・整理中表示・再設定条件とは区別。
+**Context**: 画面配置・部品・変更報告・業務規則を読み取り確認。設計変更・承認・段階移行なし。
+
+---
+
+
+## 一問ずつの回答と表示形式の分離
+**Timestamp**: 2026-11-02T07:26:49Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/functional-design/patient-screen-layout.md
+
+## Open tabs:
+- patient-screen-layout.md: aidlc-docs/construction/patient-support-app/functional-design/patient-screen-layout.md
+- patient-support-app-functional-design-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-functional-design-approval-questions.md
+- revision-notes.md: aidlc-docs/construction/patient-support-app/functional-design/revision-notes.md
+- patient-support-app-conversation-mode-questions.md: aidlc-docs/construction/plans/patient-support-app-conversation-mode-questions.md
+- domain-entities.md: aidlc-docs/construction/patient-support-app/functional-design/domain-entities.md
+
+## My request:
+一問ずつ回答にするけど、表示形式の変更をフロントエンドで対応できる状態にしてください"
+**AI Response**: 一問ずつ回答する方式を設計に反映し、質問・回答・進行状態と表示形式を分けます。吹き出しや履歴表示は、保存・AI送信の契約を変えずにフロントエンドで切り替えられるよう、関連資料もそろえます。設計への反映ができました。質問ID・回答・現在位置を共通で管理し、表示部品が吹き出しや質問カードとして描画する構成です。表示を切り替えても、入力や進行状態を保持し、保存・AI呼び出しが発生しないことを検証観点に加えました。
+**Context**: 既存機能設計レビュー修正。画面・部品・データ・規則・フロー・要件・契約・計画・報告・状態を更新。文書8資料と差分検証に問題なし。拡張適合はrevision-notes.md参照、無効セキュリティ拡張は省略。実装・段階承認・移行なし。最終報告：一問ずつ回答する方式を設計へ反映し、共通の質問・回答・進行データから表示を差し替える構成としました。表示変更だけでは入力・保存状態・AI呼出しを変えません。文書整合を確認済み、コード実装は未実施です。
+
+---

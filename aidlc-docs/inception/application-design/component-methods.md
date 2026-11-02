@@ -65,3 +65,9 @@ C10の追加契約案：getOperationsAggregate(Context): Result<OperationsAggreg
 内部参照契約案：C05 summarizeOperationsUsage(ValidatedOperationsScope)で利用者数・初回完了数を、C08 summarizeOperationsRatings(ValidatedOperationsScope)で評価合計・回答件数を提供する。Scopeは信頼された運営用集計サービスが対象期間・基準時点・適格条件・目的を確定して構成し、所有元も検証する。両参照が同じ集合・参照整合境界になる方式は非機能・保存設計で定める。患者明細の全件転送・画面からの直接呼出し・無制約DB参照は許可しない。
 
 既存C14 getAllowedAggregateは外部提供用のまま。運営用Scopeを研究用Scope・提供許可として流用しない。外部提供の開示履歴を省略しない。
+
+## P06の表示形式に依存しないC05契約
+
+resumeの対話部分は、現在質問ID・質問内容版・質問文・回答形式と検証条件・許可された保存済み回答履歴・現在入力の基準版・操作可否を復元可能にする。回答保存／進行の論理契約はsubmitAnswer(Context, RunId, QuestionId, QuestionVersion, Answer, Revision, RequestKey): Result<ConversationState>とし、既存の保存契約へ統合してもよい。本人・現在質問・版を検証し、回答の保存と進行の整合性、再送の冪等性を保証する。入力途中の下書き保存とは区別する。
+
+ConversationStateには保存結果・現在質問または次質問準備中／まとめ等の進行結果・保存済み版を返す。吹き出し等の表示形式は要求・応答の業務項目に含めない。既存AI受付・生成・失敗状態と版照合を共用し、submitAnswerを外部AIの毎回呼出しに直結させない。具体的なJSON・HTTP・永続化方式は後続設計で確定する。
