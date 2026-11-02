@@ -1741,3 +1741,41 @@ P05 は別画面に分ける
 **Context**: 選択範囲だけ反映。保留メモ全体・要約・全文切替・提供元選定は未適用。8資料と差分検査に問題なし。実装・全体承認・次段階移行なし。最終報告：案②を採用して設計へ反映。直近往復数は今後調整、次段階には進まない。
 
 ---
+## 機能設計の曖昧点に関する質問対応
+**Timestamp**: 2026-11-02T11:14:11Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/functional-design/screen-visual-design.md
+
+## Open tabs:
+- patient-support-app-visual-design-questions.md: aidlc-docs/construction/plans/patient-support-app-visual-design-questions.md
+- screen-visual-design.md: aidlc-docs/construction/patient-support-app/functional-design/screen-visual-design.md
+- patient-screen-layout.md: aidlc-docs/construction/patient-support-app/functional-design/patient-screen-layout.md
+- patient-support-app-functional-design-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-functional-design-approval-questions.md
+- revision-notes.md: aidlc-docs/construction/patient-support-app/functional-design/revision-notes.md
+
+## My request:
+現在機能設計においてあいまいな点はありますか？"
+**AI Response**: 現行設計・最新状態・回答済み配置配色を確認。曖昧さとして、支援ごとの必須情報とまとめ可能条件、短め／じっくりの具体差、AI必須と手入力代替の境界、タスク別の必要な確認済み情報の選択条件を報告する。明示的な保留として履歴往復数・入力予算・超過時UI、上限案、未成年同意・40歳以降、運営集計条件、研究有効化条件を区別する。配置配色・P05分割・複数がん種・一問ずつ回答は決定済みとして扱う。
+**Context**: 質問への現状評価のみ。設計変更・段階完了・承認要求・次段階移行なし。Markdown本文を確認、図・コードなし。監査は追記のみ。
+
+---
+## 機能設計・曖昧点確認質問の作成
+**Timestamp**: 2026-11-02T11:18:26Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/functional-design/screen-visual-design.md
+
+## Open tabs:
+- patient-support-app-visual-design-questions.md: aidlc-docs/construction/plans/patient-support-app-visual-design-questions.md
+- screen-visual-design.md: aidlc-docs/construction/patient-support-app/functional-design/screen-visual-design.md
+- patient-screen-layout.md: aidlc-docs/construction/patient-support-app/functional-design/patient-screen-layout.md
+- patient-support-app-functional-design-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-functional-design-approval-questions.md
+- revision-notes.md: aidlc-docs/construction/patient-support-app/functional-design/revision-notes.md
+
+## My request:
+では、そのあいまいな点を解消するための質問ファイルを作成してください"
+**AI Response**: 挙げた曖昧点を具体的に決められる質問ファイルを作成します。既に決定済みの事項は維持し、後続設計で詰める数値や運用条件は区別します。19問に整理しました。支援ごとの「まとめられる条件」から順に回答でき、数値や運用条件には後続で確認する選択肢も設けています。回答が既存仕様の変更につながる箇所も明記しました。最終案内：質問ファイルを作成しました（全19問）。各質問の[Answer]:に選択肢の文字と必要な補足を記入してください。回答後に整合性を確認します。次段階には進んでいません。
+**Context**: 質問ファイルと作業計画を作成、チェック・状態を更新。質問番号19件・回答空欄・A/B/その他・相対リンク・Unicodeを検証。Git管理外のためgit diff --checkは利用不可。図・埋め込みコードなし。既存設計本文・承認状態を維持。RESILIENCY適合とPBTの助言／N/Aは計画に記載。無効セキュリティ拡張は読み込み・適用省略。監査は追記のみ。
+
+---
