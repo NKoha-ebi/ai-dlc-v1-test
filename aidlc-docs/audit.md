@@ -1678,3 +1678,66 @@ P05 は別画面に分ける
 **Context**: 配置配色のみ承認。質問回答は原文保持。機能設計全体は未承認。実装なし。検証後はユーザー指示に従い次段階へ進まず質問待ち。最終報告：配置・配色の決定版を作成しました。P06は質問カード＋回答欄、履歴は初期状態で折りたたみとして確定。次へ進まず質問をお待ちします。
 
 ---
+
+
+## AI送信時の履歴参照範囲の現状説明
+**Timestamp**: 2026-11-02T08:29:49Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/functional-design/screen-visual-design.md
+
+## Open tabs:
+- patient-support-app-visual-design-questions.md: aidlc-docs/construction/plans/patient-support-app-visual-design-questions.md
+- screen-visual-design.md: aidlc-docs/construction/patient-support-app/functional-design/screen-visual-design.md
+- patient-screen-layout.md: aidlc-docs/construction/patient-support-app/functional-design/patient-screen-layout.md
+- patient-support-app-functional-design-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-functional-design-approval-questions.md
+- revision-notes.md: aidlc-docs/construction/patient-support-app/functional-design/revision-notes.md
+
+## My request:
+ありがとう、では、AIのAPIに投げるときに、どこまでAI側が過去の履歴を参照するかについて、現状どうなっているかを教えて"
+**AI Response**: 現在の設計で、AIへ渡す履歴・参照情報の範囲と、まだ決まっていない点を確認します。設計の変更や次段階への移行は行いません。BR-03と5支援入力表・C06最小入力契約・ドメインを照合。当該支援に必要な本人入力・有効な確認済み参照のみを渡す方針。直近何往復・全文／要約・別の悩みからの引継ぎ・提供元側の履歴保持方式は未確定。画面履歴とAPI入力は別。未適用メモは現状確認にのみ用い、仕様へ反映しない。
+**Context**: 現状説明のみ。AI利用先未選定・接続未実装。決定版UI・設計・段階は変更せず質問対応を継続。
+
+---
+
+
+## 同じ悩み内の履歴送信方式の比較提案
+**Timestamp**: 2026-11-02T11:08:35Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/functional-design/screen-visual-design.md
+
+## Open tabs:
+- patient-support-app-visual-design-questions.md: aidlc-docs/construction/plans/patient-support-app-visual-design-questions.md
+- screen-visual-design.md: aidlc-docs/construction/patient-support-app/functional-design/screen-visual-design.md
+- patient-screen-layout.md: aidlc-docs/construction/patient-support-app/functional-design/patient-screen-layout.md
+- patient-support-app-functional-design-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-functional-design-approval-questions.md
+- revision-notes.md: aidlc-docs/construction/patient-support-app/functional-design/revision-notes.md
+
+## My request:
+同じ悩みの中で何回かAIを呼び出すとき、その悩み内の過去の入力内容は把握してもらった方が、整合性というかがとりやすいかなと思っているが、その時のAIのコストなども踏まえ何個か案を提案してほしい。"
+**AI Response**: 同じ悩み内の整合性を保つ方法を、履歴の渡し方・費用・実装の複雑さで比較します。API料金の仕組みを公式資料で確認し、今の設計に合う候補を提案します。設計への反映はまだ行いません。全文、直近＋確認済み情報、要約＋直近、関連履歴検索の4案を比較。初期は直近＋確認済み情報を基準に、短い対話では全文、長くなったら要約する段階的方式を提案。入力・出力・要約生成費用、キャッシュの条件、要約の否定や修正保持を説明。
+**Context**: Google API料金・キャッシュ、Anthropic文脈設計の公式資料を参照。提供元未選定のため円額や削減率は確定せず、仮定例を明記。提案のみ、設計・実装・次段階移行なし。
+
+---
+
+
+## AI履歴参照の採用指示
+**Timestamp**: 2026-11-02T11:12:13Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/functional-design/screen-visual-design.md
+
+## Open tabs:
+- patient-support-app-visual-design-questions.md: aidlc-docs/construction/plans/patient-support-app-visual-design-questions.md
+- screen-visual-design.md: aidlc-docs/construction/patient-support-app/functional-design/screen-visual-design.md
+- patient-screen-layout.md: aidlc-docs/construction/patient-support-app/functional-design/patient-screen-layout.md
+- patient-support-app-functional-design-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-functional-design-approval-questions.md
+- revision-notes.md: aidlc-docs/construction/patient-support-app/functional-design/revision-notes.md
+
+## My request:
+じゃあ２の案でお願いします"
+**AI Response**: 案②「確認済み情報＋直近の会話」を設計に反映します。直近の会話を含める範囲と、古い回答・未確認のAI案の扱いを明記し、前に例示した「3往復」は未確定の調整値として残します。次の段階には進みません。ai-context-policy.mdへ仕様化し要件・4機能設計・契約を整合。
+**Context**: 選択範囲だけ反映。保留メモ全体・要約・全文切替・提供元選定は未適用。8資料と差分検査に問題なし。実装・全体承認・次段階移行なし。最終報告：案②を採用して設計へ反映。直近往復数は今後調整、次段階には進まない。
+
+---

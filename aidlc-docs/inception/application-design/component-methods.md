@@ -71,3 +71,7 @@ C10の追加契約案：getOperationsAggregate(Context): Result<OperationsAggreg
 resumeの対話部分は、現在質問ID・質問内容版・質問文・回答形式と検証条件・許可された保存済み回答履歴・現在入力の基準版・操作可否を復元可能にする。回答保存／進行の論理契約はsubmitAnswer(Context, RunId, QuestionId, QuestionVersion, Answer, Revision, RequestKey): Result<ConversationState>とし、既存の保存契約へ統合してもよい。本人・現在質問・版を検証し、回答の保存と進行の整合性、再送の冪等性を保証する。入力途中の下書き保存とは区別する。
 
 ConversationStateには保存結果・現在質問または次質問準備中／まとめ等の進行結果・保存済み版を返す。吹き出し等の表示形式は要求・応答の業務項目に含めない。既存AI受付・生成・失敗状態と版照合を共用し、submitAnswerを外部AIの毎回呼出しに直結させない。具体的なJSON・HTTP・永続化方式は後続設計で確定する。
+
+## C05／C06のAI入力選択
+
+C05が現在SessionId・RunIdと版を検証して、同じ悩みの必要な確認済み情報・有効な初期入力と現在Runの直近質問回答・今回回答を組み立てる。C06 generateのMinimalInputはこの選択結果に限定し、フロントや提供元の任意履歴へ自動拡張しない。質問回答の順序・発言者・使用版を対応付け、直近往復数と入力予算の数値は後続設計とする。既存の冪等性・送信計数・遅延結果の版照合を維持する。
