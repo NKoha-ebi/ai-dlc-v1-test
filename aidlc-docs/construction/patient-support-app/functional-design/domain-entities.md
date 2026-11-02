@@ -141,3 +141,8 @@ P05a〜cは同じSupportSessionを扱う別画面。保存済み手順を再開�
 ## AI履歴参照方式の採用
 
 GenerationRequestの最小入力参照に、使用したSessionId・RunId、初期入力の有効版、対象質問回答のID・版と順序、今回回答、実際に使用した確認済みSnapshot・Profile・TreatmentContextの参照版を対応付ける。既存参照へ統合でき、別テーブルや送信本文コピーを必須にしない。履歴はアプリ管理の正本から構成し、提供元会話IDだけに参照選択を任せない。 詳細は[ai-context-policy.md](ai-context-policy.md)を正本とする。
+
+
+## 19回答・追加3回答の確定反映
+
+[決定事項](clarification-decisions.md)を今回の詳細条件の正本として適用する。C05所有のModuleRunに引継ぎ選択状態・選択内容版・項目IDと元Snapshot版を追加する。GenerationRequest・GeneratedProposal・ConfirmedSnapshotは実使用の選択版と参照版に対応付ける。独立DB・新テーブルは要求しない。選択保存には期待Revision・RequestKeyを適用し、再開で元版を検証する。タイトル50文字・単一質問1000文字。

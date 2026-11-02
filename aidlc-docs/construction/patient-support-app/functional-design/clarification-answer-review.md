@@ -1,6 +1,6 @@
 # 機能設計19回答の分析・反映準備
 
-状態：回答受領・分析済み。以下は反映予定とレビュー案であり、設計正本への適用・機能設計全体の承認・実装を意味しない。追加確認終了後に関係資料へ整合して反映する。
+状態：追加3回答（1A・2A・3A）を確認し、関連設計へ反映済み。以下の「反映予定」「レビュー案」「確認待ち」は分析時点の履歴として保持する。現在の条件は[決定事項](clarification-decisions.md)を正本とする。引継ぎ表・P06操作案は採用済み。機能設計全体は未承認。
 
 原文：[19問の回答](../../plans/patient-support-app-functional-design-clarification-questions.md)。追加確認：[3問](../../plans/patient-support-app-functional-design-followup-questions.md)。質問17の全角小文字「ｃ」はCと解釈し、原文は変更しない。
 
