@@ -1612,3 +1612,27 @@ C:\Users\khr85\Documents\ai-dlc-v1-test\aidlc-docs\construction\patient-support-
 **Context**: 既存機能設計レビュー修正。画面・部品・データ・規則・フロー・要件・契約・計画・報告・状態を更新。文書8資料と差分検証に問題なし。拡張適合はrevision-notes.md参照、無効セキュリティ拡張は省略。実装・段階承認・移行なし。最終報告：一問ずつ回答する方式を設計へ反映し、共通の質問・回答・進行データから表示を差し替える構成としました。表示変更だけでは入力・保存状態・AI呼出しを変えません。文書整合を確認済み、コード実装は未実施です。
 
 ---
+
+
+## 画面構成・入力方式の確定指示
+**Timestamp**: 2026-11-02T08:08:42Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/functional-design/patient-screen-layout.md
+
+## Open tabs:
+- patient-screen-layout.md: aidlc-docs/construction/patient-support-app/functional-design/patient-screen-layout.md
+- patient-support-app-functional-design-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-functional-design-approval-questions.md
+- revision-notes.md: aidlc-docs/construction/patient-support-app/functional-design/revision-notes.md
+- patient-support-app-conversation-mode-questions.md: aidlc-docs/construction/plans/patient-support-app-conversation-mode-questions.md
+- domain-entities.md: aidlc-docs/construction/patient-support-app/functional-design/domain-entities.md
+
+## My request:
+P05 は別画面に分ける
+癌腫は複数選択可能にして「その他」「不明」「回答しない」の選択肢を含めたうえで必須回答にして下さい
+悩み一覧はカード形式、保存日時の新しい順でいいと思う
+モード表示はスクロール中も固定"
+**AI Response**: P05を手順ごとの別画面に分け、がん種の複数選択・必須回答、悩み一覧のカード表示と保存日時順、モード表示の固定を設計に反映します。関連する入力規則・データ定義・画面遷移もそろえます。P05は「悩み入力→抽出案の確認→支援選択」の3画面に分けました。がん種は指定16項目から複数選択でき、1件以上の回答を必須とし、「回答しない」でも先へ進めます。カード一覧の保存日時順と、モード名・変更ボタンの固定表示も反映し、資料間の整合性を確認しています。
+**Context**: 7仕様資料・計画・変更報告・状態を更新。文書検証と差分検査に問題なし。拡張適合詳細はrevision-notes.md、無効セキュリティ拡張は適用省略。実装・段階承認・次段階移行なし。最終報告：4点を関連設計へ反映、P05を3画面へ分割、がん種は複数選択・1件以上必須、一覧は保存日時降順のカード、モード名と変更ボタンを固定。
+
+---
