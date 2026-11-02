@@ -6,6 +6,8 @@
 
 | 所属 | シグネチャ | 目的・境界 |
 | --- | --- | --- |
+| C03 | requestPasswordReset(Email, RequestKey): Result<ResetReceipt>; validatePasswordReset(Token): Result<ResetEligibility>; resetPassword(Token, NewPassword, RequestKey): Result<ResetReceipt> | 認証前の再設定入口。24時間・最新世代・未使用を検証。再送成立で旧リンク無効化。更新・消費・全端末資格失効を一体で確定し再ログインを求める。リンク・トークンを記録しない。照会成功だけで更新を許可せず確定時に再検証 |
+| C05 | renameSession(Context, SessionId, OptionalTitle, Revision, RequestKey): Result<SessionSummary> | 本人の表示タイトルのみ更新。期待版・利用状態を検証し、内容版・依存結果・完了・利用件数を変えない。失敗時は保存済みを返さない |
 | C03 | register(Registration): Result<Account>; login(Credentials): Result<Session>; authorize(Context, Action, ResourceRef): Result<Decision> | 登録・認証、アカウント利用状態・役割による認可。所有者・業務状態は所有元で判定 |
 | C04 | recordConsent(Context, ConsentInput): Result<ConsentReceipt>; getEligibility(Context, Purpose): Result<Eligibility>; withdrawConsent(Context, ConsentRef): Result<Receipt> | 同意・撤回の正本。同意種別・版・同意条件を判定。研究全体の許可は返さない |
 | C05 | saveProfile(Context, ProfileInput): Result<Profile>; saveDraft(Context, DraftInput, Revision): Result<SavedDraft>; resume(Context, SessionId): Result<DraftSnapshot> | 選択拒否と未入力を区別、保存版と未送信を区別 |
@@ -44,7 +46,7 @@
 
 ## 型の意味と信頼境界
 
-- register・loginは認証済みContextの確立前に利用する認証入口。入力検証と当該入口に必要な公開制御を適用し、新しい匿名API・公開画面は追加しない。認証後のContextはサーバーが確立する。
+- register・login・再設定契約は認証済みContextの確立前に利用する認証入口。入力検証と当該入口に必要な公開制御を適用し、2026-11-02追加の再設定入口以外に匿名API・公開画面を追加しない。認証後のContextはサーバーが確立する。
 - authorizeのResourceRefは対象を表す参照であり、C03が全所有モジュールを直接読む契約ではない。役割等の共通判定に限定し、所有者・業務状態は所有元の公開契約で検証する。
 - ConfirmedInputは候補選択に用いる入力内容を患者が確認したもの、ConfirmedResultは特定入力版に対応する整理内容を患者が確認しC05が保存したもの。認証・所有者確認・医学的妥当性の保証ではない。確認対象と入力版・保存版を一意に追跡可能とし、識別子の新設は必須にしない。
 - C06のUnconfirmedProposalは生成された未確認案のみ。C05が入力版に対応付けて管理・保存し、古い入力や削除済み対象へ適用しない。GenerationResultは受付・生成完了・保存完了のどこまで達したかを区別する処理結果であり、受付だけでは生成・保存の成功を保証しない。同期・非同期や単一応答を固定しない。
