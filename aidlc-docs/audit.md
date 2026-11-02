@@ -1839,3 +1839,23 @@ P05 は別画面に分ける
 **AI Final Response**: 機能設計の承認を確認し、非機能要件へ進みました。非機能要件の質問ファイル全15問に回答してください。未定の項目はAIに比較案を作成させる選択肢を利用できます。
 
 ---
+
+## 非機能要件・削除仕様の確認
+**Timestamp**: 2026-11-02T12:27:26Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/plans/patient-support-app-nfr-requirements-questions.md
+
+## Open tabs:
+- patient-support-app-nfr-requirements-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-requirements-questions.md
+- patient-support-app-visual-design-questions.md: aidlc-docs/construction/plans/patient-support-app-visual-design-questions.md
+- patient-support-app-functional-design-clarification-questions.md: aidlc-docs/construction/plans/patient-support-app-functional-design-clarification-questions.md
+- clarification-answer-review.md: aidlc-docs/construction/patient-support-app/functional-design/clarification-answer-review.md
+- patient-support-app-functional-design-followup-questions.md: aidlc-docs/construction/plans/patient-support-app-functional-design-followup-questions.md
+
+## My request:
+現状、悩みの項目を削除した際、情報は単独で完全削除できますか？（プライバシーぼりしー記載事項にかかる内容です）"
+**AI Response**: 現在の設計資料と実装状況を確認。悩みの個別対象削除は設計にあるが、実装は接続テスト画面のみ。削除受付時の利用禁止、本体・派生物7日以内、バックアップを含む35日以内、本文を含まない最小追跡の処理完了後180日以内という設計条件を説明する。外部AI・未接続端末の消去確認と期限実現性は未検証、ダウンロード済みPDFの遠隔消去は行わないため、即時・例外なしの完全削除とは表現できない。法的判断や仕様変更は行わない。
+**Context**: 非機能要件質問への回答前の仕様照会。business-rules.md BR-07、business-logic-model.md、domain-entities.md、frontend-components.md、非機能要件質問14、src/App.tsxを確認。通常Markdownとして検証し監査ログへ追記。計画作業の完了・段階変更なし。
+
+---
