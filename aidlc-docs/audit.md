@@ -1859,3 +1859,21 @@ P05 は別画面に分ける
 **Context**: 非機能要件質問への回答前の仕様照会。business-rules.md BR-07、business-logic-model.md、domain-entities.md、frontend-components.md、非機能要件質問14、src/App.tsxを確認。通常Markdownとして検証し監査ログへ追記。計画作業の完了・段階変更なし。
 
 ---
+
+## 仕様照会：運営者による動作ログの追跡範囲
+**Timestamp**: 2026-11-02T12:40:37Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- patient-support-app-nfr-requirements-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-requirements-questions.md
+- patient-support-app-visual-design-questions.md: aidlc-docs/construction/plans/patient-support-app-visual-design-questions.md
+- patient-support-app-functional-design-clarification-questions.md: aidlc-docs/construction/plans/patient-support-app-functional-design-clarification-questions.md
+- clarification-answer-review.md: aidlc-docs/construction/patient-support-app/functional-design/clarification-answer-review.md
+- patient-support-app-functional-design-followup-questions.md: aidlc-docs/construction/plans/patient-support-app-functional-design-followup-questions.md
+
+## My request:
+動作ログってどこまで運営者は追える？"
+**AI Response**: 設計上の操作記録は実施者・対象参照・操作・結果・日時・RequestIdであり、稼働観測値と分離する。記録の存在と運営者の閲覧権限を区別し、ログ検索画面・閲覧者・イベント網羅範囲・IPや端末情報等は未確定と説明。運営権限では患者整理本文を取得不可、問い合わせ本文は対応画面で扱う。現状実装は接続テスト画面のみであり、実運用での追跡は未実装。仕様変更・段階移行なし。
+**Context**: 機能設計domain-entities.md、frontend-components.md、外部AIプライバシー後続確認資料、アプリケーション設計、src/App.tsxを参照。通常Markdownとして内容を検証。監査ログへ追記のみ。
+
+---
