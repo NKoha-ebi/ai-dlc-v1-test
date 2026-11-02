@@ -12,4 +12,4 @@ A) 修正を依頼する（Request Changes）。対象と希望する変更を�
 
 B) 機能設計を承認し、非機能要件へ進む（Continue to Next Stage）。後続確認・実データ有効化条件を維持した設計として承認する。
 
-[Answer]:
+[Answer]: B
