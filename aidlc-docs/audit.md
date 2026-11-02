@@ -1342,3 +1342,48 @@ aidlc-docs/construction/patient-support-app/functional-design/frontend-component
 **Context**: 参考資料のみを新規作成。既存要件・設計・状態・承認質問・アプリコードは変更しない。計画相当の作成確認チェックを新規メモ内で完了記録。段階承認・次段階移行なし。
 
 ---
+
+## M3のフローとモジュール間の違いの説明
+**Timestamp**: 2026-10-31T14:56:20Z
+**User Input**: "M3について大体のフローはどのようになっている？モジュールごとに深ぼる内容が違うのは理解しているが、具体的に何が変わることになっていますか"
+**AI Response**: US-08、5支援の入出力、P05〜07を確認。M3は心配・困りごとと本人選択の疾患・治療情報から相談事項・質問候補を整理し、本人が修正確認保存する流れと説明。共通画面・処理の骨格と、参照情報・AIの整理目的・出力・禁止範囲の差を表で比較。チャットの質問順・深掘り・終了条件は未確定で、例示を現行仕様と区別。保留メモの内容を設計へ適用しない。
+**Context**: 既存資料の説明のみ。監査以外のファイル変更・承認・次段階移行なし。通常Markdownとして検証して追記。
+
+---
+
+## 回答時間の目安を患者が選ぶ仕様の確認
+**Timestamp**: 2026-10-31T15:00:00Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- domain-entities.md: aidlc-docs/construction/patient-support-app/functional-design/domain-entities.md
+- revision-notes.md: aidlc-docs/construction/patient-support-app/functional-design/revision-notes.md
+- patient-support-app-functional-design-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-functional-design-approval-questions.md
+- frontend-components.md: aidlc-docs/construction/patient-support-app/functional-design/frontend-components.md
+- business-rules.md: aidlc-docs/construction/patient-support-app/functional-design/business-rules.md
+
+## My request:
+回答時間の調整（目安）を患者に選ばせたいとかいうのって、どこかに明示してありますか？"
+**AI Response**: 設計資料を検索して、患者が回答時間の目安を選ぶ仕様が明記されているか確認します。要件・ストーリー・機能設計・監査記録を検索した範囲では明示なし。personas.mdの「自分のペース」は関連する方針だが時間選択の仕様ではない。患者の時間選択に応じた質問数・深掘りの変更も未定義と説明。
+**Context**: 既存資料の確認のみ。通常Markdownとして検証。監査以外の変更・段階移行なし。
+
+---
+
+## 対話モードの選択・途中変更の具体化
+**Timestamp**: 2026-10-31T15:06:54Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- domain-entities.md: aidlc-docs/construction/patient-support-app/functional-design/domain-entities.md
+- revision-notes.md: aidlc-docs/construction/patient-support-app/functional-design/revision-notes.md
+- patient-support-app-functional-design-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-functional-design-approval-questions.md
+- frontend-components.md: aidlc-docs/construction/patient-support-app/functional-design/frontend-components.md
+- business-rules.md: aidlc-docs/construction/patient-support-app/functional-design/business-rules.md
+
+## My request:
+ここを詰めたいな
+モードを選択できるようにしたいのとそれも途中で変更できるようにしたい。"
+**AI Response**: 回答時間の目安に応じたモード選択と対話途中での変更を具体化するため、既存の対話フローと未確定事項を確認。モード構成・適用範囲・まとめ操作・変更時の共通動作を確認する専用質問ファイルを作成。短め・標準・じっくりの3種類を仮案とし、回答保持・次回要求からの適用・時間切れ打切りなしを提案。
+**Context**: 機能設計レビューの補足検討。通常Markdownと質問形式を検証。質問ファイル内の実施済みチェック更新。既存要件・設計の確定変更、保留メモの適用、段階承認・移行なし。質問はcommon/question-format-guide.mdに従いファイルに記載。
+
+---
