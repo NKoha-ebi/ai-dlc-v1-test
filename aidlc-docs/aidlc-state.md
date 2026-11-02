@@ -327,3 +327,11 @@ personas.mdの承認は維持。運営の追加権限は今回の指示に基づ
 - [x] 関連設計・要件・ストーリーを整合し文書検証・監査を更新。
 
 機能設計全体は未承認。実装・次段階移行なし。詳細はpatient-support-app-screen-decisions-plan.mdとrevision-notes.md参照。
+
+## 最新状態：画面別配置・配色案の確認待ち
+
+- [x] 正式ロゴを確認し、全画面の配置・共通配色・寸法をscreen-visual-design.mdへ具体化。
+- [x] 代表配色のコントラスト計算と文書検証を実施。
+- [ ] patient-support-app-visual-design-questions.mdの配置配色・P06初期表示の回答確認。
+
+機能設計全体は未承認。実装・次段階移行なし。新規の具体配色・寸法は提案としてレビューする。
