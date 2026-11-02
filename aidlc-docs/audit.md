@@ -1877,3 +1877,43 @@ P05 は別画面に分ける
 **Context**: 機能設計domain-entities.md、frontend-components.md、外部AIプライバシー後続確認資料、アプリケーション設計、src/App.tsxを参照。通常Markdownとして内容を検証。監査ログへ追記のみ。
 
 ---
+
+## 機能設計への差戻し
+**Timestamp**: 2026-11-02T12:48:30Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/plans/patient-support-app-nfr-requirements-questions.md
+
+## Open tabs:
+- patient-support-app-nfr-requirements-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-requirements-questions.md
+- patient-support-app-visual-design-questions.md: aidlc-docs/construction/plans/patient-support-app-visual-design-questions.md
+- patient-support-app-functional-design-clarification-questions.md: aidlc-docs/construction/plans/patient-support-app-functional-design-clarification-questions.md
+- clarification-answer-review.md: aidlc-docs/construction/patient-support-app/functional-design/clarification-answer-review.md
+- patient-support-app-functional-design-followup-questions.md: aidlc-docs/construction/plans/patient-support-app-functional-design-followup-questions.md
+
+## My request:
+では、運営者の機能設計が未完了ということなので、一旦非機能設計を止めて、機能設計に戻りましょう"
+**AI Response**: 非機能要件を中断し、運営者機能を再確認するため機能設計へ差戻し。状態・非機能要件計画・質問に中断を明記し、運営者機能の再確認計画を作成。既存回答・承認履歴を保持し、修正版の再承認を必要とする。次はログを含む運営機能・閲覧範囲・操作フローの棚卸し。
+**Context**: 現在は非機能設計開始前の非機能要件段階であることを確認。通常Markdown・相対参照・チェック項目を検証。実装や新しい閲覧権限の採用は行わない。セキュリティ拡張は無効につき適用省略、その他の拡張設定は維持。今回は段階完了ではなく中断・差戻しの記録。
+
+---
+
+## 運営者機能の質問・画面案作成
+**Timestamp**: 2026-11-02T12:58:15Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/plans/patient-support-app-nfr-requirements-questions.md
+
+## Open tabs:
+- patient-support-app-nfr-requirements-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-requirements-questions.md
+- patient-support-app-visual-design-questions.md: aidlc-docs/construction/plans/patient-support-app-visual-design-questions.md
+- patient-support-app-functional-design-clarification-questions.md: aidlc-docs/construction/plans/patient-support-app-functional-design-clarification-questions.md
+- clarification-answer-review.md: aidlc-docs/construction/patient-support-app/functional-design/clarification-answer-review.md
+- patient-support-app-functional-design-followup-questions.md: aidlc-docs/construction/plans/patient-support-app-functional-design-followup-questions.md
+
+## My request:
+何のファイルを確認すればよいですか？UI含め曖昧な点を解消するので、質問ファイルや案のファイルを作成してください"
+**AI Response**: 運営者機能の現行設計を整理した案と、UI・権限・ログ範囲等の21問を作成。先にoperations-functional-review-proposal.mdを読み、patient-support-app-operations-functional-review-questions.mdへ回答する順番を案内。記録範囲、閲覧者、紐付け、検索、書出し、アカウント、問い合わせ、コンテンツ、公開制御、集計、処理状況、例外UI、モック希望を質問化。Aを自動採用せず、回答確認後に設計正本へ反映する。
+**Context**: 非機能要件は中断継続。共通UIの承認済み配色と患者本文非開示を維持。21問と21回答欄、相対リンクを検証。図・埋込みコードなしのMarkdownとして事前検証して作成。拡張適合は案へ記録、セキュリティ拡張は無効につき適用省略。段階完了・実装・新権限の採用なし。
+
+---
