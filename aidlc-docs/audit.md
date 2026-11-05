@@ -2718,3 +2718,39 @@ Firebaseの失効APIと失効検証は利用できるが、アプリの最新リ
 **Context**: 文書のみの明示変更。Markdown文章・表の事前検証、計画チェック更新済み。回復力02は目標と根拠記録、11は既存候補を新目標で再評価、設計・実装は後続。PBTは文書変更にN/A、セキュリティ拡張は無効につき省略。段階完了・実装・実バックアップ設定の変更なし。git statusは所有者検査で不可、設定変更せず内容検証。旧条件検出は履歴言及にも一致したため個別に確認。
 
 ---
+## 現在の未解決・未承認事項の照会
+**Timestamp**: 2026-11-05T12:44:54Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- patient-support-app-nfr-requirements-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-requirements-approval-questions.md
+- nfr-requirements.md: aidlc-docs/construction/patient-support-app/nfr-requirements/nfr-requirements.md
+- design-coverage-review.md: aidlc-docs/construction/patient-support-app/nfr-requirements/design-coverage-review.md
+- unresolved-issues-proposals.md: aidlc-docs/construction/patient-support-app/nfr-requirements/unresolved-issues-proposals.md
+- cost-and-feasibility.md: aidlc-docs/construction/patient-support-app/nfr-requirements/cost-and-feasibility.md
+
+## My request:
+現在、未解決、未承認になっている内容を教えてください。"
+**AI Response**: "現行状態・非機能要件・技術選定・承認質問・運営決定を照合。段階承認を妨げる可用性99.5%と大規模障害復旧目標の整合、非機能要件全体の未承認、後続の方式選択・費用・公開条件を整理して報告。統合済み8項目と採用済みRPO最大4時間は未採用扱いにしない。旧3資料は削除済み。"
+**Context**: 状況確認のみ。要件変更・段階移行なし。監査追記のMarkdown文章・文字を事前確認。
+
+---
+
+
+## ベータ運用の可用性指標・復旧目標の確定
+**Timestamp**: 2026-11-05T12:49:43Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- patient-support-app-nfr-requirements-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-requirements-approval-questions.md
+- nfr-requirements.md: aidlc-docs/construction/patient-support-app/nfr-requirements/nfr-requirements.md
+- design-coverage-review.md: aidlc-docs/construction/patient-support-app/nfr-requirements/design-coverage-review.md
+- unresolved-issues-proposals.md: aidlc-docs/construction/patient-support-app/nfr-requirements/unresolved-issues-proposals.md
+- cost-and-feasibility.md: aidlc-docs/construction/patient-support-app/nfr-requirements/cost-and-feasibility.md
+
+## My request:
+現在のベータ運用方針に合わせるなら、**月間可用性は計測指標とし、大規模障害は翌営業日着手・着手後24時間以内の復旧目標で管理する**整理  としましょう"
+**AI Response**: "月間可用性を固定達成率なしの計測指標へ変更し、大規模障害は翌営業日の保守時間内に着手・着手後24時間以内の復旧目標へ統一。非機能要件・技術選定・承認質問・計画・状態の5資料を更新。待機・計画停止・外部障害を含む測定を維持。可用性整合の未解決事項は解消し、非機能要件全体の承認は引き続き未完了。文書整合確認済み。"
+**Context**: 明示された方針変更の反映。文章・表を事前確認。回復力02は目標と根拠を更新、方式と実証は後続。PBTは文書変更のためN/A、セキュリティ拡張は無効につき適用省略。段階移行・実装なし。Pythonコマンドは出力なしで失敗したため、PowerShellで反映。
+
+---
