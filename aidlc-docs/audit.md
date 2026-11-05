@@ -2550,3 +2550,43 @@ Firebaseの失効APIと失効検証は利用できるが、アプリの最新リ
 **Context**: 要件改訂の明示指示を根拠として採用。無効なセキュリティ拡張を省略。回復力01〜03・11は要件適合、04〜10・12〜15は実構築・方式選択前でN/A（要求条件は記載）。PBT09は選定適合、02・03・07・08は実コード・試験未生成でN/A、他は助言。
 
 ---
+
+## 非機能要件ファイルの整理状態の確認
+**Timestamp**: 2026-11-05T12:17:55Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/nfr-requirements/unresolved-issues-proposals.md
+
+## Open tabs:
+- unresolved-issues-proposals.md: aidlc-docs/construction/patient-support-app/nfr-requirements/unresolved-issues-proposals.md
+- cost-and-feasibility.md: aidlc-docs/construction/patient-support-app/nfr-requirements/cost-and-feasibility.md
+- design-coverage-review.md: aidlc-docs/construction/patient-support-app/nfr-requirements/design-coverage-review.md
+- nfr-requirements.md: aidlc-docs/construction/patient-support-app/nfr-requirements/nfr-requirements.md
+- patient-support-app-nfr-requirements-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-requirements-approval-questions.md
+
+## My request:
+非機能要件に関するファイルのうち、実際の設計時に用いる設計書と、草案は区別できるように整理されていますか？"
+**AI Response**: "現状は一部区別できるが整理は不完全。現行参照先はnfr-requirements.md（段階承認待ち）とtech-stack-decisions.md（レビュー案）。unresolved-issues-proposals.mdが未採用表記のまま残存し、削除済みdesign-coverage-review.mdへのリンクも残る。cost-and-feasibility.mdとdesign-coverage-review.mdはディスク上に存在しない。承認質問はplans配下で分離済み。非機能設計書は未作成。今回は確認のみでファイル整理・段階移行は実施しない。"
+**Context**: 現行ファイル・状態・承認欄・監査履歴の照合。新規要件・設計成果物なしのため拡張の追加適合評価はN/A。監査追記は図・コードを含まないMarkdownとして検証。
+
+---
+
+## 非機能要件の旧草案削除
+**Timestamp**: 2026-11-05T12:19:31Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/nfr-requirements/unresolved-issues-proposals.md
+
+## Open tabs:
+- unresolved-issues-proposals.md: aidlc-docs/construction/patient-support-app/nfr-requirements/unresolved-issues-proposals.md
+- cost-and-feasibility.md: aidlc-docs/construction/patient-support-app/nfr-requirements/cost-and-feasibility.md
+- design-coverage-review.md: aidlc-docs/construction/patient-support-app/nfr-requirements/design-coverage-review.md
+- nfr-requirements.md: aidlc-docs/construction/patient-support-app/nfr-requirements/nfr-requirements.md
+- patient-support-app-nfr-requirements-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-requirements-approval-questions.md
+
+## My request:
+未採用のものは削除してください"
+**AI Response**: "未採用・旧草案の内容と参照先を確認し、現行の要件書へ統合済みの不要ファイルを削除します。残存していたunresolved-issues-proposals.mdを削除。費用比較・設計照合の2資料は既に存在しない。現行の要件書・技術選定書・承認質問と回答履歴は保持。計画・状態を更新し、現行参照を検証。"
+**Context**: 明示的に許可された旧資料削除。文書整理のみで実装・段階移行なし。追記内容は図・コードを含まないMarkdownとして事前検証。拡張適合の変更なし（資料削除への各設計・実装規則はN/A、セキュリティ拡張は無効につき省略）。
+
+---

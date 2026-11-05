@@ -511,3 +511,11 @@ privacy-policy-design-changes.mdを共通差分の正本とする。18歳以上�
 - [x] 統合済みの解決案・照合結果・費用比較の3ファイルを削除し、現行参照を確認。
 
 過去節の未採用・未定義記述と削除済みファイル名は作業履歴。現行正本はnfr-requirements/nfr-requirements.mdとtech-stack-decisions.md。段階承認・非機能設計への移行は未実施。担当割当・契約・地域構成・実測は公開前の成立条件として残す。セキュリティ拡張は無効につき適用省略。回復力・PBTの適合評価は要件書末尾。
+
+## 最新状態：旧草案の残存解消
+
+- [x] ユーザーの未採用資料削除指示に従い、残存していたunresolved-issues-proposals.mdを削除。
+- [x] cost-and-feasibility.md・design-coverage-review.mdも存在しないことを確認。
+- [x] 現行成果物から旧3資料への参照がないことを確認。
+
+現行正本はnfr-requirements/nfr-requirements.mdとtech-stack-decisions.md。旧草案の「未採用」表記は要件統合前の履歴であり、削除によって要件へ統合済みの内容を取り消さない。承認質問と回答履歴を保持し、非機能要件の承認待ちを継続する。
