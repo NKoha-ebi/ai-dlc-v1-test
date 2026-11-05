@@ -2079,3 +2079,23 @@ PP-02の内容は、「不明」「回答しない」を選択できることを
 **Context**: nfr-requirements.md Step 5は「Do not proceed until ALL ambiguities are resolved」、nfr-design.mdの前提は「NFR Requirements must be complete for the unit」。これにより未回答を自動採用せず質問を作成。セキュリティ拡張は無効で適用省略。有効拡張の評価は質問末尾。段階完了・実装・課金・実データ送信なし。
 
 ---
+
+## 非機能要件：再開回答の反映と成果物レビュー
+**Timestamp**: 2026-11-05T11:02:05Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/plans/patient-support-app-nfr-resumption-questions.md
+
+## Open tabs:
+- patient-support-app-nfr-resumption-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-resumption-questions.md
+- privacy-policy-design-changes.md: aidlc-docs/construction/patient-support-app/functional-design/privacy-policy-design-changes.md
+- cancer_treatment_precautions_draft.md: aidlc-docs/construction/patient-support-app/functional-design/cancer_treatment_precautions_draft.md
+- revision-notes.md: aidlc-docs/construction/patient-support-app/functional-design/revision-notes.md
+- screen-visual-design.md: aidlc-docs/construction/patient-support-app/functional-design/screen-visual-design.md
+
+## My request:
+質問回答完了しました。次に進んでください"
+**AI Response**: 6回答とポリシー第8条を照合。OpenAI Docsスキルを使用し公式情報を調査、非機能要件書・技術選定書・費用試算を作成。通常API2秒、AI／PDF60秒、平日10〜17時日本時間・メール、7日／35日／180日、合成データ開始を反映。国内優先と認証米国処理、OpenAI保持、24時間RTOと体制、Pilot Lightの成立条件を明記。fast-checkを選定し、設定・依存導入はコード生成に残す。GPT-5 mini／GPT-5.4 nanoは公式のDeprecated表示を確認して推奨から除外。リンク・Markdown表・Unicode・AI費用3シナリオとCloud Run算式を確認。承認質問を作成し、修正依頼／承認して非機能設計へ進むの2択を提示する。
+**Context**: 非機能要件の成果物作成まで完了、段階承認は未受領。規則construction/nfr-requirements.md Step 8「Do not proceed until the user explicitly approves the NFR requirements」により新しい成果物の承認を待つ。回答完了の指示を未作成成果物の事前承認にはしない。実装・契約・依存導入・実データ送信なし。回復力15規則と部分PBTの段階適用を成果物に評価。セキュリティ拡張は無効につき適用省略。説明した内容は回答反映、調査結果、費用とレビュー準備、最終成果物案内。
+
+---

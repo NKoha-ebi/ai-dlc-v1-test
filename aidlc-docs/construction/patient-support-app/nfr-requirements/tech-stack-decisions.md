@@ -1,0 +1,60 @@
+# U01 技術選定
+
+2026-11-05調査。レビュー案。OpenAI Responses API／Firebaseは既定、以下の製品・モデル・ライブラリーは提案。既存React 19・TypeScript 6・Vite 8のひな形を維持する。契約・依存導入・外部接続は未実施。
+
+## 選定案と比較
+
+| 領域 | 推奨案 | 理由・代替案・検証条件 |
+| --- | --- | --- |
+| フロント | React／TypeScript／ViteのSPA、Firebase Hosting | 既存資産を維持。App HostingのSSR構成は今回は必要性がない。静的配信地域とアクセス記録の国外条件を別確認 |
+| バックエンド | Node.js／TypeScript、Cloud Run上の単一サービス | 型・純粋関数を共有し単一バックエンドを維持。Cloud Functionsも候補だが処理ごとの配備分散を避け、PDF用Chromiumも同一コードベースで管理。ランタイムのサポート期間は実装時に再確認 |
+| DB | Firebase Cloud Firestore Standard、国内リージョンを第一候補 | 相談・Run・版・同意・要求・削除台帳を保存。複数文書の整合はトランザクションと期待版で検証。Realtime Databaseは複雑な照会・版管理との比較で第二候補。地域トポロジーは未決定 |
+| 認証 | Firebase Authenticationのメール／パスワード | 現行機能と一致。パスワードを自作保存しない。追加認証・メール確認は患者負担と運営保護を比較し機能変更を確認。標準の再設定リンクで24時間・最新のみを満たすとは断定しない |
+| AI | Responses API、GPT-5.4 miniを合成評価の第一候補 | 日本語支援品質・構造化出力・60秒・実料金を比較して採用判断。GPT-5.4 nanoとGPT-5 miniは公式ページでDeprecatedのため新規推奨から除外。条件を満たさなければ公式提供中の別候補を再調査 |
+| PDF | Playwright／Chromiumによるサーバー内HTML印刷 | 日本語フォント同梱、確認済み版の指定、改ページ・文字欠けを検証。外部URL読込を許可しない。ブラウザー印刷は利用者環境差がある。pdf-lib等の直接描画はレイアウト負担が大きいため第二候補 |
+| 単体・結合 | Vitest、Firebase Emulator Suite | 既存Viteとの整合を優先。Emulator成功だけで本番IAM・地域・クォータ・復旧が検証できたと扱わない |
+| PBT | fast-check＋Vitest | TypeScript、構造化生成器・縮小・seed／path再現に対応。Jest＋fast-checkも可能だがランナー重複を避ける |
+| E2E・画面レビュー | Playwright Test、利用可能なPlaywright MCP | 認証・保存・再開・PDF・削除、操作とスクリーンショットを確認。MCPは現時点で接続済みとしない。導入時に権限・ローカルサーバー接続を確認 |
+| 負荷 | k6等を比較する検証案 | 通常APIと外部AI合成スタブを分離。実API試験は別の少量試験・費用枠で確認。製品導入はコード生成計画で具体化 |
+| 秘密・監視 | Secret Manager、Cloud Logging／Monitoring候補 | APIキーはバックエンドのみ。本文・認証秘密をログへ出さない。保持・アクセス・国外処理・障害通知先を別設定 |
+| メール | 配信基盤は未選定 | 問い合わせの既存手動メール運用とシステムからの重要通知を区別。送信地域・保持・再送・到達性・費用を非機能設計で選択。Firebase標準認証メールを重要通知全般へ転用しない |
+
+Cloud Runの国内候補は東京、Firestoreは東京／大阪を候補にするが、主系・待機系・単一地域か複数地域かは本書で確定しない。PITRと日次バックアップは候補機能でありPilot Lightの複製方式そのものではない。[Firestore地域](https://firebase.google.com/docs/firestore/locations)、[復旧方式](https://firebase.google.com/docs/firestore/disaster-recovery)。
+
+## API入力と保持
+
+Responsesは`store: false`、明示した最小入力、サーバー管理の履歴を基本案とする。提供元側のConversation・previous_response_id依存による履歴の暗黙拡張を採用しない。ツール・ファイル・画像・背景処理は初期範囲へ追加しない。モデル・要求設定・カタログ・入力と参照の版を記録し、本文を運用ログへ複製しない。
+
+OpenAIのアプリ状態保持を無効にしても、不正利用監視の保持は別に残る。既定では最大30日だが例外があり、MAM／ZDRは承認・機能条件付き。日本設定は保存対応と推論処理対応を分けて評価する。設定や地域利用の資格は当該アカウントで未確認。[OpenAIデータ管理](https://developers.openai.com/api/docs/guides/your-data)。
+
+## 地域・保存の確認台帳
+
+| 対象 | 調査で確認したこと／提案 | 実データ前の条件 |
+| --- | --- | --- |
+| Firestore主要DB | 地域を製品単位で選択。国内を第一候補 | 主系・待機先・削除・復旧時間を検証 |
+| Firestoreバックアップ／PITR | PITRは最大7日前の時点、バックアップは日次／週次。複製と区別 | バックアップ保持は28日を候補とし、主要削除が7日目でも35日以内に消える設計を検証。期限越えの再コピー・無期限エクスポートは禁止 |
+| Firebase Authentication | 米国データセンターで処理。IP等のサービス側記録もある | 国外処理とサービス保持を説明。アプリログにIPを記録しない設計でも提供元の記録をゼロと説明しない |
+| OpenAI | 日本の保存設定は国内推論を意味しない。保持制御は契約・資格に依存 | 地域・任意データ共有無効・保持制御・外部側削除範囲を実設定で確認。保存ゼロや7日削除の保証をしない |
+| Hosting・監視・メール | DBと同じ地域に一括固定されると扱えない | 処理・保存先、保持、アクセス、説明／同意の必要範囲をサービス別に確認 |
+
+Firebaseの地域はプロジェクト全体ではなく製品・リソースごとの設定。[地域設定](https://firebase.google.com/docs/projects/locations)。認証の米国処理と保持の根拠：[Firebaseプライバシー](https://firebase.google.com/support/privacy)。本表は法的適合の保証ではなく、指定ポリシーを実装条件へ落とすための調査結果。
+
+## 認証・権限の検証条件
+
+FirebaseのIDトークンと更新トークンを区別し、失効後のアクセスを各サーバー要求でどう拒否するか設計する。パスワード変更時の失効機能だけで停止・同意撤回・役割変更の全要件を満たすと扱わない。[セッション管理](https://firebase.google.com/docs/auth/admin/manage-sessions)。医療本文はバックエンド所有元だけが取得し、クライアントのFirestore直接読取を初期案では認めない。サービスアカウントでSecurity Rulesを迂回する経路にもサーバー認可を必須とする。
+
+## PBT-09 選定と後続の設定
+
+fast-checkをTypeScriptのPBT基盤として選定する。本段階の必須項目は選定記録。依存追加・テスト設定・CI実行はコード生成で必須とし、この文書で実施済みとはしない。導入時にVitestとの対応バージョンと実行環境を固定する。
+
+- 保存形式の往復（PBT-02）：Profile、TreatmentContext、確認済みSnapshot、要求版。欠落・不明・非開示・削除の区別とUnicodeを含める。
+- 不変条件（PBT-03）：注意事項の全員共通保持、条件一致、重複除去、順序不変、入力不変、予算超過の送信禁止。原文に対する個別の転記照合も併用。
+- 生成器（PBT-07）：有効な属性・複数がん種・治療時期・確認済みファクト・境界文字数・無効版を構造化して生成。乱数文字列だけで代用しない。
+- 再現性（PBT-08）：縮小を有効化し、失敗時のseed・path・最小反例を合成データとして記録。CIへ含め、再試行で失敗を隠さない。
+- 例示テスト：本人以外拒否、撤回後の新規取得拒否、削除後再利用拒否、旧要求の結果拒否を具体例で固定。PBTのみで受入試験を代替しない。
+
+根拠：[fast-check概要](https://fast-check.dev/docs/introduction/)、[seed等の実行パラメーター](https://fast-check.dev/docs/api/interfaces/Parameters/)、[Vitest](https://vitest.dev/guide/)、[Playwright PDF](https://playwright.dev/docs/api/class-page#page-pdf)。
+
+## 未選定と採用判断
+
+最終モデル、トークン予算・直近往復数、メール基盤、地域トポロジー、DR複製方式、CI/CDサービス、リリース・切り戻し、通知責任者は次段階で決定。技術選定案のレビューは契約・設定変更・データ送信の許可とは区別する。費用は[試算と実現性](cost-and-feasibility.md)、拡張ごとの適用評価は[非機能要件](nfr-requirements.md)に記載。
