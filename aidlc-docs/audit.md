@@ -2812,3 +2812,24 @@ Firebaseの失効APIと失効検証は利用できるが、アプリの最新リ
 **Context**: Markdownの段落・選択肢・回答欄を事前確認。計画の該当手順を完了へ更新。RESILIENCY-14の方式選択は回答待ちで適合完了とはしない。他の回復力要件は変更なし。PBT実行は文書変更のためN/A。無効なセキュリティ拡張は適用省略。段階移行なし。
 
 ---
+
+## 非機能設計：全回答確認・設計案作成・レビュー依頼
+**Timestamp**: 2026-11-05T13:49:25Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/plans/patient-support-app-nfr-design-plan.md
+
+## Open tabs:
+- patient-support-app-nfr-design-plan.md: aidlc-docs/construction/plans/patient-support-app-nfr-design-plan.md
+- patient-support-app-nfr-requirements-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-requirements-approval-questions.md
+- nfr-requirements.md: aidlc-docs/construction/patient-support-app/nfr-requirements/nfr-requirements.md
+- design-coverage-review.md: aidlc-docs/construction/patient-support-app/nfr-requirements/design-coverage-review.md
+- unresolved-issues-proposals.md: aidlc-docs/construction/patient-support-app/nfr-requirements/unresolved-issues-proposals.md
+
+## My request:
+質問回答完了しました。次に進んでください"
+**AI Response**: "全12回答B・B・B・C・D・B・B・A・A・A・A・Aを確認。Pilot Lightと国内Active-Passiveは待機アプリ常時起動を要求しない構成として整合。nfr-design-patterns.mdとlogical-components.mdを作成し、CI/CD・Canary・DB互換・期限・認可・安全変更保護・キュー・削除・監視・メール・予算候補・本番移行を記載。公式資料を確認し、Firestore別地域複製・標準認証再設定の迂回・分散確定の成立条件と不成立時の対応を明記。未測定総額を確定見積りとせず、予算枠と計算入力を分離。質問7Bにより公開前と重要変更後の復旧試験を採用し、ベータの定期訓練は必須としない。計画チェックと状態・技術選定の現行参照を更新。資料の参照とUTF-8・回答12件を検証。"
+**Context**: 非機能設計規則Step 5〜7。実装・契約・配備・実送信・実移行・達成試験なし。運営引継ぎ規格は対象外。RESILIENCY-01〜15の設計上の評価は方式文書第10節、実環境の設定・試験は未構築につきN/A。固定可用性率と定期訓練の必須化はユーザー指示を優先。PBT-02・03・07・08は設計条件を継承、実行評価N/A。PBT-09は選定維持・依存設定はコード生成時。無効なセキュリティ拡張は適用省略。Markdownの本文・表のみで図／埋込コードなし。次段階はインフラ設計だが、本設計の明示承認まで移行しない。"
+**Approval Prompt**: "非機能設計2資料を確認し、Request Changes（修正依頼）またはContinue to Next Stage（設計を承認してインフラ設計へ進む）を選択してください。段階承認は実データ有効化の承認ではありません。"
+
+---
