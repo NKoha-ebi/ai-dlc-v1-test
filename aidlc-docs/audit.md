@@ -1917,3 +1917,23 @@ P05 は別画面に分ける
 **Context**: 非機能要件は中断継続。共通UIの承認済み配色と患者本文非開示を維持。21問と21回答欄、相対リンクを検証。図・埋込みコードなしのMarkdownとして事前検証して作成。拡張適合は案へ記録、セキュリティ拡張は無効につき適用省略。段階完了・実装・新権限の採用なし。
 
 ---
+
+## ポリシーに基づく機能設計・質問改訂
+**Timestamp**: 2026-11-03T11:25:40Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/functional-design/operations-functional-review-proposal.md
+
+## Open tabs:
+- operations-functional-review-proposal.md: aidlc-docs/construction/patient-support-app/functional-design/operations-functional-review-proposal.md
+- patient-support-app-nfr-requirements-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-requirements-questions.md
+- patient-support-app-visual-design-questions.md: aidlc-docs/construction/plans/patient-support-app-visual-design-questions.md
+- patient-support-app-functional-design-clarification-questions.md: aidlc-docs/construction/plans/patient-support-app-functional-design-clarification-questions.md
+- clarification-answer-review.md: aidlc-docs/construction/patient-support-app/functional-design/clarification-answer-review.md
+
+## My request:
+保存しました。相違点を確認したうえで、基本的にプライバシーポリシーに準拠する形にしてください。プライバシーポリシーによる変更点を表にまとめてください。ファイルを変更してください。それによって、運営者機能・UIの確認質問も変えてください。影響がなかったらそのままでいいです"
+**AI Response**: 指定md名はなくprivacy policy.txtを発見し原文を照合。16項目の変更表をprivacy-policy-design-changes.mdへ作成。18歳以上・属性任意、目的別最小権限・相談本文限定閲覧、品質改善任意同意、撤回と削除、Responses API／Firebase、独立解析なし、ベータ研究利用なし、権利請求・重要通知・正式版移行を反映。運営案を更新し確認質問を21問から26問へ改訂。影響しない配色・通常編集・基本操作は維持。要件・規則の直接改訂と関連資料から共通差分への優先参照で現在条件を整合。既存回答・承認履歴とポリシー原文は保持。
+**Context**: 運営機能の機能設計再確認中。非機能要件中断継続。段階完了・再承認・実装・新規の実データ閲覧有効化なし。Markdown・26質問/回答欄・その他選択肢・相対リンク・文字を検証。Git管理されておらずgit diffは利用不可。拡張適合と後続検証条件は変更表へ記録、無効セキュリティ拡張の適用は省略。提供元の契約・法令の正当性の判断や外部仕様検証は今回行わず、ユーザー文書に基づく設計条件として反映。
+
+---

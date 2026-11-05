@@ -1,4 +1,6 @@
-# U01 ドメインエンティティ設計（レビュー案）
+﻿# U01 ドメインエンティティ設計（レビュー案）
+
+> 2026-11-02 ポリシー準拠改訂：[変更表・共通設計差分](privacy-policy-design-changes.md)を現行条件として適用します。相反する旧記述（15〜39歳・医療属性必須・運営本文閲覧の一律禁止・提供元未選定・研究画面の初期提供等）は履歴です。目的別限定閲覧と品質改善任意同意は未確定の具体手順が揃うまで有効化しません。配色等の影響しない決定は維持します。
 
 質問1〜12のAと追加指定に基づく、言語・DB製品に依存しない設計。既存要件を維持し、本段階で提案する具体値・状態・項目は機能設計承認対象。挙動は[business-logic-model.md](business-logic-model.md)、規則は[business-rules.md](business-rules.md)、画面は[frontend-components.md](frontend-components.md)を参照。
 
@@ -146,3 +148,4 @@ GenerationRequestの最小入力参照に、使用したSessionId・RunId、初�
 ## 19回答・追加3回答の確定反映
 
 [決定事項](clarification-decisions.md)を今回の詳細条件の正本として適用する。C05所有のModuleRunに引継ぎ選択状態・選択内容版・項目IDと元Snapshot版を追加する。GenerationRequest・GeneratedProposal・ConfirmedSnapshotは実使用の選択版と参照版に対応付ける。独立DB・新テーブルは要求しない。選択保存には期待Revision・RequestKeyを適用し、再開で元版を検証する。タイトル50文字・単一質問1000文字。
+
