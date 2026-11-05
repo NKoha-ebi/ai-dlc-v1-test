@@ -1,6 +1,6 @@
-﻿# ユーザーストーリー（2026-10-29承認済み）
+# ユーザーストーリー（2026-10-29承認済み）
 
-> 2026-11-02：ユーザー指定ポリシーを優先し、[変更表・共通設計差分](../../construction/patient-support-app/functional-design/privacy-policy-design-changes.md)を適用します。相反する旧記述は履歴です。18歳以上・属性任意・目的別限定閲覧・品質改善任意同意、OpenAI Responses API／Firebase、ベータ研究利用なしが現行条件。未確定のUI・担当・手順は確認中、非機能要件は中断継続です。既存回答は保持します。
+> 2026-11-02：ユーザー指定ポリシーを優先し、[変更表・共通設計差分](../../construction/patient-support-app/functional-design/privacy-policy-design-changes.md)を適用します。相反する旧記述は履歴です。18歳以上・属性の必須回答（「不明」「回答しない」も有効）・目的別限定閲覧・品質改善任意同意、OpenAI Responses API／Firebase、ベータ研究利用なしが現行条件。未確定のUI・担当・手順は確認中、非機能要件は中断継続です。既存回答は保持します。
 
 承認済みrequirements.mdと修正承認済みstory-generation-plan.mdに基づく。2026-10-29の変更依頼により、お知らせ発行とメンテナンス時の公開管理を追加した（US-22・23、当時全23件）。対象ペルソナはP1患者、P2運営者、P3医学研究者。依存とは必要な前提機能であり、固定の実装順序ではない。
 

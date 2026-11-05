@@ -1,6 +1,6 @@
-﻿# サービスと処理調整
+# サービスと処理調整
 
-> 2026-11-02：ユーザー指定ポリシーを優先し、[変更表・共通設計差分](../../construction/patient-support-app/functional-design/privacy-policy-design-changes.md)を適用します。相反する旧記述は履歴です。18歳以上・属性任意・目的別限定閲覧・品質改善任意同意、OpenAI Responses API／Firebase、ベータ研究利用なしが現行条件。未確定のUI・担当・手順は確認中、非機能要件は中断継続です。既存回答は保持します。
+> 2026-11-02：ユーザー指定ポリシーを優先し、[変更表・共通設計差分](../../construction/patient-support-app/functional-design/privacy-policy-design-changes.md)を適用します。相反する旧記述は履歴です。18歳以上・属性の必須回答（「不明」「回答しない」も有効）・目的別限定閲覧・品質改善任意同意、OpenAI Responses API／Firebase、ベータ研究利用なしが現行条件。未確定のUI・担当・手順は確認中、非機能要件は中断継続です。既存回答は保持します。
 
 サービスは単一バックエンド内のアプリケーション層。専用の別サービス配備や新しい通信基盤を確定しない。
 
