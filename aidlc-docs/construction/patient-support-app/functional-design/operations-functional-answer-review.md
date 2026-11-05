@@ -1,4 +1,6 @@
-# 運営者機能26回答の確認結果
+﻿# 運営者機能26回答の確認結果
+
+> 更新：[追加6回答](../../plans/patient-support-app-operations-functional-followup-questions.md)は全てAで確認・反映済み。[回答反映事項](operations-functional-decisions.md)を現行条件とし、以下の追加確認前の判定は履歴とする。今回は回答反映のみ、モック・全体再承認・次段階移行なし。
 
 2026-11-05に[元の26回答](../../plans/patient-support-app-operations-functional-review-questions.md)を確認。原文と選択肢は変更しない。質問2=C、10=B、21=B、23=B、その他22問=Aで、空欄はない。回答数の完了と、補足を含む設計条件の確定を区別する。
 
@@ -32,3 +34,4 @@
 [追加確認6問](../../plans/patient-support-app-operations-functional-followup-questions.md)で、単一権限と業務上の承認、限定閲覧、品質改善の取得範囲、権利請求、通知、移行の具体案を確認する。今回の26回答を機能設計全体の再承認と扱わず、非機能要件の中断を継続する。
 
 この資料は回答分析であり段階完了ではない。未確定の権限や本文閲覧手順は実装・実データに適用しない。拡張設定・既存の保護条件を維持し、確認済みの独立追加仕様以外の正本一括改訂とモック生成は追加確認後に行う。
+
