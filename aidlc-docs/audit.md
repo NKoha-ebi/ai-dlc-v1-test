@@ -2059,3 +2059,23 @@ PP-02の内容は、「不明」「回答しない」を選択できることを
 - [x] 差分・Markdown表を検証。
 
 ---
+
+## 非機能要件の再開
+**Timestamp**: 2026-11-05T07:07:18Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/functional-design/privacy-policy-design-changes.md
+
+## Open tabs:
+- privacy-policy-design-changes.md: aidlc-docs/construction/patient-support-app/functional-design/privacy-policy-design-changes.md
+- cancer_treatment_precautions_draft.md: aidlc-docs/construction/patient-support-app/functional-design/cancer_treatment_precautions_draft.md
+- revision-notes.md: aidlc-docs/construction/patient-support-app/functional-design/revision-notes.md
+- screen-visual-design.md: aidlc-docs/construction/patient-support-app/functional-design/screen-visual-design.md
+- ai-context-policy.md: aidlc-docs/construction/patient-support-app/functional-design/ai-context-policy.md
+
+## My request:
+非機能要件の設計に移ってください"
+**AI Response**: 現在の進捗と規則を確認して非機能要件を再開。既存回答を保持し、未回答3項目と待機上限・対応時間帯・国外処理を6問へ整理。計画・状態・質問へ再開を記録。回答後に要件・技術選定成果物を作成し、承認後に非機能設計へ進む。再開確認ファイルの各Answer欄への記入と完了連絡を依頼する。
+**Context**: nfr-requirements.md Step 5は「Do not proceed until ALL ambiguities are resolved」、nfr-design.mdの前提は「NFR Requirements must be complete for the unit」。これにより未回答を自動採用せず質問を作成。セキュリティ拡張は無効で適用省略。有効拡張の評価は質問末尾。段階完了・実装・課金・実データ送信なし。
+
+---
