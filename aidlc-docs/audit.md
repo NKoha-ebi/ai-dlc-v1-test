@@ -2590,3 +2590,131 @@ Firebaseの失効APIと失効検証は利用できるが、アプリの最新リ
 **Context**: 明示的に許可された旧資料削除。文書整理のみで実装・段階移行なし。追記内容は図・コードを含まないMarkdownとして事前検証。拡張適合の変更なし（資料削除への各設計・実装規則はN/A、セキュリティ拡張は無効につき省略）。
 
 ---
+
+## 非機能要件の障害範囲・手動復旧に関する説明
+**Timestamp**: 2026-11-05T12:23:37Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/plans/patient-support-app-nfr-requirements-approval-questions.md
+
+## Open tabs:
+- patient-support-app-nfr-requirements-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-requirements-approval-questions.md
+- design-coverage-review.md: aidlc-docs/construction/patient-support-app/nfr-requirements/design-coverage-review.md
+- unresolved-issues-proposals.md: aidlc-docs/construction/patient-support-app/nfr-requirements/unresolved-issues-proposals.md
+- cost-and-feasibility.md: aidlc-docs/construction/patient-support-app/nfr-requirements/cost-and-feasibility.md
+- nfr-requirements.md: aidlc-docs/construction/patient-support-app/nfr-requirements/nfr-requirements.md
+
+## My request:
+非機能要件について、障害復旧はそんなにスピードいらなくて、大きな障害については全体として、６，７時間で復旧できればいいと思っていますが、非機能要件で定義されている障害とは何を指しており、開発者の手作業が必要になるものですか？"
+**AI Response**: "現行要件の障害範囲を確認。プロセス停止・ゾーン障害・配備不具合・論理破損・地域全体障害と外部提供元全体障害を区別して説明する。全障害が手作業を要するわけではなく、既知の自動復旧と、不具合修正・データ復元・安全確認等の人手を区別。現行はアプリ管理範囲RTO10分、一般永続データRPO10分、安全変更無損失。大規模障害6〜7時間の意向を受領し、上限7時間の変更案と、月間99.5%の停止予算3時間36分との整合、夜間休日の対応、RPOを別に扱う必要を説明。要件本文の変更・段階移行は未実施。"
+**Context**: 承認前の質問への回答。新規成果物や計画ステップの実行なし。回復力拡張は有効として既存要件を参照、セキュリティ拡張は無効につき適用省略。PBTは今回の説明にN/A。監査追記は図・コードを含まないMarkdownとして事前検証。
+
+---
+
+## 大規模障害の復旧目標緩和に伴う変更点の説明
+**Timestamp**: 2026-11-05T12:26:17Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- patient-support-app-nfr-requirements-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-requirements-approval-questions.md
+- nfr-requirements.md: aidlc-docs/construction/patient-support-app/nfr-requirements/nfr-requirements.md
+- design-coverage-review.md: aidlc-docs/construction/patient-support-app/nfr-requirements/design-coverage-review.md
+- unresolved-issues-proposals.md: aidlc-docs/construction/patient-support-app/nfr-requirements/unresolved-issues-proposals.md
+- cost-and-feasibility.md: aidlc-docs/construction/patient-support-app/nfr-requirements/cost-and-feasibility.md
+
+## My request:
+大きな障害は12から24時間以内での復旧を目指し、翌営業日まで対応を待つのでも良くしよう。そうすると、非機能要件のなにが変わる？"
+**AI Response**: "大規模障害の復旧時間、時間外の保守体制、可用性、復旧構成、案内・制限、復旧試験の変更点を説明。翌営業日着手と発生から24時間以内は休日に両立しないため、翌営業日の対応開始から12時間を目安・24時間以内を目標とする案を明示し、発生からの停止時間も別途記録する。月間99.5%は大規模停止を許容する方針との整合を再検討し、代替値を勝手に確定しない。一般データRPO10分・安全変更無損失は復旧時間緩和とは別扱い。既存Pilot Light固定方針は再評価候補とし、製品・費用・達成を断定しない。今回は変更点の説明であり、未確定の起算点・可用性を要件本文へ確定反映せず、段階承認待ちを維持。"
+**Context**: 質問への回答と意向の記録。計画の実行・段階完了なし。回復力拡張の復旧目標と費用整合を参照。セキュリティ拡張は無効につき省略、PBTは説明のみのためN/A。監査追記は図・コードなしのMarkdownとして事前検証。
+
+---
+
+## 大規模障害の復旧目標変更・RPO根拠の確認
+**Timestamp**: 2026-11-05T12:31:32Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- patient-support-app-nfr-requirements-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-requirements-approval-questions.md
+- nfr-requirements.md: aidlc-docs/construction/patient-support-app/nfr-requirements/nfr-requirements.md
+- design-coverage-review.md: aidlc-docs/construction/patient-support-app/nfr-requirements/design-coverage-review.md
+- unresolved-issues-proposals.md: aidlc-docs/construction/patient-support-app/nfr-requirements/unresolved-issues-proposals.md
+- cost-and-feasibility.md: aidlc-docs/construction/patient-support-app/nfr-requirements/cost-and-feasibility.md
+
+## My request:
+翌営業日の時間内に対応を開始し、対応開始から12時間～24時間での復旧を目指すでお願いします。データ保護が10分以内は何の根拠があって設定していますか"
+**AI Response**: "指定の復旧目標を非機能要件・承認質問・計画・状態の優先変更節に反映。一般データRPO10分は変更なし。根拠は要件分析の補足質問3の10分指定と質問4Aの両方10分の回答。定量比較・製品必須条件による根拠は記録にない。データ損失の許容時間幅であり保護処理の時間制限ではないことを説明。月間可用性の扱いは未解決として段階承認待ちを維持。"
+**Context**: ユーザーの明示指示による要件変更。変更本文は文章・箇条書きとして事前検証し、進捗チェックを更新。回復力02は根拠・計測境界を記録、11は既存候補を維持し後続で再評価。可用性整合は未解決で段階完了なし。PBTは今回N/A、セキュリティ拡張は無効につき省略。python実行とapply_patchは失敗し変更なし、PowerShellの追記で4資料へ反映。
+
+---
+
+## RPO緩和と障害中のデータ保護の説明
+**Timestamp**: 2026-11-05T12:33:18Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- patient-support-app-nfr-requirements-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-requirements-approval-questions.md
+- nfr-requirements.md: aidlc-docs/construction/patient-support-app/nfr-requirements/nfr-requirements.md
+- design-coverage-review.md: aidlc-docs/construction/patient-support-app/nfr-requirements/design-coverage-review.md
+- unresolved-issues-proposals.md: aidlc-docs/construction/patient-support-app/nfr-requirements/unresolved-issues-proposals.md
+- cost-and-feasibility.md: aidlc-docs/construction/patient-support-app/nfr-requirements/cost-and-feasibility.md
+
+## My request:
+復旧時間を大きな障害発生時に上記の枠に制約を緩めたので、それに合わせて、データ損失も制約を緩めてもいいと思うが、データ保護のシステム上、長時間放置することは良くないの？"
+**AI Response**: "RPO緩和は可能だが復旧時間とは独立で、相談履歴等の再入力負担から決める旨を説明。人の復旧着手を翌営業日にすることと自動バックアップ・監視・安全な遮断を止めることを区別。停止中に書込みがなければ待機時間だけで損失が増えるわけではなく、破損・不正アクセス・バックアップ失敗中の継続書込みは被害を拡大し得る。復旧までの期間中に復元点が保持期限で失われない設計、複数世代保持、削除・撤回・権限変更の安全な再適用を説明。具体的RPO変更値は未指定につき要件本文は変更なし。"
+**Context**: 概念説明のみ。新しい製品仕様・価格・契約の主張なし。現行の回復力方針を参照、段階完了なし。PBTはN/A、セキュリティ拡張は無効につき省略。監査追記は図・コードなしのMarkdownとして事前検証。
+
+---
+
+## RPOの推奨値に関する相談
+**Timestamp**: 2026-11-05T12:34:43Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- patient-support-app-nfr-requirements-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-requirements-approval-questions.md
+- nfr-requirements.md: aidlc-docs/construction/patient-support-app/nfr-requirements/nfr-requirements.md
+- design-coverage-review.md: aidlc-docs/construction/patient-support-app/nfr-requirements/design-coverage-review.md
+- unresolved-issues-proposals.md: aidlc-docs/construction/patient-support-app/nfr-requirements/unresolved-issues-proposals.md
+- cost-and-feasibility.md: aidlc-docs/construction/patient-support-app/nfr-requirements/cost-and-feasibility.md
+
+## My request:
+ではどのくらいにするべきだと思いますか"
+**AI Response**: "一般相談データはRPO最大1時間を初期提案とする。登録100人・1日10人程度のベータ規模でも相談の再入力負担があり、半日〜1日分の損失は避けたいという判断。定量的最適値や製品標準ではない。削除・同意撤回・権限取消しの確定済み変更の保護は別条件として維持。復元点の鮮度・障害範囲別の保護・バックアップ失敗を含めて設計と復旧試験で確認し、毎時バックアップだけで1時間達成と断定しない。Google CloudのDR公式ガイドで業務影響に基づくRPOの考え方を確認。推奨のみで要件本文の数値は未変更。"
+**Context**: 回復力02の業務影響に基づく提案。段階承認なし、設計・実装規則とPBTは今回N/A、セキュリティ拡張は無効につき省略。文章のみの監査記録として事前検証。
+
+---
+
+## ベータ実利用に合わせた復旧目標の再提案
+**Timestamp**: 2026-11-05T12:39:26Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- patient-support-app-nfr-requirements-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-requirements-approval-questions.md
+- nfr-requirements.md: aidlc-docs/construction/patient-support-app/nfr-requirements/nfr-requirements.md
+- design-coverage-review.md: aidlc-docs/construction/patient-support-app/nfr-requirements/design-coverage-review.md
+- unresolved-issues-proposals.md: aidlc-docs/construction/patient-support-app/nfr-requirements/unresolved-issues-proposals.md
+- cost-and-feasibility.md: aidlc-docs/construction/patient-support-app/nfr-requirements/cost-and-feasibility.md
+
+## My request:
+ベータ版は多くて登録50人、継続利用人数は10人ほどだと思う。だからそれに合わせた制約の緩さで大丈夫。ただし、「登録100人・1日10人程度」は対応できるような仕様にはしたいので、そこの表記は変えなくて大丈夫、ただ、実態に合わせた復旧の目安を考えて"
+**AI Response**: "仕様容量は維持し、実利用見込みは登録最大50人・継続利用約10人と区別して記録。ベータの損失許容に柔軟な意向を踏まえ、一般相談データRPO最大4時間を再提案。人数から算出された最適値ではなく、半日〜1日分の損失を避けつつ緩和する判断と明示。集中利用時には対話全体・複数人分を失い得る。削除・同意撤回・権限取消し保護は維持。提案を非機能要件末尾へ記録し、RPO10分の確定値置換や段階移行は行わない。Google Cloud公式DRガイドの業務影響に基づく目標設定を再確認。"
+**Context**: 実利用見込みの記録と提案作成。チェックボックス更新。文書の文章・箇条書きを事前検証。回復力02は提案根拠記録、方式・実証は後続。PBTはN/A、セキュリティ拡張は無効につき省略。
+
+---
+
+## 復旧条件とRPO最大4時間の確定反映
+**Timestamp**: 2026-11-05T12:43:00Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- patient-support-app-nfr-requirements-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-requirements-approval-questions.md
+- nfr-requirements.md: aidlc-docs/construction/patient-support-app/nfr-requirements/nfr-requirements.md
+- design-coverage-review.md: aidlc-docs/construction/patient-support-app/nfr-requirements/design-coverage-review.md
+- unresolved-issues-proposals.md: aidlc-docs/construction/patient-support-app/nfr-requirements/unresolved-issues-proposals.md
+- cost-and-feasibility.md: aidlc-docs/construction/patient-support-app/nfr-requirements/cost-and-feasibility.md
+
+## My request:
+では、その内容で該当ファイルを変更してください"
+**AI Response**: "非機能要件書の表・詳細・拡張評価へ一般データRPO最大4時間と大規模障害の翌営業日着手・開始後12〜24時間目標を統合。旧変更追記・未採用提案の重複を解消し、技術選定・承認質問・計画・状態の5資料を更新。容量は登録100人・同時20人・1日10人程度、実利用見込みは登録最大50人・継続利用約10人として区別。確定済み安全変更無損失を維持。現行3成果物の参照先を検証。旧10分の出現は差分優先を説明する履歴参照であり、現行数値は4時間。月間99.5%の扱いは未解決として段階承認待ちを維持。"
+**Context**: 文書のみの明示変更。Markdown文章・表の事前検証、計画チェック更新済み。回復力02は目標と根拠記録、11は既存候補を新目標で再評価、設計・実装は後続。PBTは文書変更にN/A、セキュリティ拡張は無効につき省略。段階完了・実装・実バックアップ設定の変更なし。git statusは所有者検査で不可、設定変更せず内容検証。旧条件検出は履歴言及にも一致したため個別に確認。
+
+---
