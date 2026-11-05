@@ -251,3 +251,7 @@ A) 終了後原則30日の選択期間と移行対象・変更事項を患者へ
 B) その他（終了日と期限の管理、選択変更、移行失敗・再試行、画面・担当の希望を記載。原則30日を変える場合は理由を明記）。
 
 [Answer]: A
+
+## 回答確認状態（2026-11-05）
+
+全26回答を確認済み。原文は上記のまま保持する。判定と補足未指定事項は[回答確認結果](../patient-support-app/functional-design/operations-functional-answer-review.md)、回答が必要な箇所は[追加確認6問](patient-support-app-operations-functional-followup-questions.md)を参照。全体再承認・非機能要件再開は未実施。

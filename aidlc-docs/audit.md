@@ -1973,3 +1973,23 @@ P05 は別画面に分ける
 **Context**: 設計文書変更のみ。旧HEX・旧ロゴ・ピンク／ローズの現行対象への残存を検索し、代表コントラスト値をsRGB式で再計算。Markdown表確認。アプリは接続テストの雛形であり今回の設計変更対象外。Pythonコマンドは起動失敗し変更なし、PowerShellで更新完了。セキュリティ拡張は既存無効設定により省略、レジリエンシーと部分PBTは処理・構成・テスト対象の変更がなくN/A。機能設計の再確認中を維持し、実装・段階移行・追加承認依頼なし。
 
 ---
+
+## 機能設計：運営26回答の確認・AI入力注意書き追加
+**Timestamp**: 2026-11-05T05:23:05Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/plans/patient-support-app-operations-functional-review-questions.md
+
+## Open tabs:
+- patient-support-app-operations-functional-review-questions.md: aidlc-docs/construction/plans/patient-support-app-operations-functional-review-questions.md
+- privacy-policy-design-changes.md: aidlc-docs/construction/patient-support-app/functional-design/privacy-policy-design-changes.md
+- operations-functional-review-proposal.md: aidlc-docs/construction/patient-support-app/functional-design/operations-functional-review-proposal.md
+- patient-support-app-nfr-requirements-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-requirements-questions.md
+- patient-support-app-visual-design-questions.md: aidlc-docs/construction/plans/patient-support-app-visual-design-questions.md
+
+## My request:
+確認事項26問に回答完了しました。それとは別にAIリテラシーについてユーザに個人情報を安易にAIに投げないように注意書きみたいなのを記述欄の近くに小さくてもいいから置いておきたいので、それを機能設計に追加して下さい"
+**AI Response**: 26問全回答を確認、2C・10B・21B・23Bとその他22問Aを記録。単一権限と別担当公開の両立、限定閲覧、品質改善のコピー範囲、権利請求、通知、移行の未指定事項を追加6問へ整理。独立した注意書き追加は実施し、P05a・P05b・全5支援P06のAI送信対象記述・編集欄直上へ、氏名・住所・電話番号・メール等を入力せず関係性へ置換する文言を常時表示する仕様を追加。14px以上・読み上げ関連付け・入力保持を明記。要件・規則・部品・画面配置・配色・変更報告と進捗を更新。
+**Context**: 機能設計規則Step5は曖昧な回答の追加確認を要求するため、未指定の権限・本文閲覧を確定しない。質問21Bの静的HTMLモック希望は受領し確認後の計画へ追記。26回答・追加6問の件数、その他選択肢、新規文書リンク・文字を検証。注意書きはポリシー4条3・4項に対応。拡張適合は注意書き仕様に記録、無効セキュリティ拡張は適用省略。非機能要件中断・既存保護・現行ロゴ配色を維持。段階完了・実装・実画面検証・新しい実データ閲覧有効化なし。
+
+---
