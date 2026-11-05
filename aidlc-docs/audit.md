@@ -2530,3 +2530,23 @@ Firebaseの失効APIと失効検証は利用できるが、アプリの最新リ
 **Context**: 解決案文書の修正依頼に対する反映。拡張規則の評価は同文書末尾を維持。提案の改訂が承認されたことを運用構成・契約・要件全体の承認と混同しない。
 
 ---
+
+## 非機能要件：解決案採用・資料整理
+**Timestamp**: 2026-11-05T12:14:23Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/nfr-requirements/cost-and-feasibility.md
+
+## Open tabs:
+- cost-and-feasibility.md: aidlc-docs/construction/patient-support-app/nfr-requirements/cost-and-feasibility.md
+- unresolved-issues-proposals.md: aidlc-docs/construction/patient-support-app/nfr-requirements/unresolved-issues-proposals.md
+- design-coverage-review.md: aidlc-docs/construction/patient-support-app/nfr-requirements/design-coverage-review.md
+- nfr-requirements.md: aidlc-docs/construction/patient-support-app/nfr-requirements/nfr-requirements.md
+- patient-support-app-nfr-requirements-approval-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-requirements-approval-questions.md
+
+## My request:
+/C:/Users/khr85/Documents/ai-dlc-v1-test/aidlc-docs/construction/patient-support-app/nfr-requirements/unresolved-issues-proposals.md　この案で、非機能要件書を変更してください。解決案や比較検討ファイルなどは参照時にややこしくなってしまうので、もう使わないファイルは削除してください"
+**AI Response**: "解決案の内容と現在の非機能要件書を確認し、要件書へ反映します。あわせて参照関係を確認し、役目を終えた検討ファイルを整理します。8項目の解決案と費用の前提・概算を要件書へ統合。技術選定・承認参照を修正。解決案・照合結果・費用比較の3資料を削除。担当・契約・地域構成・実証は成立条件として残し、段階承認・移行は行わない。文書リンク・文字・表の整合を検証。"
+**Context**: 要件改訂の明示指示を根拠として採用。無効なセキュリティ拡張を省略。回復力01〜03・11は要件適合、04〜10・12〜15は実構築・方式選択前でN/A（要求条件は記載）。PBT09は選定適合、02・03・07・08は実コード・試験未生成でN/A、他は助言。
+
+---
