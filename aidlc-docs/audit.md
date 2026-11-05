@@ -2013,3 +2013,49 @@ P05 は別画面に分ける
 **Context**: 6回答全A・リンク・文字を検証。新規質問・モック作成・全体再承認・実装・非機能要件再開なし。拡張適合とN/Aの理由は回答反映事項に記録、セキュリティ拡張は無効につき適用省略。上位資料への展開チェックは別途記録し、未実施を完了扱いしない。
 
 ---
+
+## 機能設計修正：AI応答注意事項の条件フィルタリング
+**Timestamp**: 2026-11-05T06:03:34Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/functional-design/cancer_treatment_precautions_draft.md
+
+## Open tabs:
+- cancer_treatment_precautions_draft.md: aidlc-docs/construction/patient-support-app/functional-design/cancer_treatment_precautions_draft.md
+- revision-notes.md: aidlc-docs/construction/patient-support-app/functional-design/revision-notes.md
+- screen-visual-design.md: aidlc-docs/construction/patient-support-app/functional-design/screen-visual-design.md
+- ai-context-policy.md: aidlc-docs/construction/patient-support-app/functional-design/ai-context-policy.md
+- ai-input-privacy-notice.md: aidlc-docs/construction/patient-support-app/functional-design/ai-input-privacy-notice.md
+
+## My request:
+C:\Users\khr85\Documents\ai-dlc-v1-test\aidlc-docs\construction\patient-support-app\functional-design\cancer_treatment_precautions_draft.md
+これはAI応答に関する注意事項が記載されたマークダウンです。共通事項と癌腫、治療時期、治療内容別の注意が記載されているので、AIに必要な注意書きを渡す形にしたい。がいぶAPIに毎回注意書きを投げる場合、毎回、全文を投げるのはコストなどの問題が発生するので、条件でフィルタリングして、必要な情報だけ、投げられるようにフィルタリングの仕組みをコードとして組んでください。中身の変更はしないので、ハードコードで内容をべた付けして条件分けしてもいいです。この内容を機能設計に記載してください"
+**AI Response**: 既存U01機能設計を再開。固定カタログとAND／OR判定コード、複数属性、未取得区別、詳細表の確認条件・前提、入力予算と要求版管理をai-precaution-filtering.mdへ記載し、AI入力方針・規則・モデル・フロー・変更記録を整合。原文SHA-256不変、14がん種224節、設計コード構文、リンク・フェンス・Unicodeを検証。今回は機能設計への記載まで。アプリ実装・実行テスト・API接続は未実施。
+**Context**: 機能設計全体承認・次段階移行なし。非機能要件中断を維持。無効のセキュリティ拡張は適用省略。有効拡張の適合・各N/A理由は設計末尾。AI応答は、既存段階確認、構造確認と選別方針、記載完了と検証、最終変更報告。
+
+---
+
+## 機能設計・PP-02の必須回答への修正
+**Timestamp**: 2026-11-05T06:09:29Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/functional-design/privacy-policy-design-changes.md
+
+## Open tabs:
+- privacy-policy-design-changes.md: aidlc-docs/construction/patient-support-app/functional-design/privacy-policy-design-changes.md
+- cancer_treatment_precautions_draft.md: aidlc-docs/construction/patient-support-app/functional-design/cancer_treatment_precautions_draft.md
+- revision-notes.md: aidlc-docs/construction/patient-support-app/functional-design/revision-notes.md
+- screen-visual-design.md: aidlc-docs/construction/patient-support-app/functional-design/screen-visual-design.md
+- ai-context-policy.md: aidlc-docs/construction/patient-support-app/functional-design/ai-context-policy.md
+
+## My request:
+/C:/Users/khr85/Documents/ai-dlc-v1-test/aidlc-docs/construction/patient-support-app/functional-design/privacy-policy-design-changes.md
+このファイルの内容について、
+PP-02の内容は、「不明」「回答しない」を選択できることを任意回答と表現しているため、変更前の必須回答に戻してください"
+**AI Response**: 指定文書のPP-02を必須回答に戻し、「不明」「回答しない」も回答として扱うことを明記。同じ文書内の登録・設定・適用条件を整合。Markdown表と差分を確認。文書修正のみで段階完了・次段階移行は行わない。有効な回復力・PBT拡張は今回の文言修正では新規方式・コード・テストを扱わないためN/A。無効なセキュリティ拡張は適用省略。
+**Context**: 既存の機能設計への明示的修正依頼。
+- [x] PP-02と同一文書内の関連記述を確認。
+- [x] 必須回答と非開示選択の区別を反映。
+- [x] 差分・Markdown表を検証。
+
+---
