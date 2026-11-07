@@ -1,5 +1,15 @@
 # U01 非機能設計計画・方式選択
 
+## Canary回答の反映（2026-11-07）
+
+- [x] 質問1・2・3・5・7のA、質問4のC、質問6の条件付きAと補足を確認。
+- [x] 方式第3節へAPI別累積100件からの早期停止、窓、失敗・欠測、AI/PDF、保留後再開を反映。
+- [x] 質問票・方式・論理部品・状態の整合とMarkdownを検証。
+- [ ] AI/PDF各10試行の具体内訳案をレビューで確定。
+- [ ] 非機能設計全体の承認。
+
+内訳案は各正常4・時間切れ2・重複配送2・遅延結果2。AI正常4件に実AI最低1件を含む。拡張評価はCanary質問票末尾と方式第10節を参照。全体承認・配備は未実施。
+
 2026-11-05。非機能要件の承認質問1Bを確認し、非機能設計を開始する。以下は方式選択の質問であり、契約・実データ送信・配備の許可ではない。
 
 入力：[非機能要件](../patient-support-app/nfr-requirements/nfr-requirements.md)、[技術選定](../patient-support-app/nfr-requirements/tech-stack-decisions.md)、[業務規則](../patient-support-app/functional-design/business-rules.md)、[運営決定](../patient-support-app/functional-design/operations-functional-decisions.md)。
