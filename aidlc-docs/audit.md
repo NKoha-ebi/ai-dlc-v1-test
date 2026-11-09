@@ -4409,3 +4409,22 @@ Runは既存の10秒・1 vCPU・0.5 GiB仮定を回数比例した比較で、�
 **Context**: 明示承認は非機能設計2成果物。方式成立や構成採用を実証済みにせず、試作条件と未確認事項を継承。インフラ計画のMarkdown・質問形式・相対リンクを検証。回復力03の承認記録を更新、他は計画末尾と方式第10節の評価。PBT実行N/A、セキュリティ拡張は無効につき省略。コード生成・クラウド資源作成・配備なし。
 
 ---
+## 非機能設計の保留事項の状況確認
+**Timestamp**: 2026-11-08T08:15:56Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+
+## Open tabs:
+- patient-support-app-infrastructure-design-plan.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+- logical-components.md: aidlc-docs/construction/patient-support-app/nfr-design/logical-components.md
+- nfr-design-patterns.md: aidlc-docs/construction/patient-support-app/nfr-design/nfr-design-patterns.md
+- patient-support-app-nfr-design-plan.md: aidlc-docs/construction/plans/patient-support-app-nfr-design-plan.md
+- patient-support-app-nfr-design-followup-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-design-followup-questions.md
+
+## My request:
+非機能設計について詰める中で、あとで決定するリストがあったと思うけど、AIの出力案を検討するものと、非機能設計で定義しないもの、非機能設計の後半で検討するものがそれぞれあったと思うけど、今それらはどうなっている？"
+**AI Response**: 状態・非機能要件・技術選定・非機能設計・運営決定・インフラ計画を照合。提案作成済み／対象外・利用開始前決定／インフラ設計・試作へ継承を区別して説明。非機能設計は2026-11-07承認済みだが、構成採用・実証・最終予算・モデル等は未確定。記録が分散し、旧承認待ち表現が一部残ることも報告。
+**Context**: 既存資料の状況確認のみ。設計判断・計画チェックの変更なし。追記内容は文章のみ、図・埋込コードなし、Markdown構造を確認。
+
+---
