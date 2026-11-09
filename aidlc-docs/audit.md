@@ -4466,3 +4466,124 @@ Runは既存の10秒・1 vCPU・0.5 GiB仮定を回数比例した比較で、�
 **Context**: 許可された境界明示のみ。既存承認、未回答3問、構成・予算・試作未採用を維持。新規質問・構築・契約・実送信なし。Markdown表列数・7ファイルの相対参照・Unicode・未回答欄3件を検証済み。検証コマンドに不要なtext呼出しが混入したため削除し再実行、最終検証PASS。RESILIENCY-03は追跡記録、08・10〜13は未確認を維持、その他は既存方式第10節の評価を継承。PBT実行／設定は文書変更のみでN/A、無効セキュリティ拡張は省略。図・埋込コードなしの文章・表として事前検証。
 
 ---
+
+## インフラ設計の次手順確認
+**Timestamp**: 2026-11-09T06:12:47Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+
+## Open tabs:
+- patient-support-app-infrastructure-design-plan.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+- logical-components.md: aidlc-docs/construction/patient-support-app/nfr-design/logical-components.md
+- nfr-design-patterns.md: aidlc-docs/construction/patient-support-app/nfr-design/nfr-design-patterns.md
+- patient-support-app-nfr-design-plan.md: aidlc-docs/construction/plans/patient-support-app-nfr-design-plan.md
+- patient-support-app-nfr-design-followup-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-design-followup-questions.md
+
+## My request:
+いま、未確定事項の境界明示について、ファイル内容を変更した。次に何をするべきですか。一旦インフラ設計の質問に回答すればいいかな"
+**AI Response**: 状態とインフラ設計計画を確認。現状は確認質問3問の回答待ち。まず同計画の質問1～3の[Answer]:へ回答し、完了を知らせる手順を案内する。回答後に矛盾・曖昧さを確認し、構成案・費用比較・未確定事項を具体化してレビューへ進む。回答は構成採用・予算・試作の承認とは区別する。
+**Context**: 進行状況の確認のみ。計画実行・段階完了なし、チェック変更なし。監査追記の通常Markdownを事前確認。セキュリティ拡張は無効につき省略。既存設計の評価を変更しない。
+
+---
+
+## 質問1のクラウド環境の説明
+**Timestamp**: 2026-11-09T06:17:49Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+
+## Open tabs:
+- patient-support-app-infrastructure-design-plan.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+- logical-components.md: aidlc-docs/construction/patient-support-app/nfr-design/logical-components.md
+- nfr-design-patterns.md: aidlc-docs/construction/patient-support-app/nfr-design/nfr-design-patterns.md
+- patient-support-app-nfr-design-plan.md: aidlc-docs/construction/plans/patient-support-app-nfr-design-plan.md
+- patient-support-app-nfr-design-followup-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-design-followup-questions.md
+
+## My request:
+/C:/Users/khr85/Documents/ai-dlc-v1-test/aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+の質問1がしめす、クラウド環境とは何ですか？設計で言語やクラウド環境について名称を決定したと思うから、実際のツール名を用いて説明してください"
+**AI Response**: 技術選定を参照し、React／TypeScript／Vite、Node.js／TypeScript、Firebase Hosting、Cloud Run、Cloud Firestore、Firebase Authenticationの設計上の位置付けを説明。質問1は製品の再選定ではなく、実際に作成済み・利用可能なGoogle Cloud／Firebaseプロジェクト、課金先、管理権限、既存リポジトリ／CIと組織制約の確認と説明。作成済みならA、未作成または不明ならBを選べることを案内する。
+**Context**: 既存資料の意味の説明のみ。回答の代行・設計変更・段階移行なし。通常Markdownとして事前確認した監査記録を追記。
+
+---
+
+## 保持期限・Canary条件の参照確認
+**Timestamp**: 2026-11-09T06:26:43Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+
+## Open tabs:
+- patient-support-app-infrastructure-design-plan.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+- logical-components.md: aidlc-docs/construction/patient-support-app/nfr-design/logical-components.md
+- nfr-design-patterns.md: aidlc-docs/construction/patient-support-app/nfr-design/nfr-design-patterns.md
+- patient-support-app-nfr-design-plan.md: aidlc-docs/construction/plans/patient-support-app-nfr-design-plan.md
+- patient-support-app-nfr-design-followup-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-design-followup-questions.md
+
+## My request:
+質問2について、情報の保持期限、Canary条件は既存ファイルではどのように記載されていますか"
+**AI Response**: 業務規則BR-07、非機能設計第6節と第3節を確認し、保持・削除期限とCanary段階配備の条件を参照行付きで説明。主要環境7日、バックアップ35日、最小追跡180日、一時PDF24時間、バックアップ28日は設定案と区別。API別100件・最低15分・成功率99.5%以上・p95 2秒以内、AI/PDF各10試行、安全違反即時停止、欠測・保留・切り戻し条件を整理。PDF起算の記載差も明示する。
+**Context**: 既存資料の説明のみ。設計・回答・承認状態の変更なし。通常Markdownの監査追記を事前検証。
+
+---
+
+## 環境分離・プロジェクト構成の説明
+**Timestamp**: 2026-11-09T06:36:32Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+
+## Open tabs:
+- patient-support-app-infrastructure-design-plan.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+- logical-components.md: aidlc-docs/construction/patient-support-app/nfr-design/logical-components.md
+- nfr-design-patterns.md: aidlc-docs/construction/patient-support-app/nfr-design/nfr-design-patterns.md
+- patient-support-app-nfr-design-plan.md: aidlc-docs/construction/plans/patient-support-app-nfr-design-plan.md
+- patient-support-app-nfr-design-followup-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-design-followup-questions.md
+
+## My request:
+質問3について、開発・検証・β利用環境を別プロジェクトにするとはどういうことですか？どのようなディレクトリ構成？プロジェクト構成？となりますか。分けた時のメリットとデメリット、他の案を教えてください"
+**AI Response**: Google Cloud／Firebaseのプロジェクトとローカルディレクトリを区別し、単一コードベースと環境別設定の構成例を説明。3クラウド環境、ローカル開発＋検証／βの2クラウド環境、単一クラウド内分離を比較。患者データ分離と管理・費用増の利害、Canaryと地域復旧分離の違いを説明し、質問3Aは比較案作成であって構成採用ではないと案内。Firebase公式の環境別プロジェクト推奨を参照。
+**Context**: 既存計画とpackage.jsonを確認。公式資料を検索。説明のみでファイル構成・選択回答・段階承認は変更しない。監査追記は通常Markdownとして事前検証。
+
+---
+
+## 質問3Aの比較・決定段階の説明
+**Timestamp**: 2026-11-09T06:40:40Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+
+## Open tabs:
+- patient-support-app-infrastructure-design-plan.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+- logical-components.md: aidlc-docs/construction/patient-support-app/nfr-design/logical-components.md
+- nfr-design-patterns.md: aidlc-docs/construction/patient-support-app/nfr-design/nfr-design-patterns.md
+- patient-support-app-nfr-design-plan.md: aidlc-docs/construction/plans/patient-support-app-nfr-design-plan.md
+- patient-support-app-nfr-design-followup-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-design-followup-questions.md
+
+## My request:
+質問3のAの選択肢は、別プロジェクトとする案を「比較する」ってなに？比較した結果はどのように提示され、どの段階で決定しますか"
+**AI Response**: Aは3プロジェクト構成を比較候補に含めて具体案を作成する選択と説明。比較対象の具体例は3プロジェクト、ローカル開発＋検証／βの2プロジェクト、開発検証共用＋β別。必須要件適合、構成と設定、同一負荷の全費目低標準高比較、運用負担、不確実性、推奨案をインフラ設計成果物で提示する流れを説明。インフラ設計レビューで実装構成・初期設定・予算を仮決定し、比較試作のみの承認を区別。試験後に再レビューしBuild and Testでβ採用構成と運用予算を確定する。A回答だけでは構成採用・クラウド作成の承認にならない。
+**Context**: 既読の現行インフラ計画・段階境界に基づく説明。選択回答・計画チェック・設計を変更しない。監査記録は通常Markdownとして事前検証。
+
+---
+
+## 質問3Aの比較対象の明示
+**Timestamp**: 2026-11-09T06:43:39Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+
+## Open tabs:
+- patient-support-app-infrastructure-design-plan.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+- logical-components.md: aidlc-docs/construction/patient-support-app/nfr-design/logical-components.md
+- nfr-design-patterns.md: aidlc-docs/construction/patient-support-app/nfr-design/nfr-design-patterns.md
+- patient-support-app-nfr-design-plan.md: aidlc-docs/construction/plans/patient-support-app-nfr-design-plan.md
+- patient-support-app-nfr-design-followup-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-design-followup-questions.md
+
+## My request:
+例えばじゃなくて、質問に「比較する」と示されているならば、比較対象を明示してください"
+**AI Response**: 質問3Aに比較対象3案（開発／検証／β別、ローカル開発＋検証／β別、開発検証共用＋β別）を明記。比較項目、成果物での提示、仮決定・試作後再レビュー・Build and Testでの確定を追記。
+**Context**: 通常Markdownの段落・リストとして事前検証。回答欄・段階承認は変更しない。回復力の独立性は別設計として維持、PBT実行N/A、無効セキュリティ拡張は省略。
+
+---
