@@ -4428,3 +4428,41 @@ Runは既存の10秒・1 vCPU・0.5 GiB仮定を回数比例した比較で、�
 **Context**: 既存資料の状況確認のみ。設計判断・計画チェックの変更なし。追記内容は文章のみ、図・埋込コードなし、Markdown構造を確認。
 
 ---
+## 非機能要件の回答・提案・承認記録の照合
+**Timestamp**: 2026-11-09T04:20:51Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+
+## Open tabs:
+- patient-support-app-infrastructure-design-plan.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+- logical-components.md: aidlc-docs/construction/patient-support-app/nfr-design/logical-components.md
+- nfr-design-patterns.md: aidlc-docs/construction/patient-support-app/nfr-design/nfr-design-patterns.md
+- patient-support-app-nfr-design-plan.md: aidlc-docs/construction/plans/patient-support-app-nfr-design-plan.md
+- patient-support-app-nfr-design-followup-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-design-followup-questions.md
+
+## My request:
+では元の質問への回答と実際の提案・承認記録を照合してください。ファイルの参照をお願いします"
+**AI Response**: 元15問・再開6問・要件承認B・非機能設計12問・技術選定・要件・方式・論理部品・監査を照合。旧質問10Aのメール確認／不正ログイン試行制限／追加認証の負担・費用比較と推奨案は確認できず、提案不足と判定。旧質問11Aは対象環境・幅・支援技術・WCAG案があるが独立した試験マトリクスではなく文章形式。技術・試験基盤・メール受付目標は案あり。費用は一部概算と候補枠のみだが、総額等の後続解決条件は要件承認質問に明記されB回答で承認済み。旧AI提供元比較は後のOpenAI指定により前提変更、モデル候補はあるが最終評価未実施。非機能設計の方式案は全体承認済み、構成成立・試作は未実施。根拠ファイルと行番号を回答で提示。
+**Context**: 文書調査のみ。承認事実と依頼充足を区別し、承認の自動取消し・段階変更・設計追加なし。追記はMarkdown文章のみ、構造を事前確認。既存監査本文は上書きせず追記。
+
+---
+## 未確定事項の段階境界を既存資料へ明記
+**Timestamp**: 2026-11-09T05:40:44Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+
+## Open tabs:
+- patient-support-app-infrastructure-design-plan.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+- logical-components.md: aidlc-docs/construction/patient-support-app/nfr-design/logical-components.md
+- nfr-design-patterns.md: aidlc-docs/construction/patient-support-app/nfr-design/nfr-design-patterns.md
+- patient-support-app-nfr-design-plan.md: aidlc-docs/construction/plans/patient-support-app-nfr-design-plan.md
+- patient-support-app-nfr-design-followup-questions.md: aidlc-docs/construction/plans/patient-support-app-nfr-design-followup-questions.md
+
+## My request:
+ではそれが分かるように、未確定の事項について境界を既存ファイルに明示してください。"
+**AI Response**: 方式第10.1節に未確定事項12項目の現在状態、非機能設計／要件、インフラ設計、試作・Build and Testでの判断境界を追加。費用の仮決定と確定、比較基準、比較試作のみの承認と本実装構成の採用、不成立時の戻り先、追加認証提案不足、対象外の運営引継ぎを明記。インフラ計画の完了条件とチェック、論理部品、技術選定、非機能要件の費用条件、非機能設計計画、状態の7ファイルを整合。技術選定の旧承認待ち表現を修正。
+**Context**: 許可された境界明示のみ。既存承認、未回答3問、構成・予算・試作未採用を維持。新規質問・構築・契約・実送信なし。Markdown表列数・7ファイルの相対参照・Unicode・未回答欄3件を検証済み。検証コマンドに不要なtext呼出しが混入したため削除し再実行、最終検証PASS。RESILIENCY-03は追跡記録、08・10〜13は未確認を維持、その他は既存方式第10節の評価を継承。PBT実行／設定は文書変更のみでN/A、無効セキュリティ拡張は省略。図・埋込コードなしの文章・表として事前検証。
+
+---
