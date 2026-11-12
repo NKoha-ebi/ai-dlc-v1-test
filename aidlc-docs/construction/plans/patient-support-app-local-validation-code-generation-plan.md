@@ -4,6 +4,8 @@
 
 ## 対象・既存構成
 
+ツール導入は別資料の[Windows用インストール手順](../patient-support-app/code/local-validation-installation.md)を参照する。Node.js・npmの確認と、試作生成後の専用依存導入を分け、PowerShellではnpm.cmdを用いる。今回の手順資料作成は試作実行の承認ではない。
+
 既存ルートはReact・TypeScript・Viteのプロジェクトで、package.jsonにはテストスクリプトやVitest・fast-checkがまだない。画面や既存アプリの動作に手を入れず、試作用の独立パッケージをワークスペース直下のexperiments/patient-support-safety/へ置く。既存ルートの依存・lockfileは変更しない。
 
 所属はU01。既存C03・C04・C09・C15・C16の契約を模す。US-01（認証失効）、US-12（再送・通信断）、US-15（削除・撤回）、US-19（変更証跡）、US-20・21（権限取消し）の横断条件を検証する。これらのストーリー全体や患者機能を実装済みにはしない。模擬AI・PDFはUS-04・13の安全境界だけを扱う。

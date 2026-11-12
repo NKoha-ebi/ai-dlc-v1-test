@@ -5215,3 +5215,113 @@ B案の内訳もうちょい見せて"
 **Context**: 計画と質問ファイルを作成済みの状態でレビューを依頼。段階完了や本実装構成採用を示すものではない。
 
 ---
+
+## 本実装とローカル試作の開発言語比較
+**Timestamp**: 2026-11-12T11:50:35Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/plans/patient-support-app-local-validation-code-generation-plan.md
+
+## Active selection of the file:
+# U01 B案ローカル検証：コード生成計画
+
+2026-11-12。状態：計画作成済み、生成前レビュー。根拠は残課題回答6Aと[承認済み方向の具体化](../patient-support-app/nfr-design/remaining-issues-decisions.md)。本実装用のコード生成ではなく、未成立条件を調べる隔離した試作。非機能設計・インフラ設計全体を完了扱いにしない。
+
+## 対象・既存構成
+
+既存ルートはReact・TypeScript・Viteのプロジェクトで、package.jsonにはテストスクリプトやVitest・fast-checkがまだない。画面や既存アプリの動作に手を入れず、試作用の独立パッケージをワークスペース直下のexperiments/patient-support-safety/へ置く。既存ルートの依存・lockfileは変更しない。
+
+所属はU01。既存C03・C04・C09・C15・C16の契約を模す。US-01（認証失効）、US-12（再送・通信断）、US-15（削除・撤回）、US-19（変更証跡）、US-20・21（権限取消し）の横断条件を検証する。これらのストーリー全体や患者機能を実装済みにはしない。模擬AI・PDFはUS-04・13の安全境界だけを扱う。
+
+外部AI・メール・Firestore・Firebase Authへ接続しない。架空の対象IDと人工時刻のみ使用し、秘密情報を読み込まない。クラウド作成やネットワーク越しの故障試験は含めない。テスト用依存の取得が必要な場合は環境の承認機構に従う。
+
+## インターフェースとモデル
+
+- 二つの独立したメモリー台帳：Prepare、Decision、片側応答喪失、再送、消失を再現。操作ID・対象・世代・期限・確定状態を保存し、操作順序をログへ記録する。
+- 模擬業務DB：同一対象の禁止状態確認と書込みを一つの不可分なモデル操作にする。二つのDBを一つのトランザクションとして扱わない。
+- 最終作用アダプター：送信と返却それぞれについて、許可・予約・実開始・完了・結果利用を分離。停止と開始の順序を制御できるスケジューラーを注入する。
+- 受付・再開判定：操作IDによる状態照会、同一操作の再送、対象別照合、全体の保護状態と旧実行者状態の検証。
+- 認証モデル：資格世代・リンク発行時刻・最新リンクID・消費状態を判定する純粋関数。実Firebaseの標準REST経路を検証したとは扱わない。
+
+全試験でt0、実開始、停止適用、完了、保存／返却の可否を区別する。偽時計で2秒境界を検証しても実性能の達成とは報告しない。
+
+## 生成手順
+
+- [ ] Step 1：既存変更と出力先を確認し、experiments/patient-support-safety/package.json・tsconfig.json・vitest.config.tsを作る。TypeScript・Vitest・fast-checkの整合する依存を選び、その時点の公式情報を確認する。専用lockfileを生成する。
+- [ ] Step 2：src/contracts.ts・clock.ts・scheduler.ts・ledger.tsを作る。操作ID、Prepare／Decision、世代、元期限、耐久受付とAcceptedの区別、任意の停止／復帰時点を表現する。
+- [ ] Step 3：src/business-store.ts・effects.ts・controller.tsを作る。業務禁止状態と書込みの同時判定、実開始前の失効、開始済み試行の完了例外、停止後の保存・新規返却拒否を実装する。伝播前の隙間と順序不明を消さず表現する。
+- [ ] Step 4：src/intake.ts・recovery.ts・auth-policy.tsを作る。耐久受付、再送照合、片地域停止・分断、旧実行者排除、全体／対象別再開、期限非延長、24時間超過の未達記録を実装する。
+- [ ] Step 5：tests/scenarios.test.tsで下記固定シナリオを作る。旧V1・V6・V8の変更後の合否も明示する。正常ケースだけでなく、故意に禁止判定を外した欠陥例をテスト内の対照として検出できることを確認する。欠陥例は製品コードへ混入させない。
+- [ ] Step 6：tests/properties.test.ts・generators.tsで台帳の保存往復、元期限非延長、確定記録の残存、世代単調、停止後新規作用禁止、消費済みリンクの非復活を検証する。対象・操作・世代・時刻・故障順序を構造化し、seedとpathを失敗時に出力、縮小を有効にする。部分PBTの対象である純粋モデル・保存変換に限定する。
+- [ ] Step 7：README.mdへ実行方法と証拠の限界を記載し、aidlc-docs/construction/patient-support-app/code/local-validation-summary.mdへ結果・反例・再現手順・未確認事項を記録する。専用package.jsonにtest・test:properties・typecheckを用意する。既存CIがあれば適切なローカルモデル試験ジョブを追加し、なければ専用.github/workflows/patient-support-safety-model.ymlを作成する計画とする（実サービス・秘密なし）。
+- [ ] Step 8：専用パッケージの型検査・固定試験・PBTを実行する。失敗を単に再実行して隠さず反例を保存する。ルートの設定を変更していないことと出力先を確認し、計画チェック・監査・状態を更新する。結果を設計へ戻し、採用判断と実クラウド試験の必要範囲を提示する。
+
+Step 7のCIファイルはワークスペースルートの.github/workflows/配下に置く。ローカル実装中にこのファイルを作成しても、リモートへのpush・公開・外部実行を許可した意味にはしない。
+
+## 固定シナリオと合否
+
+| ID | 注入する順序・障害 | 合格条件 |
+| --- | --- | --- |
+| L-01 | 許可取得・予約後停止、旧実行者復帰 | 実開始前なら送信・返却拒否。古い予約で開始できない |
+| L-02 | 実開始後停止、送信・返却を継続 | 同じ試行の残りのみ完了可。追加試行・保存・後続結果利用は拒否 |
+| L-03 | 停止と業務commit競合、停止伝播の遅延 | 業務DBの禁止適用後の書込みなし。伝播前作用を別記し、未適用をAcceptedにしない |
+| L-04 | 正常t0・2秒境界、制御処理停止 | 正常経路の目標判定と障害Pendingを区別。時計が止まった処理を停止完了にしない |
+| L-05 | 受信前／片側保存／両側保存／応答返却の各時点で喪失 | 両側保存前は未確定。両側保存後は片地域喪失でも回収。再送で元期限を延ばさない |
+| L-06 | 片側Decision・両側Decision後の地域喪失 | 未確定意図を捨てない。確定応答済み安全変更は残存側に存在 |
+| L-07 | 地域間分断・片地域永久喪失・旧実行者復帰 | 単独昇格せず停止。独立保護不成立時は部分再開も拒否。24時間超過を記録 |
+| L-08 | 全体健全だが対象Aの依頼が未解決 | 分離の証拠がある場合のみBを開放。対象不明・新着差分未確認なら拒否 |
+| L-09 | 古いリンク・24時間境界・消費済みリンク・旧資格 | 最新のみ・期限内・未消費条件、成功後の旧資格失効を純粋モデルで確認 |
+| L-10 | HTTPタイムアウト後の処理継続 | タイムアウトを実停止と見なさず、遅延新規作用をモデルの最終経路で拒否 |
+
+各固定シナリオの成功は、そのモデルと列挙した順序に限る。PBTでも実世界の全状態の証明とはしない。
+
+## ローカルでは成立判定しない項目
+
+実ソケットへ渡るバイトと停止の順序、ゲート迂回不能性、Cloud IAM失効、Firestore競合・耐久保存と地域喪失、Firebase標準RESTの迂回、ネットワーク分断時の実挙動、同時20人の本構成性能、2秒の実時間、実復旧24時間、外部サービスの保持・削除は別途確認が必要。モデルが通っても本実装を採用しない。
+
+## 計画の準備状況と拡張
+
+- [x] 6回答と変更範囲、U01のストーリー対応、既存package.jsonとソース配置を確認。
+- [x] 試作の出力先・モデル契約・8生成手順・10固定シナリオ・合否・限界を具体化。
+- [ ] この具体的なコード生成計画のレビュー回答を受領。
+- [ ] 生成・検証を実施し、実構成への外挿を避けて報告。
+
+RESILIENCY-03：承認・変更根拠を記録。08・10〜13：実構成未成立を維持。本試作は調査に限り、阻害事項を残した本実装着手を許可しない。PBT-02・03・07・08・09：生成手順6〜8に反映し、実行評価は未着手。PBT-01・04〜06・10：固定例と反例対照を含め助言として反映。セキュリティ拡張は無効につき適用省略。
+
+レビュー質問は[ローカル検証計画レビュー](patient-support-app-local-validation-review-questions.md)へ記載する。段階完了の報告ではない。
+## Open tabs:
+- patient-support-app-local-validation-code-generation-plan.md: aidlc-docs/construction/plans/patient-support-app-local-validation-code-generation-plan.md
+- patient-support-app-local-validation-review-questions.md: aidlc-docs/construction/plans/patient-support-app-local-validation-review-questions.md
+- patient-support-app-remaining-issues-questions.md: aidlc-docs/construction/plans/patient-support-app-remaining-issues-questions.md
+- safety-control-comparison.md: aidlc-docs/construction/patient-support-app/nfr-design/safety-control-comparison.md
+- nfr-design-patterns.md: aidlc-docs/construction/patient-support-app/nfr-design/nfr-design-patterns.md
+
+## My request:
+実際の開発言語と今回のローカル施策での開発言語にはどのくらい相違がありますか"
+**AI Response**: 技術選定書と試作計画を照合。現行の本実装案はフロントReact/TypeScript、バックエンドNode.js/TypeScript、試作もTypeScriptで言語差は基本的にないと説明。Vitest/fast-checkも本実装案と共通。差はメモリー台帳・偽時計・模擬サービスと実Firestore・通信・認証の実装であり、型や純粋ロジック・反例は再利用候補だがモデル全体の流用や本番保証にはしない。Node.jsは実行環境、ReactはUIライブラリーで言語とは区別。計画の承認や実行として扱わない。
+**Context**: 既存設計の比較説明のみ。ファイル内容は通常Markdownとして検証。アプリ実装・課金・外部送信なし。無効セキュリティ拡張は適用省略。
+
+---
+
+## ローカル検証：別途インストール手順の作成
+**Timestamp**: 2026-11-12T11:53:40Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/plans/patient-support-app-local-validation-code-generation-plan.md
+
+## Active selection of the file:
+既存ルートはReact・TypeScript・Viteのプロジェクトで、package.jsonにはテストスクリプトやVitest・fast-checkがまだない。画面や既存アプリの動作に手を入れず、試作用の独立パッケージをワークスペース直下のexperiments/patient-support-safety/へ置く。既存ルートの依存・lockfileは変更しない。
+
+## Open tabs:
+- patient-support-app-local-validation-code-generation-plan.md: aidlc-docs/construction/plans/patient-support-app-local-validation-code-generation-plan.md
+- patient-support-app-local-validation-review-questions.md: aidlc-docs/construction/plans/patient-support-app-local-validation-review-questions.md
+- patient-support-app-remaining-issues-questions.md: aidlc-docs/construction/plans/patient-support-app-remaining-issues-questions.md
+- safety-control-comparison.md: aidlc-docs/construction/patient-support-app/nfr-design/safety-control-comparison.md
+- nfr-design-patterns.md: aidlc-docs/construction/patient-support-app/nfr-design/nfr-design-patterns.md
+
+## My request:
+今回のローカル検証においてインストールが必要なツールについては別途でインストール手順教えてくれる？"
+**AI Response**: Node.js v24.12.0・npm.cmd 11.6.2を確認。npm.ps1は実行ポリシーで拒否されたためnpm.cmdを案内。公式Node.js・Vitest・fast-check情報を確認し、code/local-validation-installation.mdにWindowsの確認・未導入時の導入・試作生成後のnpm ci・型検査とテスト・エラー対応を記載し、計画から参照を追加。現時点は試作package.jsonとlockfile未生成で導入手順は後続実行と明記。追加インストールは実施していない。
+**Context**: ツール手順の作成。質問票の回答は空欄のまま保持し、計画承認と解釈しない。通常Markdown、表列、PowerShell構文と前提を確認。無効セキュリティ拡張は適用省略、コード実装・課金・外部サービス送信なし。
+
+---
