@@ -5071,3 +5071,25 @@ Bやとどれくらい？"
 ---
 
 検証結果：更新7文書のUTF-8・棄却記録・表列・相対参照が適合。文書変更のみにつきアプリのビルド／試験N/A。
+
+## 不要な候補情報の削除・B案への整理
+**Timestamp**: 2026-11-12T11:19:43Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/infrastructure-design/cost-estimate-100-consultations.md
+
+## Open tabs:
+- cost-estimate-100-consultations.md: aidlc-docs/construction/patient-support-app/infrastructure-design/cost-estimate-100-consultations.md
+- safety-control-comparison.md: aidlc-docs/construction/patient-support-app/nfr-design/safety-control-comparison.md
+- patient-support-app-infrastructure-review-questions.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-review-questions.md
+- infrastructure-design.md: aidlc-docs/construction/patient-support-app/infrastructure-design/infrastructure-design.md
+- patient-support-app-infrastructure-design-plan.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+
+## My request:
+棄却した案の情報は不要なので、B案の設計検討飲み残して、Aの情報を消して"
+**AI Response**: A案の方式・費用・公式リンク・回復手順・専用反例と比較列を削除。B案の設計検討・費用に限定し、状態・計画・関連設計の記述を整合。監査ログの原文は履歴として保持。
+**Context**: ユーザーが明示した文書削除編集。アプリ・クラウド操作なし。B案の未成立条件・未確定費用・承認境界は変更しない。通常Markdownの表・見出し・リンクを事前確認。RESILIENCY-03は決定記録適合、08・10〜13は未成立を維持、部分PBT実行N/A、無効セキュリティ拡張は省略。
+
+---
+
+検証結果：更新7文書の不要候補記述不在・UTF-8・表列・相対参照を確認しエラー0。アプリのビルド／試験N/A（文書整理のみ）。
