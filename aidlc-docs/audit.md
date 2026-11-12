@@ -4688,3 +4688,120 @@ C:\Users\khr85\Documents\ai-dlc-v1-test\aidlc-docs\construction\plans\patient-su
 **Context**: 同じ使用量の差引き例は予備費なし499.198〜504.198 USD、品質を保てる場合のtokens半減・平均5回なら利用AI56.25 USD、同じ仮基盤の比較総額約218〜223 USD。新確定見積りとはせず、地域料金・試験月・未成立独立保護追加は別と明記。現在の容量と平均使用量、相談とメッセージを区別。安全条件・毎分監視・本人認証・削除・DRを無断緩和せず、構成簡素化は未採用。RESILIENCY-08・10〜13の未成立条件は維持、部分PBT実行N/A、無効セキュリティ拡張は省略。文書6件のUTF-8・参照32件・表224行・旧合計・差引き・AI3ケースを機械検証しエラー0。進捗と旧案の失効表示を同じ対話で更新。アプリ変更なし・ビルドN/A、クラウド作成・課金・外部送信なし。
 
 ---
+
+## 月100相談への費用前提変更
+**Timestamp**: 2026-11-12T07:30:08Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/plans/patient-support-app-infrastructure-review-questions.md
+
+## Open tabs:
+- patient-support-app-infrastructure-review-questions.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-review-questions.md
+- infrastructure-design.md: aidlc-docs/construction/patient-support-app/infrastructure-design/infrastructure-design.md
+- patient-support-app-infrastructure-design-plan.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+- logical-components.md: aidlc-docs/construction/patient-support-app/nfr-design/logical-components.md
+- nfr-design-patterns.md: aidlc-docs/construction/patient-support-app/nfr-design/nfr-design-patterns.md
+
+## My request:
+月100相談くらいで見積もり取って。予備費と検証環境の仮枠ってなに？ここ朝得られない？"
+**AI Response**: 月100相談で通常月の全費目概算を作成。「ここ朝得られない？」は文脈上の費用抑制の質問と解釈。予備費は請求でない予算上の余裕、検証仮枠は契約でない未実測の試験費用と説明し、予備費・常設検証・月割復元試験を通常月0に変更。実クラウド検証は必要時のみ、実施月の実使用量で別算定。既存モデル・15回・8,000／2,000tokensを維持した利用AIは22.50 USD、削減候補は11.25／7.50／3.75。実AI監視10.368は相談数に比例せず維持。通常月は固定network以外47.218〜62.718、旧55を残す比較は102.218〜117.718 USDと算定。未確定のnetworkと独立保護の追加費は未確定と明記し、全体の固定保証は行わない。
+**Context**: cost-estimate-100-consultations.mdを作成し、旧費用資料・インフラ設計・非機能要件・計画・状態に現行の費用前提を反映。同時20人の容量と性能条件、既存保護・必要試験は維持。公式モデル料金、Run／監視／Firestore料金を再確認。UTF-8・表列・相対参照36件・上下限の算術を機械検証しエラー0。計画チェックを同じ対話で更新。回復力08・10〜13の未成立事項継続、部分PBT実行N/A、無効セキュリティ拡張は省略。コード変更・課金・外部送信・契約なし。公開料金による概算であり事業者への見積依頼送信は行っていない。
+
+---
+
+## 費用資料の整理・旧ファイル削除
+**Timestamp**: 2026-11-12T07:51:57Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/infrastructure-design/cost-estimate-100-consultations.md
+
+## Active selection of the file:
+# 月100相談の通常月概算
+
+2026-11-12。ユーザー指定により、費用算定の月間相談数を1,500から100へ変更する。登録100人・同時20人の対応容量／性能試験条件は維持。公開料金に基づく設計概算で、事業者の確定見積書ではない。税・為替・適用地域追加料金は別。構成の未成立事項は[インフラ設計](infrastructure-design.md)を継承する。
+
+## 1. 予備費と検証環境の仮枠
+
+| 旧費目 | 意味 | 今回の扱い |
+| --- | --- | --- |
+| 予備費165.09 USD（25%） | 使用量増・見積誤差に備えた予算上の余裕。サービス利用料金ではない | 通常月見積りへの自動上乗せを0にする。利用量増で発生する実料金まで0になるわけではない |
+| 検証環境60 USD | stageのRun・DB・network・監視・AI・CI等に置いた未実測の費目別予算枠。月額契約ではない | 通常月の常設検証枠を0にする。ローカルEmulator・stub中心、実クラウドは必要な試験時だけ使用 |
+| 前の削減案の検証10 USD | 60から減らした比較用の枠 | これも通常月へ一律に積まない |
+| 復元試験15 USD／月 | 毎月実施する根拠のない月割試験枠 | β初回前・重要変更後の都度費にする。試験自体は省略しない |
+
+検証環境を月額0扱いにするのは「通常月に新たなクラウド検証を実行せず、課金される検証資源の残存もない」場合。停止だけではDB・backup・LB・NAT等の費用が残ることがあるため、必要な証跡・元期限を守って残存を照合する。Emulatorでは本番IAM・地域・復元・配送・外部APIを検証できないので、必要な試験月には使用量を別途加算する。
+
+都度試験もCPU秒・DB操作・転送量・実AI回数で積算し、未実行の固定10／60 USDを請求見込みにしない。支出の上限値は実施計画と一緒に決め、旧100 USD試作枠も自動採用しない。端末・PC・回線の追加調達なし、内部作業工数・開発費は月額サービス利用料の外とする。
+
+## 2. 外部AI APIの月100相談試算
+
+既存候補GPT-5.4 miniの標準入力0.75・課金出力4.50 USD／100万tokensで計算。cache割引・別モデルへの変更は見込まない。地域等の10%追加料金が適用される場合は各AI額×1.10。[公式モデル料金](https://developers.openai.com/api/docs/models/gpt-5.4-mini)。
+
+| ケース | 相談／月 | 平均呼出し／相談 | 平均入力／課金出力tokens | 利用AI USD／月 |
+| --- | --- | --- | --- | --- |
+| 旧標準の回数・長さを維持 | 100 | 15 | 8,000／2,000 | 22.50 |
+| 入出力を半減できた場合 | 100 | 15 | 4,000／1,000 | 11.25 |
+| 上記＋平均10回の場合 | 100 | 10 | 4,000／1,000 | 7.50 |
+| 上記＋平均5回の場合 | 100 | 5 | 4,000／1,000 | 3.75 |
+
+計算は100×回数×（入力×0.75＋課金出力×4.50）÷100万。今回の主ケースは22.50とし、ユーザーが指定していないtokens半減・回数削減を成立済みにしない。後ろの3ケースは品質・必要情報・完遂条件を維持できた場合の比較。5回で強制終了させる案ではない。再開分も含めた月間課金操作量が増えれば追加する。
+
+実AI監視は月間相談数で割らない。既存5分間隔・入力1,000／出力100の仮値を維持すると、8,640回×0.0012＝10.368 USD／月。この規模では利用者向けAIと比べても大きい。60分監視なら0.864 USDで9.504削減できるが、検知間隔の変更なので未採用。毎分の通常業務監視とCanary必須試験は別に維持する。
+
+## 3. 通常月の全費目
+
+基盤は前の削減案（managed syntheticではなく小さな監視処理、min0、無料枠、ローカル開発）を比較前提とする。低額を保証する採用構成ではない。月100相談になっても定時監視・安全記録・固定経路・蓄積データは残るため、全額を15分の1にしない。
+
+| 費目 | 月額USD | 使用量／積算前提 |
+| --- | --- | --- |
+| 利用AI | 22.50 | 上表の主ケース |
+| 実AI監視 | 10.368 | 既存5分監視を維持 |
+| Run・PDF・複製・通常監視の実行 | 3〜10 | CPU約24万秒を起点に起動・監視対象側・AI待機を感度化。request-based無料枠を請求accountで一度だけ適用。常時min1なし |
+| DB・PITR・backup・Storage | 2〜5 | 初期半年600相談、合計保存／index約1GiBの仮値。PITR約0.25、28世代backup約1.40、Storage等約0.06＋操作課金幅。日次の監視操作は別途カウントして無料枠を適用 |
+| 地域間・internet転送 | 0.80 | 旧40＋40GiBを患者由来の仮値として100／1,500倍、合計約5.33GiB×仮単価0.15。監視等で増えれば置換 |
+| 通常監視のサービス料・ログ・指標・Trace | 0〜2 | 自前監視の実行はRun行へ。uptime地点実行は無料枠内、ログ量・指標量も無料帯を確認。無料枠消費済みなら再計算 |
+| Hosting | 0〜1 | 静的配信・圧縮、保存約1GBと日次転送無料帯を起点。患者本文は配信しない |
+| Tasks・Scheduler・秘密 | 0.30〜1 | job数・操作・有効秘密版の少量利用。無料枠は他環境と重複控除しない |
+| 独立受信メール・送信 | 6.05 | mailbox1席6は未選定の仮単価、SES等送信500通×0.10／千＝0.05。既存mailbox無料利用は仮定しない |
+| CI・成果物保存 | 0.20〜2 | build一回・image再利用・cleanup。無料build枠とRegistryの課金容量、他用途の消費を確認 |
+| DNS・ドメイン | 2.00 | 旧年24 USDの月割仮値。実ドメイン未選定 |
+| 予備費 | 0 | 一律上乗せなし |
+| 常設検証環境の仮枠 | 0 | ローカル主体、試験月の実利用は別 |
+| 毎月復元試験の仮枠 | 0 | 試験実施月に都度加算 |
+| 固定ネットワークを除く小計 | 47.218〜62.718 | 全行の下限／上限を合算 |
+| 固定ネットワーク | 未確定 | 旧55 USDのPSC／LB／NAT／proxy一括枠は確定料金ではない。必要部品・代替接続で再算定 |
+| 旧55 USDを残した比較合計 | 102.218〜117.718 | 約102〜118 USD／月。完成構成の確定額ではない |
+
+RunのCPU24万秒仮値の内訳例：利用AI1,500回×20秒＝3万、実AI監視8,640回×10秒＝8.64万、毎分監視43,200回×2秒＝8.64万、6対象API×43,200回×0.1秒＝2.592万、その他約1.1万。同時実行で共有されるinstance秒・起動を測り直す。監視の実AI／通常処理が遅ければ上限10を超え得る。
+
+DB操作例は通常監視6経路×43,200回×read5＝129.6万read、write2＝51.84万writeに、利用AI等read約1.5万・write約0.75万を加える。保存対象DB・索引・複製の追加操作を実装で確定する。無料枠はproject当たり対象DB1個の日次quotaで、月単位の単純な差引きではない。TTL／PITR／backup／restoreは有料。[Firestore公式料金](https://cloud.google.com/firestore/pricing)。
+
+Run／監視無料帯の根拠：[Run公式料金](https://cloud.google.com/run/pricing)、[Observability公式料金](https://cloud.google.com/products/observability/pricing)。各範囲は実測前の使用量仮定で、クラウド請求の精度を小数点表示で保証しない。公開SKU・地域・契約が確定したら置換する。
+
+## 4. 低減できた場合の比較
+
+| 条件 | 固定ネットワーク以外 | 旧固定55を残す場合 |
+| --- | --- | --- |
+| 月100相談、旧tokens・平均15回を維持 | 約47〜63 | 約102〜118 |
+| 月100相談、tokens半減・平均15回 | 約36〜52 | 約91〜107 |
+| 月100相談、tokens半減・平均5回 | 約28〜44 | 約83〜99 |
+
+削減の優先対象は未確定の固定network55と実AI監視10.368。固定networkの要否が決まる前に、ゼロにした低額を全要件適合の総額として提示しない。東京・大阪の保護方式を単純削除せず、同じ安全条件を満たす低固定費の経路を比較する。未成立の独立制御保護先の追加費用も未確定で、本表の額で収まるとは判断しない。
+
+ユーザーの「ここ朝得られない？」は文脈から予備費・検証枠を抑えられないかという質問として扱った。費用前提の月100相談は明示指示として反映し、予備費と常設検証枠の一律上乗せは外す。β初回前・重要変更後の必要試験、同時20人の受入容量、認証・同意・削除・復旧の元条件は変更しない。
+
+拡張評価：回復力の目標・変更・監視・試験は維持、RESILIENCY-08・10〜13の未成立条件は継続。試験を省略した適合宣言や段階完了は行わない。部分PBTは選定・契約を継承、実行N/A（文書のみ）。無効セキュリティ拡張は省略する。図・埋め込みコードなし。式・表・参照・UTF-8を検証する。
+
+## Open tabs:
+- cost-estimate-100-consultations.md: aidlc-docs/construction/patient-support-app/infrastructure-design/cost-estimate-100-consultations.md
+- patient-support-app-infrastructure-review-questions.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-review-questions.md
+- infrastructure-design.md: aidlc-docs/construction/patient-support-app/infrastructure-design/infrastructure-design.md
+- patient-support-app-infrastructure-design-plan.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+- logical-components.md: aidlc-docs/construction/patient-support-app/nfr-design/logical-components.md
+
+## My request:
+費用に関する必要ないファイルを削除して"
+**AI Response**: 費用資料3件のうち現行のcost-estimate-100-consultations.mdを残し、旧cost-estimate.mdとcost-reduction-review.mdを削除。インフラ設計・配備構成・計画・停止中質問票のリンクを現行見積りへ修正し、旧費用表を撤去。監査履歴と既存回答は保持。
+**Context**: ユーザーが明示した不要費用ファイル削除を実行。対象は確認済みの2ファイルのみ。計画チェックと状態を同じ対話で更新。更新文書4件のUTF-8・表列・相対参照32件、全aidlc-docsの削除先リンク不在、残存費用ファイル1件を検証しエラー0。通常Markdownを事前確認、図・コードなし。金額・要件・拡張設定変更なし、部分PBT実行N/A、回復力未成立条件維持、無効セキュリティ拡張は省略。アプリ変更なし、ビルドN/A。
+
+---

@@ -1,8 +1,8 @@
 # U01 インフラ設計案・未成立事項のレビュー
 
-> 2026-11-12：費用削減の再検討を先行するため、以下4問への回答依頼はいったん停止。質問3の850 USD案は推奨を取り下げた。旧質問や回答は履歴として保持する。[費用内訳と削減案](../patient-support-app/infrastructure-design/cost-reduction-review.md)を先に提示し、新構成・新予算は未決定とする。
+> 2026-11-12：以下4問への回答依頼は停止中。質問3の850 USD案と質問4の100 USD試作枠は採用しない。旧質問や回答は履歴として保持する。費用資料は[月100相談の通常月概算](../patient-support-app/infrastructure-design/cost-estimate-100-consultations.md)へ一本化し、新構成・新予算は未決定とする。
 
-2026-11-09。元の回答1B・2A・3Aは確認済み。[インフラ設計案](../patient-support-app/infrastructure-design/infrastructure-design.md)、[3案の比較](../patient-support-app/infrastructure-design/deployment-architecture.md)、[費用積上げ](../patient-support-app/infrastructure-design/cost-estimate.md)を判断材料とする。現時点は設計案の作成までで、段階完了・本実装構成採用の承認依頼ではない。
+2026-11-09作成の旧レビュー。元の回答1B・2A・3Aは確認済み。[インフラ設計案](../patient-support-app/infrastructure-design/infrastructure-design.md)、[3案の比較](../patient-support-app/infrastructure-design/deployment-architecture.md)、[現行の費用概算](../patient-support-app/infrastructure-design/cost-estimate-100-consultations.md)を参照。段階完了・本実装構成採用の承認依頼ではない。
 
 ## 質問1：追加認証対策の補完レビュー
 
@@ -42,7 +42,7 @@ C) その他（使用量・監視方針等を変更したい場合は具体的�
 
 ## 質問4：比較試作の費用・合否・戻り先
 
-質問2でAを選んだ場合も、後に試作計画を作るための費用基準として回答してください。[費用モデル第5節](../patient-support-app/infrastructure-design/cost-estimate.md)に内訳を記載しました。今回の回答だけではクラウド作成・課金有効化・契約・実送信を許可したとは扱いません。
+本問は旧試作費基準の履歴であり、回答依頼は停止中。試作費は[現行見積り第1節](../patient-support-app/infrastructure-design/cost-estimate-100-consultations.md)に従い、必要な試験の実施計画と使用量で別算定する。クラウド作成・課金有効化・契約・実送信は未許可。
 
 A) 一回100 USD・7日以内・合成データ、実AI最大100試行かつ5 USD枠という計画基準に同意する。遮断・受信完全性・東京なし復元の3条件と大阪喪失／認証迂回を評価し、不成立・予算超過見込みなら方式／要件・費用へ戻す。実施範囲はコード生成計画で別途レビューする。
 
