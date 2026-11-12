@@ -770,3 +770,11 @@ privacy-policy-design-changes.mdを共通差分の正本とする。18歳以上�
 - [ ] 実ゲートの配置・迂回禁止・旧実行者排除と故障範囲を具体化し、実DB／認証／IAMの試験計画・費用へ進める。
 
 結果正本：construction/patient-support-app/code/http-validation-summary.md。欠陥対照は停止後に実本文を送信、候補は設けた待機点で拒否。任意命令位置のOS停止、複数インスタンス、実Firestore・IAM・認証・災害復旧は未実証。RESILIENCY-08・10〜13の本実装未成立を継続。部分PBTは既存純粋モデルで成功、無効セキュリティ拡張は省略。非機能設計・インフラ設計全体の完了ではない。クラウド作成・課金・実AI／メール送信・リモートpush／CI実行なし。
+
+## 最新：実ゲート・旧実行者排除の確認質問
+
+- [x] 実HTTP結果と既存判断を確認し、技術側の担当事項を整理。
+- [x] production-gate-questions.mdに開始境界、配備・権限分離、ゲート更新時の停止、既存環境の4問を作成し検証。
+- [ ] 4回答を確認して実構成・旧実行者排除の証拠・迂回拒否試験を具体化する。
+
+正本：construction/plans/patient-support-app-production-gate-questions.md。既存D-01〜06・W-01〜04は維持。Canary条件は暗黙に変更しない。実構成の回復力08・10〜13は未成立、配備変更案04は照合待ち。部分PBT追加実行N/A、無効セキュリティ拡張は省略。追加実装・クラウド・課金・実送信なし。
