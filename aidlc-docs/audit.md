@@ -5574,3 +5574,23 @@ RESILIENCY-03：回答Aと実行・証拠を記録。08・10〜13：実構成の
 **Context**: 設計方針の確認のみ。RESILIENCY-08・10〜13未成立継続、配備04は照合待ち。部分PBT追加実行N/A。無効セキュリティ拡張は省略。追加実装・試験・契約・課金・実送信なし。
 
 ---
+
+## 実ゲート回答反映・公式仕様による具体化
+**Timestamp**: 2026-11-12T12:49:41Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/plans/patient-support-app-production-gate-questions.md
+
+## Open tabs:
+- patient-support-app-production-gate-questions.md: aidlc-docs/construction/plans/patient-support-app-production-gate-questions.md
+- http-validation-summary.md: aidlc-docs/construction/patient-support-app/code/http-validation-summary.md
+- patient-support-app-http-validation-review-questions.md: aidlc-docs/construction/plans/patient-support-app-http-validation-review-questions.md
+- patient-support-app-write-send-boundary-questions.md: aidlc-docs/construction/plans/patient-support-app-write-send-boundary-questions.md
+- local-validation-summary.md: aidlc-docs/construction/patient-support-app/code/local-validation-summary.md
+
+## My request:
+回答完了しました。次に進んでください"
+**AI Response**: 生回答1A・2A・3A・4Aを確認し相互矛盾なし。G-01〜04として引渡し開始境界、独立配備、停止更新、仮環境での設計を反映。Google公式仕様を確認し、max1・IAM変更・firewall変更・timeoutは旧実行者排除の単独証拠にできないと整理。production-gate-design.mdへ主体・配置・資格・通信先・迂回経路・停止と再開の状態・必要証拠・Canary差分を記載。gate-cloud-validation-plan.mdへ東京S1／大阪追加S2の資源、11行×初期2試行、観測・合否・保留と全費目数量表を作成。試験総額はSKUと実構成未確定のため未算定、予算承認は求めない。参照・UTF-8・表とチェックを更新。PG-01/02は残り、独立ゲート追加だけでは最終作用を保証できないと説明。
+**Context**: 具体文書設計のみ、コード生成・クラウド資源作成・課金・実送信なし。RESILIENCY-04のCanary整合と08・10〜13の実構成未成立を継続。部分PBT追加実行N/A、無効セキュリティ拡張は省略。段階完了や本実装採用ではない。
+
+---
