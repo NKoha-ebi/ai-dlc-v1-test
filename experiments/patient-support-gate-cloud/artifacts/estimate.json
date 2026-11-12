@@ -1,0 +1,23 @@
+{
+  "status": "INCOMPLETE",
+  "total": null,
+  "knownSubtotal": 0,
+  "currency": null,
+  "missing": [
+    "item 0:region/sku/unit/currency/source,priceDate,unitPrice,quantity",
+    "item 1:region/sku/unit/currency/source,priceDate,unitPrice,quantity,lifetimeHours",
+    "item 2:region/sku/unit/currency/source,priceDate,unitPrice,quantity,lifetimeHours",
+    "item 3:region/sku/unit/currency/source,priceDate,unitPrice,quantity,lifetimeHours",
+    "item 4:region/sku/unit/currency/source,priceDate,unitPrice,quantity,lifetimeHours",
+    "item 5:region/sku/unit/currency/source,priceDate,unitPrice,quantity,lifetimeHours",
+    "item 6:region/sku/unit/currency/source,priceDate,unitPrice,quantity,lifetimeHours",
+    "item 7:region/sku/unit/currency/source,priceDate,unitPrice,quantity,lifetimeHours"
+  ],
+  "trials": {
+    "investigation": 22,
+    "canaryApiMinimum": 1800,
+    "canaryAiPdf": 60,
+    "realAiExecuted": false
+  },
+  "note": "Quantity is in the declared SKU unit; multiply usage by lifetime before input when billed per hour. No free tier or reserve is assumed."
+}

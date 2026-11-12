@@ -1,0 +1,40 @@
+name: Patient support gate preparation
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'experiments/patient-support-gate-cloud/**'
+      - '.github/workflows/patient-support-gate-cloud.yml'
+  pull_request:
+    paths:
+      - 'experiments/patient-support-gate-cloud/**'
+      - '.github/workflows/patient-support-gate-cloud.yml'
+permissions:
+  contents: read
+jobs:
+  local-only:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: experiments/patient-support-gate-cloud
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: experiments/patient-support-gate-cloud/package-lock.json
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm run typecheck
+      - name: Fixed tests and shrinking properties
+        env:
+          FC_SEED: '20261112'
+        run: npx --no-install vitest run --reporter=default --reporter=json --outputFile=artifacts/tests.json
+      - run: npm run investigate
+      - run: npm run estimate
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: gate-local-evidence
+          path: experiments/patient-support-gate-cloud/artifacts/
+          if-no-files-found: warn

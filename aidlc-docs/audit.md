@@ -5696,3 +5696,52 @@ RESILIENCY-03は証拠と変更記録へ反映。04・08・10〜13は未解決�
 **Context**: 回復力04・08・10〜13の未適合を維持。部分PBT追加実行N/A（進捗照会）、無効セキュリティ拡張を省略。通常Markdownの監査追記は構文と特殊文字を確認済み。
 
 ---
+## 検証資材生成計画の承認受領
+**Timestamp**: 2026-11-12T13:17:45Z
+**User Input**:
+```text
+# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/plans/patient-support-app-gate-preparation-review-questions.md
+
+## Open tabs:
+- patient-support-app-gate-preparation-review-questions.md: aidlc-docs/construction/plans/patient-support-app-gate-preparation-review-questions.md
+- gate-evidence-and-cutover.md: aidlc-docs/construction/patient-support-app/nfr-design/gate-evidence-and-cutover.md
+- patient-support-app-gate-cloud-validation-plan.md: aidlc-docs/construction/plans/patient-support-app-gate-cloud-validation-plan.md
+- production-gate-design.md: aidlc-docs/construction/patient-support-app/nfr-design/production-gate-design.md
+- patient-support-app-production-gate-questions.md: aidlc-docs/construction/plans/patient-support-app-production-gate-questions.md
+
+## My request:
+/C:/Users/khr85/Documents/ai-dlc-v1-test/aidlc-docs/construction/plans/patient-support-app-gate-preparation-review-questions.mdの回答を完了しました。次に進んでください
+```
+**回答ファイル原文**:
+# 実ゲート検証資材：コード生成計画レビュー
+
+2026-11-12。production-gate-design.mdと最小クラウド検証仕様の承認は受領済み。今回は、その後に作成した[8手順の具体コード生成計画](patient-support-app-gate-preparation-code-generation-plan.md)の生成・ローカル検査の範囲を確認する。
+
+## 質問1：検証用コードと配備テンプレートの作成
+
+独立した試作用パッケージに6サービス、Firestoreアダプター、証拠収集、C-01〜11の試験ドライバー、Terraform／Dockerテンプレート、費用見積りCLIを作成する。専用のSDK依存を導入し、ローカルの模擬DB・実HTTP・固定試験・部分PBTで検査する。既存38試験とアプリは保持する。gcloud・Terraform・Dockerの導入や実行、クラウド作成・課金・push・実AI／メール送信は含めない。最終フェンスの未成立と単価不明は保留として残す。
+
+A) 計画の8手順を承認し、検証資材の生成とローカル検査へ進む。
+
+B) 計画の変更を依頼する。変更したい範囲を回答欄に補足する。
+
+C) その他（希望する進め方を補足）。
+
+[Answer]:A　8手順の検証資材の生成とローカル検査を承認します。最終ゲートの切替試験は、旧版が新規送信・返却できないことを確認してから、新版だけを開く方針で進めてください。旧版を遮断できた証拠が不足する場合は、判定を保留してください。
+
+**AI Response**: 回答Aと追加条件を受領。矛盾なし。8手順を実行し旧版遮断証拠不足をPendingに保持する。既存段階を再開しwelcome再掲なし。共通規則・コード生成規則・拡張opt-inと有効回復力／部分PBTを確認。無効セキュリティ拡張は適用省略。npm.ps1実行制約はnpm.cmdで対応。クラウド作成・課金・実AI／メール送信は行わない。
+**Context**: Construction / 検証資材の隔離試作。段階全体完了ではない。
+
+---
+## 検証資材生成・ローカル検査の結果
+**Timestamp**: 2026-11-12T13:31:47Z
+**User Input**: 同一ターン冒頭の依頼原文と回答ファイル全文を上記に記録済み。新しいユーザー入力なし。
+**AI Response**: 8手順を実行。experiments/patient-support-gate-cloudへ独立依存・lockfile、6サービス、Firestore／memoryアダプター、writer禁止競合、T/O Prepare/Decision、本文なし証拠、固定宛先・ID token、cloud本文閉鎖、未知結果の再送禁止、Terraform候補・Dockerfile・不足設定例、C-01〜11ローカル22行、費用CLIと8費目fixtureを生成。資料はaidlc-docs内へ配置。専用CIを作成し、部分PBTのseed20261112とshrinkingを維持。SDK公式情報とnpm metadataを照合しFirestore9.4.1／auth11.3.4／Vitest5.1.0／fast-check4.10.2へ固定。初回npm照会はsandbox通信とnpm-cacheアクセス制約で失敗し、承認済み依存導入に必要な範囲のescalationで照会・インストール成功。自動承認レビューの拒否なし。最初の型検査でNode strip-types非対応のparameter propertyとSDKに存在しないtimeoutSecondsを検出し、erasable constructorと結果不明の待ち上限に修正。ルートでのnpm typecheck誤呼出しはscript不存在で無変更、専用パッケージで正しく実行。
+新規43件・既存38件と両型検査は成功。新規部分PBT4件×300例、既存6件×300例。ルート・既存試作のpackage/lock計4件のSHA256は開始時と一致。調査22行は範囲内合格8、保留13、期待したC-05反例FAIL1、43イベントをJSON保存。送信と本文返却の確認後停止の反例を固定検査で保持。費用CLIはINCOMPLETE／total:null。--cloud拒否を実行し終了コード1を確認。Terraform／Docker／gcloud未導入・未実行、クラウド作成・課金・実AI／メール送信なし。新規43件の検査成功を実構成の安全性合格へ読み替えない。
+**途中のユーザー向け報告**: 回答内容と現在の進行状態を確認し、承認済みの範囲で次の工程に進めます。／8手順の承認と、「旧版の新規送信・返却を遮断できた証拠がそろうまで新版を開かない」という追加条件を確認しました。独立パッケージで検証資材を作成し、ローカル検査を進めます。遮断の証拠不足は保留として残し、クラウド作成・課金・実AI／メール送信には進みません。／独立依存、証拠レコード、書込みと禁止更新を同じトランザクションで確認する処理、二地域台帳の途中失敗を保留にする処理を作成しました。続いて6サービスと試験を実装します。切替判定では旧版の送信と返却を別々に確認し、既存接続や未確定試行も条件に含めます。／新規41試験が通りました。C-05では、最終確認の直後に停止して旧処理を復帰させると、本文が受信先へ届く反例を再現しています。この結果から最終フェンスは未成立のままです。切替は保留とし、送信結果が不明な操作を自動再送しないことも確認しました。／最終検査では、新規43試験と既存38試験が通り、ルート・既存試作の依存ファイルも不変でした。22件のローカル調査は、試験範囲内合格8件・保留13件・既知反例1件です。費用CLIは単価不足をINCOMPLETEとして返します。結果と残課題を資料へまとめ、進捗・監査記録を更新します。
+**Context**: 結果正本gate-preparation-summary.md。計画Step1〜8と受領／生成チェック、aidlc-state.mdを更新。旧送信・返却遮断証拠不足なら新版を閉じる条件をgate-evidence-and-cutover.mdへ追記。RESILIENCY-03適合、04・08・10〜13の本構成blocking findingは継続、他規則の今回範囲外理由と部分PBT-02・03・07・08・09適合を結果表に記録。無効セキュリティ拡張は規則本体未ロード・適用省略。段階完了・Continue to Next Stage・クラウド実行許可は提示しない。
+**最終報告**: 承認済み8手順の検証資材作成とローカル検査を完了しました。新規43試験・既存38試験はすべて成功しました。ただし停止後に旧処理が送信・返却する反例を再現したため、切替は保留です。旧版遮断の証拠がそろうまで新版を開きません。クラウド実行・課金・実AI／メール送信は行っていません。結果資料を案内します。
+
+---

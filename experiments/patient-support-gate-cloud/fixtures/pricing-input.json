@@ -1,0 +1,10 @@
+[
+  { "category": "run", "region": "asia-northeast1", "sku": "", "unit": "vcpu-second", "unitPrice": null, "priceDate": "", "quantity": null, "lifetimeHours": 8, "currency": "USD", "source": "" },
+  { "category": "firestore", "region": "asia-northeast1", "sku": "", "unit": "operation", "unitPrice": null, "priceDate": "", "quantity": null, "lifetimeHours": null, "currency": "USD", "source": "" },
+  { "category": "load-balancer", "region": "global", "sku": "", "unit": "hour", "unitPrice": null, "priceDate": "", "quantity": null, "lifetimeHours": null, "currency": "USD", "source": "" },
+  { "category": "egress", "region": "asia-northeast1", "sku": "", "unit": "GiB", "unitPrice": null, "priceDate": "", "quantity": null, "lifetimeHours": null, "currency": "USD", "source": "" },
+  { "category": "inter-region", "region": "T-O", "sku": "", "unit": "GiB", "unitPrice": null, "priceDate": "", "quantity": null, "lifetimeHours": null, "currency": "USD", "source": "" },
+  { "category": "secret-image", "region": "asia-northeast1", "sku": "", "unit": "GiB-day", "unitPrice": null, "priceDate": "", "quantity": null, "lifetimeHours": null, "currency": "USD", "source": "" },
+  { "category": "observability", "region": "asia-northeast1", "sku": "", "unit": "GiB", "unitPrice": null, "priceDate": "", "quantity": null, "lifetimeHours": null, "currency": "USD", "source": "" },
+  { "category": "residual", "region": "T-O", "sku": "", "unit": "hour", "unitPrice": null, "priceDate": "", "quantity": null, "lifetimeHours": null, "currency": "USD", "source": "" }
+]

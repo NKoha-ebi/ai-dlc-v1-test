@@ -1,0 +1,7 @@
+{
+  "mode": "cloud", "role": "final-send", "environmentId": "gate-check-REQUIRED",
+  "deploymentId": "REQUIRED", "revision": "REQUIRED", "synthetic": true,
+  "faultInjection": false, "port": 8080,
+  "projectId": "", "databaseId": "", "osakaDatabaseId": "",
+  "urls": {}, "identities": {}, "localTokens": {}
+}
