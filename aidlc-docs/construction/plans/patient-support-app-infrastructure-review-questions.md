@@ -1,5 +1,7 @@
 # U01 インフラ設計案・未成立事項のレビュー
 
+> 2026-11-12回答反映：レビュー1A・2A・3B・4Bを受領。追加認証3対策を設計方針として採用し、非機能設計へ戻る。[安全変更保護・判定基盤の再比較](../patient-support-app/nfr-design/safety-control-comparison.md)を現行補完とする。月100相談・同時20人を維持し、旧850 USD予算・旧100 USD試作枠は不採用。方式成立・全体承認・実施は未完了。以下の採否待ち／回答停止は履歴。
+
 > 2026-11-12：以下4問への回答依頼は停止中。質問3の850 USD案と質問4の100 USD試作枠は採用しない。旧質問や回答は履歴として保持する。費用資料は[月100相談の通常月概算](../patient-support-app/infrastructure-design/cost-estimate-100-consultations.md)へ一本化し、新構成・新予算は未決定とする。
 
 2026-11-09作成の旧レビュー。元の回答1B・2A・3Aは確認済み。[インフラ設計案](../patient-support-app/infrastructure-design/infrastructure-design.md)、[3案の比較](../patient-support-app/infrastructure-design/deployment-architecture.md)、[現行の費用概算](../patient-support-app/infrastructure-design/cost-estimate-100-consultations.md)を参照。段階完了・本実装構成採用の承認依頼ではない。

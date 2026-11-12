@@ -4805,3 +4805,100 @@ Run／監視無料帯の根拠：[Run公式料金](https://cloud.google.com/run/
 **Context**: ユーザーが明示した不要費用ファイル削除を実行。対象は確認済みの2ファイルのみ。計画チェックと状態を同じ対話で更新。更新文書4件のUTF-8・表列・相対参照32件、全aidlc-docsの削除先リンク不在、残存費用ファイル1件を検証しエラー0。通常Markdownを事前確認、図・コードなし。金額・要件・拡張設定変更なし、部分PBT実行N/A、回復力未成立条件維持、無効セキュリティ拡張は省略。アプリ変更なし、ビルドN/A。
 
 ---
+
+## 非機能設計への差戻し・レビュー回答確認
+**Timestamp**: 2026-11-12T08:13:38Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/plans/patient-support-app-infrastructure-review-questions.md
+
+## Open tabs:
+- patient-support-app-infrastructure-review-questions.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-review-questions.md
+- cost-estimate-100-consultations.md: aidlc-docs/construction/patient-support-app/infrastructure-design/cost-estimate-100-consultations.md
+- infrastructure-design.md: aidlc-docs/construction/patient-support-app/infrastructure-design/infrastructure-design.md
+- patient-support-app-infrastructure-design-plan.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+- logical-components.md: aidlc-docs/construction/patient-support-app/nfr-design/logical-components.md
+
+## My request:
+C:\Users\khr85\Documents\ai-dlc-v1-test\aidlc-docs\construction\plans\patient-support-app-infrastructure-review-questions.md
+回答完了しました。次に進んでください"
+**AI Response**: 4回答1A・2A・3B・4Bを確認。認証対策採用、旧予算不採用を反映し、安全変更保護・判定基盤の比較を作成。Spanner国内dual-region公式仕様と料金体系、Cloud Run固定IP経路を照合。状態・計画・関連成果物を更新。
+**Context**: 質問2Aに従い非機能設計へ戻る。RESILIENCY-08・10〜13は未適合で段階完了を阻止。部分PBT実行N/A、無効セキュリティ拡張は適用省略。金額確定・クラウド作成・課金・実送信なし。新規文書は図・埋め込みコードなし、通常Markdownの構造を事前確認。
+
+---
+
+### 回答原文スナップショット
+# U01 インフラ設計案・未成立事項のレビュー
+
+> 2026-11-12回答反映：レビュー1A・2A・3B・4Bを受領。追加認証3対策を設計方針として採用し、非機能設計へ戻る。[安全変更保護・判定基盤の再比較](../patient-support-app/nfr-design/safety-control-comparison.md)を現行補完とする。月100相談・同時20人を維持し、旧850 USD予算・旧100 USD試作枠は不採用。方式成立・全体承認・実施は未完了。以下の採否待ち／回答停止は履歴。
+
+> 2026-11-12：以下4問への回答依頼は停止中。質問3の850 USD案と質問4の100 USD試作枠は採用しない。旧質問や回答は履歴として保持する。費用資料は[月100相談の通常月概算](../patient-support-app/infrastructure-design/cost-estimate-100-consultations.md)へ一本化し、新構成・新予算は未決定とする。
+
+2026-11-09作成の旧レビュー。元の回答1B・2A・3Aは確認済み。[インフラ設計案](../patient-support-app/infrastructure-design/infrastructure-design.md)、[3案の比較](../patient-support-app/infrastructure-design/deployment-architecture.md)、[現行の費用概算](../patient-support-app/infrastructure-design/cost-estimate-100-consultations.md)を参照。段階完了・本実装構成採用の承認依頼ではない。
+
+## 質問1：追加認証対策の補完レビュー
+
+[具体比較](../patient-support-app/nfr-requirements/authentication-supplement.md)のメール確認・不正試行制限・運営TOTPをどう扱いますか。標準再設定経路の迂回や24時間・最新のみの条件は別途成立確認が必要です。
+
+A) 推奨の3対策を設計方針として採用する。患者へのMFA一律必須化はせず、初期制限値・回復手順は試作と受入で確認する。
+
+B) 具体比較案の変更を依頼する。採用したい対策と変更点を回答欄に補足する。
+
+C) その他（対策ごとの希望を回答欄に記載）。
+
+[Answer]: A
+
+## 質問2：制御正本の未成立事項と次の作業範囲
+
+大阪単独の制御DBは大阪地域の永久喪失に対する確定済み安全変更の無損失を満たす構成になっていません。最終送信・返却・書込の2秒以内遮断も未実証です。回復力RESILIENCY-08・10〜13の未成立事項があり、現構成を本実装へ採用する段階には進めません。
+
+A) 非機能設計へ戻り、国内で独立した安全変更保護と判定基盤の具体構成・確定手順・費用を先に比較する。既存の無損失・国内優先・復旧目標は維持する。推奨。
+
+B) 現候補の限界を明示した比較試作のコード生成計画を先に作る。既存3試作条件・大阪喪失・認証迂回を範囲に含め、本実装採用や段階完了を承認したとはしない。試作後に方式・配置・費用へ戻って再レビューする。
+
+C) その他（要件や比較範囲の変更を希望する場合は具体的に記載）。
+
+[Answer]: A
+
+## 質問3：環境分離・初期設定・費用案
+
+案2（ローカル開発＋検証／β別、制御・復旧を含む計6プロジェクト）を比較の基準とし、min0・max4・concurrency8、AI2枠／PDF1枠を出発点とする提案です。予備費込み月額は低313.94／標準825.47／高2,611.96 USD、標準の許容予算案は850 USD／月です。独立制御保護の追加費用・部品単価の確定前なので、現時点の予算は比較基準であり本実装の採用・課金許可ではありません。
+
+A) 案2・初期設定・標準850 USD／月を比較基準として採用し、試作・独立保護案の費用判明後に本実装構成を再レビューする。600 USD案は今回前提では不足することを確認する。
+
+B) 別案・別予算を希望する。案1／案3または許容予算と、優先する負担・条件を回答欄に補足する。
+
+C) その他（使用量・監視方針等を変更したい場合は具体的に記載）。
+
+[Answer]: B
+
+案2と提示された初期設定は比較候補に置く。通常月は月100相談の現行概算を使い、登録100人・同時20人の受入条件を維持する。旧850 USD／月は採用せず、固定ネットワークと独立保護を含む総額を確認してから予算を決める。
+
+## 質問4：比較試作の費用・合否・戻り先
+
+本問は旧試作費基準の履歴であり、回答依頼は停止中。試作費は[現行見積り第1節](../patient-support-app/infrastructure-design/cost-estimate-100-consultations.md)に従い、必要な試験の実施計画と使用量で別算定する。クラウド作成・課金有効化・契約・実送信は未許可。
+
+A) 一回100 USD・7日以内・合成データ、実AI最大100試行かつ5 USD枠という計画基準に同意する。遮断・受信完全性・東京なし復元の3条件と大阪喪失／認証迂回を評価し、不成立・予算超過見込みなら方式／要件・費用へ戻す。実施範囲はコード生成計画で別途レビューする。
+
+B) 試作の費用基準・期間・合否条件を変更する。変更したい値と理由を回答欄に記載する。
+
+C) その他（現時点では有料試作を予定せずローカル検討だけにする等）。
+
+[Answer]: B
+
+合成データを使い、遮断・受信完全性・東京なしでの復元・大阪喪失・認証迂回を評価する。旧100 USDの試作枠は採用せず、方式比較後に必要な試験、実AIの試行回数、クラウド使用量から費用上限を決める。
+
+## 回答後の処理
+
+回答の整合を確認して、補完案と比較基準を更新する。質問2Aなら方式の具体比較、2Bなら比較試作計画に限定する。未成立事項を残したまま本実装のCode Generationやインフラ設計完了へ進めない。全体承認は成立条件・構成・予算のレビュー後に取得する。
+
+質問は2つの具体選択肢＋その他、[Answer]:タグ、選択肢間の空行で構成。図・埋め込みコードなし。セキュリティ拡張無効、PBT実行N/A、回復力の未成立事項は正本の規則別一覧を参照する。
+
+---
+
+## 内容検証
+**Timestamp**: 2026-11-12T10:54:05Z
+**AI Response**: 更新8文書の厳密UTF-8・相対リンク、新規比較資料の表列数を検証しエラー0。文書のみの変更につきアプリのビルド・テスト実行N/A。
+**Context**: 回答反映・比較補完。完了承認は未取得。
+
+---
