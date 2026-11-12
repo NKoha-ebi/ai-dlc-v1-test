@@ -1,5 +1,7 @@
 # U01 インフラ設計案・未成立事項のレビュー
 
+> 2026-11-12：費用削減の再検討を先行するため、以下4問への回答依頼はいったん停止。質問3の850 USD案は推奨を取り下げた。旧質問や回答は履歴として保持する。[費用内訳と削減案](../patient-support-app/infrastructure-design/cost-reduction-review.md)を先に提示し、新構成・新予算は未決定とする。
+
 2026-11-09。元の回答1B・2A・3Aは確認済み。[インフラ設計案](../patient-support-app/infrastructure-design/infrastructure-design.md)、[3案の比較](../patient-support-app/infrastructure-design/deployment-architecture.md)、[費用積上げ](../patient-support-app/infrastructure-design/cost-estimate.md)を判断材料とする。現時点は設計案の作成までで、段階完了・本実装構成採用の承認依頼ではない。
 
 ## 質問1：追加認証対策の補完レビュー

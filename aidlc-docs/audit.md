@@ -4668,3 +4668,23 @@ C:\Users\khr85\Documents\ai-dlc-v1-test\aidlc-docs\construction\plans\patient-su
 **Context**: 補完レビューは方式第10.1節とインフラ設計計画の判断境界に基づく。回復力規則の「The stage MUST NOT present the Continue to Next Stage option until all blocking findings are resolved」に従う。具体資料の作成・検証後に採否を依頼し、質問票への回答を待つ。旧回答の再取得ではない。
 
 ---
+
+## インフラ費用の再点検・削減指示
+**Timestamp**: 2026-11-12T07:07:14Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/infrastructure-design/infrastructure-design.md
+
+## Open tabs:
+- infrastructure-design.md: aidlc-docs/construction/patient-support-app/infrastructure-design/infrastructure-design.md
+- patient-support-app-infrastructure-review-questions.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-review-questions.md
+- patient-support-app-infrastructure-design-plan.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+- logical-components.md: aidlc-docs/construction/patient-support-app/nfr-design/logical-components.md
+- nfr-design-patterns.md: aidlc-docs/construction/patient-support-app/nfr-design/nfr-design-patterns.md
+
+## My request:
+待って高すぎる。内訳教えて、抑えるところを徹底的に抑える。まさかこれAIの外部API費用無しで？？？"
+**AI Response**: 外部AI費用込みであると直ちに説明し、旧標準全費目を再集計。利用AI337.50、監視AI10.368、その他312.508、予備費165.094＝825.47 USD。無料枠未控除・未実測の枠・都度試験・予備費を標準月額に混ぜた提示が不適切だったと訂正。公式OpenAI・GCP・Firebase資料を再確認し、uptime無料枠、Scheduler起動の業務合成監視代替、Run・DB・秘密・CI等の無料枠、AI回数／tokensの感度を整理。cost-reduction-review.mdを作成し、旧850 USD推奨と既存4問への回答依頼を停止。ユーザー指定の徹底削減を優先して、固定経路・多地域仲介・保存量も再比較の対象とした。
+**Context**: 同じ使用量の差引き例は予備費なし499.198〜504.198 USD、品質を保てる場合のtokens半減・平均5回なら利用AI56.25 USD、同じ仮基盤の比較総額約218〜223 USD。新確定見積りとはせず、地域料金・試験月・未成立独立保護追加は別と明記。現在の容量と平均使用量、相談とメッセージを区別。安全条件・毎分監視・本人認証・削除・DRを無断緩和せず、構成簡素化は未採用。RESILIENCY-08・10〜13の未成立条件は維持、部分PBT実行N/A、無効セキュリティ拡張は省略。文書6件のUTF-8・参照32件・表224行・旧合計・差引き・AI3ケースを機械検証しエラー0。進捗と旧案の失効表示を同じ対話で更新。アプリ変更なし・ビルドN/A、クラウド作成・課金・外部送信なし。
+
+---
