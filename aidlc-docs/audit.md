@@ -5365,3 +5365,97 @@ RESILIENCY-03：承認・変更根拠を記録。08・10〜13：実構成未成�
 **Context**: 途中の質問に回答して承認済み試作作業を継続。最終報告は必要ツール導入済み、型検査26試験成功、実構成上の未解消点は継続と案内。
 
 ---
+
+## ローカル検証結果に基づく次の進め方の説明
+**Timestamp**: 2026-11-12T12:07:57Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/code/local-validation-summary.md
+
+## Open tabs:
+- local-validation-summary.md: aidlc-docs/construction/patient-support-app/code/local-validation-summary.md
+- patient-support-app-local-validation-review-questions.md: aidlc-docs/construction/plans/patient-support-app-local-validation-review-questions.md
+- patient-support-app-local-validation-code-generation-plan.md: aidlc-docs/construction/plans/patient-support-app-local-validation-code-generation-plan.md
+- patient-support-app-remaining-issues-questions.md: aidlc-docs/construction/plans/patient-support-app-remaining-issues-questions.md
+- safety-control-comparison.md: aidlc-docs/construction/patient-support-app/nfr-design/safety-control-comparison.md
+
+## My request:
+この検証結果をもとにどうすればいいの？"
+**AI Response**: 26件合格はモデルのルール確認であり本実装の安全成立ではないと説明。次は停止伝播前の直接書込みと実送出の順序を優先し、全経路の実構成・状態・保証境界と旧実行者排除の証拠を設計する。その後、停止前後の書込み・外部送信・認証迂回を実サービスで検証する最小計画と費用を提示し、実施判断を受ける順序を推奨。根拠なく受付確定時点や停止保証を変更しない。ユーザーは技術実装を選ぶ必要はなく、具体案の保証範囲・停止時間・費用を判断する。
+**Context**: 結果解説のみ。新規実装・クラウド作成・課金・外部送信なし。通常Markdownを確認。無効セキュリティ拡張は適用省略。
+
+---
+
+## 停止境界の具体化：質問票作成
+**Timestamp**: 2026-11-12T12:10:31Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/code/local-validation-summary.md
+
+## Active selection of the file:
+# B案ローカル検証結果
+
+2026-11-12。計画レビュー質問1Aを確認し、[承認済み計画](../../plans/patient-support-app-local-validation-code-generation-plan.md)に沿って隔離したローカル試作を実装・検証した。合成データのみ使用し、実クラウド・実AI・実メールへ接続していない。
+
+## 実装と実行結果
+
+実装先はワークスペース直下experiments/patient-support-safety/。計画に記載した11個のsrcファイル、固定試験、生成器、PBT、専用設定・lockfile・READMEを作成。CIは.github/workflows/patient-support-safety-model.ymlへ追加した。リモートへpushせず、CIの実行は未確認。
+
+環境：Node.js 24.12.0、npm 11.6.2。固定依存はTypeScript 6.0.2、Vitest 5.1.0、fast-check 4.10.2、Vite 8.3.8、@types/node 24.13.3。VitestのNode/Vite要件とfast-checkの導入方法を公式情報で確認した。[Vitest公式](https://vitest.dev/guide/)、[fast-check公式](https://fast-check.dev/docs/introduction/getting-started/)。
+
+専用ディレクトリでnpm.cmd run typecheckとnpm.cmd testを実行。型検査成功、2ファイル・26テスト成功。内訳は固定シナリオ・対照20件、PBT6件。各PBTは500ケース、計3000ケース、seed 20261112。失敗時はfast-checkの縮小、seed/path表示を利用でき、READMEに特定テストだけの再現方法を記載した。
+
+初回導入でVite 8.2.2に高重要度の依存報告が出たため、試作側だけ8.3.8へ更新。更新時のnpm監査は脆弱性0件。既存アプリ側の依存や安全性を監査済みとする結果ではない。
+
+## シナリオの評価
+
+| シナリオ | 結果と限界 |
+| --- | --- |
+| L-01／旧V1 | 送信・返却の予約後停止、旧処理復帰で新規開始を拒否。最終アダプターの原子的判定を仮定 |
+| L-02 | 開始済み同一試行は完了可、再接続・後続結果利用を拒否。承認された開始済み例外のモデル確認 |
+| L-03 | 禁止適用後のcommitを拒否。ただし伝播前の直接commitは成功し、その間Acceptedを拒否。未解決の隙間を再現 |
+| L-04 | 仮想時刻1999／2000／2001msで目標判定。制御不健全・旧実行者排除未確認ならPending。実レイテンシは未測定 |
+| L-05／旧V6 | 片側受信記録喪失はunknownになり得る。両側保存後は残存記録から回収。再送の期限変更を拒否。受付保証変更の範囲内で判定 |
+| L-06 | Prepare・片側Decisionを失敗確定とせず残存保持。両側確定済み記録はどちらの地域の単独喪失でも残存 |
+| L-07 | 分断・片地域喪失で新規確定と新規作用を拒否。24時間超過を記録。時間経過で自動開放しない |
+| L-08 | 未処理対象以外の開放に対象分離、新着照合、独立保護、旧実行者排除、別担当確認を要求。これらの証拠そのものはモデル外 |
+| L-09 | 最新リンク・24時間未満・未消費・旧資格失効を確認。実Firebaseの認証経路は未検証 |
+| L-10／旧V8 | HTTP応答タイムアウト後も遅延処理が再開する設定で、新規開始を拒否。タイムアウトを取消証拠として使用しない |
+
+故意の欠陥対照では、停止前の許可を保存して使い回すと停止後の開始が起きることを確認した。この対照を検出したテストは成功であり、安全モデルの失敗を隠したものではない。
+
+## PBTの範囲
+
+保存形式往復、再送の期限維持とDecision非後退、単一地域喪失後の確定記録残存、世代単調、任意の操作・故障順序での新規開始拒否／禁止適用後commit拒否、消費済みリンク非復活を検証。対象IDに日本語・不明・回答しないを含む。空の順序列・ゼロ期限幅・境界値を含む生成器を使用する。
+
+生成したモデルに対する有限ケースであり、全状態・全故障や本番の性質の証明ではない。外部I/Oを使うPBTは追加していない。保存形式往復はモデルが作った有効なJSONの往復であり、破損した復元データの防御を検証したものではない。
+
+## 設計へ戻す結論
+
+採用済みの保証境界をローカルで表現でき、列挙した条件は試験に通った。ただし本実装B案の採用判断は保留する。特に以下を解消する実構成・証拠が必要。
+
+1. 許可と実ネットワーク送出の間に停止が入る場合の、実ゲートの保証境界。モデルの同期関数を実ソケットへ置き換えただけでは成立しない。
+2. 制御台帳から業務DBへの停止伝播前に書き込める区間。受付確定前ならすべて許されると推定せず、どの作用をいつから拒否するかを実構成で説明する。
+3. 旧実行者排除と対象分離・別担当確認の証拠。今回のboolean入力を製品上の操作・記録へ対応付ける。
+4. 実Firestoreの競合、両地域の確定／応答喪失と耐久性、実認証の標準REST迂回、IAM、保持・削除を別途検証する。
+
+次の実クラウド試験は、上記を対象に必要な部品・使用量・合否・費用を設計し、実施前にレビューする。本ローカル結果を同時20人、実時間2秒、実災害復旧、外部保持条件の達成証拠にはしない。
+
+## 拡張適合
+
+RESILIENCY-03：計画承認と実行・変更を記録。RESILIENCY-08・10〜13：実構成の未成立事項は継続。その他の実クラウド可用性・監視・配備・運用訓練は今回N/A（隔離したモデルのみ）。PBT-02・03・07・08・09：今回の純粋モデル・保存変換について実装・実行済み。CIジョブ作成済み、リモート実行は未確認。PBT-01・04〜06・10は助言として固定例・順序生成・対照に反映。無効セキュリティ拡張は適用省略、元の認証・同意・秘密保護は維持。
+
+通常Markdownと表のみ。図なし。試作コード生成とローカル検証の結果であり、本実装全体のCode Generation／Build and Test段階の完了ではない。
+## Open tabs:
+- local-validation-summary.md: aidlc-docs/construction/patient-support-app/code/local-validation-summary.md
+- patient-support-app-local-validation-review-questions.md: aidlc-docs/construction/plans/patient-support-app-local-validation-review-questions.md
+- patient-support-app-local-validation-code-generation-plan.md: aidlc-docs/construction/plans/patient-support-app-local-validation-code-generation-plan.md
+- patient-support-app-remaining-issues-questions.md: aidlc-docs/construction/plans/patient-support-app-remaining-issues-questions.md
+- safety-control-comparison.md: aidlc-docs/construction/patient-support-app/nfr-design/safety-control-comparison.md
+
+## My request:
+じゃあそこ詰めるための質問ファイルを作成してください"
+**AI Response**: patient-support-app-write-send-boundary-questions.mdを作成。業務DB内の禁止判定と書込みの同一トランザクション候補、実送信・返却の最終経路候補を説明し、技術側の担当を明示。利用者判断は4問に限定し、停止伝播前の書込みの扱い、一括／逐次返却、安全状態不明時の操作、実HTTP・別プロセス試作とクラウド試験の順序を推奨・代替・影響付きで質問。既存D-01〜06の再承認やライブラリー選定は求めない。4問・回答タグ・その他・UTF-8・相対参照を検証し状態を更新。各[Answer]:へ文字を記入して完了を知らせるよう案内。
+**Context**: 方針選択用の質問票を作成。技術的成立を利用者判断で代替しない。回復力08・10〜13未成立継続。無効セキュリティ拡張は適用省略。アプリ変更・追加試験・クラウド作成・課金・外部送信なし。
+
+---
