@@ -9,6 +9,7 @@
   "scripts": {
     "test": "vitest run",
     "test:properties": "vitest run tests/properties.test.ts",
+    "test:http": "vitest run tests/http-validation.test.ts",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {

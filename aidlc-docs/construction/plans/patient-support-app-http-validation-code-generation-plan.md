@@ -1,6 +1,6 @@
-# U01：実HTTP・別プロセス検証のコード生成計画
+﻿# U01：実HTTP・別プロセス検証のコード生成計画
 
-2026-11-12。状態：具体計画作成済み・実行前レビュー。[回答反映と設計](../patient-support-app/nfr-design/write-send-boundary-decisions.md)、質問4Aに基づく。前回のローカルモデルとは異なり、PC内の実HTTP通信を使用する追加試作。
+2026-11-12。状態：回答Aで承認され、追加試作を実装・検証済み。[回答反映と設計](../patient-support-app/nfr-design/write-send-boundary-decisions.md)、質問4Aに基づく。前回のローカルモデルとは異なり、PC内の実HTTP通信を使用する追加試作。
 
 ## 対象と配置
 
@@ -20,14 +20,14 @@ checkpointで待機／解除して競合を注入する。Windowsで未対応の
 
 ## 生成手順
 
-- [ ] Step 1：既存26試験とファイル配置を確認し、変更前の状態を記録。専用package.jsonへtest:httpを追加し、既存testは引き続き全試験を実行する設定とする。
-- [ ] Step 2：src/http-validation/protocol.ts・harness.tsを作成。IPC型、イベント収集、因果順序照合、127.0.0.1限定起動、ポート割当、終了監視、タイムアウトとfinally解放を実装する。
-- [ ] Step 3：src/http-validation/receiver.mjsを作成。実HTTPで合成本文を受信し、最初のchunkと完了を記録。応答遅延・応答喪失・受信待機を制御する。子プロセス用mjsはNode.jsで直接実行し、TypeScriptのIPC契約と照合する。
-- [ ] Step 4：src/http-validation/gateway.mjsを作成。対象別順序、予約と実開始の区別、停止後再確認、一括結果の返却、本文なし状態応答を実装。実write前後を観測し、開始未確認はunknownにする。旧実行者の排除を単なるbooleanで成功扱いにしない。
-- [ ] Step 5：tests/http-validation.test.tsへH-01〜09と欠陥対照を作成。任意のsleep長で順序を推測せず、checkpoint通知を待って操作する。接続・プロセスの終了期限を設け、timeoutは成功扱いにしない。
-- [ ] Step 6：専用README・インストール手順へtest:http、loopbackと子プロセスの必要条件、mjsファイルの役割を追記。既存CIで全試験と結果レポートが対象になることを確認し、追加環境設定が必要な場合だけ修正する。
-- [ ] Step 7：型検査、既存26試験、実HTTP試験を実行し、http-validation-summary.mdへ使用環境、全結果、順序ログ、再現手順、判定不能・反例・残る保証境界を記載。修正は同じ試作範囲内で行い、PBTの失敗を再実行だけで隠さない。
-- [ ] Step 8：変更ファイル、子プロセス・listener解放、ルート依存不変を確認。計画・監査・状態を更新し、設計へ結果を戻す。実DB等の次回試験の必要範囲を整理し、未実証を達成済みにしない。
+- [x] Step 1：既存26試験とファイル配置を確認し、変更前の状態を記録。専用package.jsonへtest:httpを追加し、既存testは引き続き全試験を実行する設定とする。
+- [x] Step 2：src/http-validation/protocol.ts・harness.tsを作成。IPC型、イベント収集、因果順序照合、127.0.0.1限定起動、ポート割当、終了監視、タイムアウトとfinally解放を実装する。
+- [x] Step 3：src/http-validation/receiver.mjsを作成。実HTTPで合成本文を受信し、最初のchunkと完了を記録。応答遅延・応答喪失・受信待機を制御する。子プロセス用mjsはNode.jsで直接実行し、TypeScriptのIPC契約と照合する。
+- [x] Step 4：src/http-validation/gateway.mjsを作成。対象別順序、予約と実開始の区別、停止後再確認、一括結果の返却、本文なし状態応答を実装。実write前後を観測し、開始未確認はunknownにする。旧実行者の排除を単なるbooleanで成功扱いにしない。
+- [x] Step 5：tests/http-validation.test.tsへH-01〜09と欠陥対照を作成。任意のsleep長で順序を推測せず、checkpoint通知を待って操作する。接続・プロセスの終了期限を設け、timeoutは成功扱いにしない。
+- [x] Step 6：専用README・インストール手順へtest:http、loopbackと子プロセスの必要条件、mjsファイルの役割を追記。既存CIで全試験と結果レポートが対象になることを確認し、追加環境設定が必要な場合だけ修正する。
+- [x] Step 7：型検査、既存26試験、実HTTP試験を実行し、http-validation-summary.mdへ使用環境、全結果、順序ログ、再現手順、判定不能・反例・残る保証境界を記載。修正は同じ試作範囲内で行い、PBTの失敗を再実行だけで隠さない。
+- [x] Step 8：変更ファイル、子プロセス・listener解放、ルート依存不変を確認。計画・監査・状態を更新し、設計へ結果を戻す。実DB等の次回試験の必要範囲を整理し、未実証を達成済みにしない。
 
 src内のmjsは実子プロセス起動用であり、別言語の製品実装へ変更するものではない。JSのチェックにはtsconfig側のallowJs/checkJsまたはJSDoc型を必要に応じて使用する。追加ランタイム導入なしでNode.js 24から直接実行できる構成を優先する。
 
@@ -55,9 +55,14 @@ PC内の実HTTPはCloud Runの複数インスタンス、権限分離、外部AI
 
 - [x] 4回答・既存モデル・公式HTTP／DB仕様を確認。
 - [x] 責務・観測点・8生成手順・9固定シナリオ・限界を具体化。
-- [ ] 今回の具体的な追加コード生成計画のレビュー回答を受領。
-- [ ] 承認済み計画を実行し結果を設計へ反映。
+- [x] 今回の具体的な追加コード生成計画のレビュー回答を受領。
+- [x] 承認済み計画を実行し結果を設計へ反映。
 
 RESILIENCY-03：承認・変更記録を計画。08・10〜13：実構成未成立は維持。部分PBT-02・03・07・08・09は既存純粋モデルを保持し、実HTTPへの新たな必須化は行わない。実通信の固定例・欠陥対照を追加する。無効セキュリティ拡張は適用省略。図・埋め込みコードなし。
 
 実行前レビューは[確認質問](patient-support-app-http-validation-review-questions.md)に記載。
+
+
+
+
+

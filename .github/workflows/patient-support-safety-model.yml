@@ -26,7 +26,7 @@ jobs:
           cache-dependency-path: experiments/patient-support-safety/package-lock.json
       - run: npm ci
       - run: npm run typecheck
-      - name: Model scenarios and properties
+      - name: Model, properties and loopback HTTP scenarios
         env:
           FC_SEED: '20261112'
         run: npx --no-install vitest run --reporter=default --reporter=json --outputFile=artifacts/tests.json

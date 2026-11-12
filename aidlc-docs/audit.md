@@ -5479,3 +5479,23 @@ RESILIENCY-03：計画承認と実行・変更を記録。RESILIENCY-08・10〜1
 **Context**: 既存の4回答を再承認させない。新たな具体計画をレビューする段階。禁止更新前commitはW-01で許容するが実DB・ゲートの成立確認とは区別。RESILIENCY-08・10〜13は未成立継続、部分PBT追加実行N/A、無効セキュリティ拡張は省略。追加コード・クラウド作成・課金・実AI／メール送信なし。
 
 ---
+
+## 実HTTP試作計画承認・生成と検証
+**Timestamp**: 2026-11-12T12:34:37Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/plans/patient-support-app-http-validation-review-questions.md
+
+## Open tabs:
+- patient-support-app-http-validation-review-questions.md: aidlc-docs/construction/plans/patient-support-app-http-validation-review-questions.md
+- patient-support-app-write-send-boundary-questions.md: aidlc-docs/construction/plans/patient-support-app-write-send-boundary-questions.md
+- local-validation-summary.md: aidlc-docs/construction/patient-support-app/code/local-validation-summary.md
+- patient-support-app-local-validation-review-questions.md: aidlc-docs/construction/plans/patient-support-app-local-validation-review-questions.md
+- patient-support-app-local-validation-code-generation-plan.md: aidlc-docs/construction/plans/patient-support-app-local-validation-code-generation-plan.md
+
+## My request:
+回答完了しました。次に進んでください"
+**AI Response**: 生回答Aを確認し8手順を実行。既存専用パッケージへTypeScriptのprotocol.ts・harness.ts、Node直接起動のgateway.mjs・receiver.mjs、http-validation.test.tsを追加。loopback限定のHTTP、IPCチェックポイント、実子プロセス終了、対象世代、停止意図・停止適用、最終再確認、一括返却・最小状態応答、送受信の別イベントを実装。既存の欠陥を模す対照で停止後の実本文送信を再現。候補は設けた待機点で拒否。受信読取りpauseで送信側finishと受信処理完了の違いを確認。型検査、mjs構文、既存26件＋実HTTP12件＝38件成功。PBT各500ケース・seed20261112を保持。全12試験で両子プロセスexitを確認。JSON・順序ログをローカルartifactへ保存。README・インストール手順・CI表示・結果報告・設計参照を更新。文書追加patchのBOMによる一致失敗は未変更を確認して分割修正。計画8チェック、リンク、UTF-8、ルート依存SHA256不変を確認。
+**Context**: 承認された隔離試作の生成・検証完了。開始点の定義を暗黙に変えず、任意命令位置のOS停止・複数インスタンス・実ゲート排除・Firestore・IAM・実認証・実復旧は未実証。実構成の回復力08・10〜13未成立を維持。部分PBTは純粋モデルで成功。無効セキュリティ拡張は省略。追加依存・クラウド作成・課金・外部AI／メール・リモートpush／CI実行なし。本実装全体の段階完了ではない。
+
+---

@@ -9,6 +9,7 @@ npm.cmd ci
 npm.cmd run typecheck
 npm.cmd test
 npm.cmd run test:properties
+npm.cmd run test:http
 ```
 
 Dependencies are pinned in package.json and package-lock.json; do not install globally. Windows PowerShell may block npm.ps1; npm.cmd avoids changing execution policy. The root application's dependencies are independent.
@@ -38,3 +39,13 @@ The ledger's synchronous operations, effect adapter's atomic first-byte handoff,
 Real sockets, process isolation, gate bypass prevention, IAM revocation, Firestore durability/transactions, Firebase REST bypasses, production concurrency, latency, and actual disaster recovery require separate integration validation. The auth model implements selected rules; it is not an authentication service.
 
 Full Japanese results and installation instructions are under aidlc-docs/construction/patient-support-app/code/ at the workspace root.
+
+## Real loopback HTTP experiment
+
+`test:http` forks a gateway and receiver using Node.js built-in HTTP and IPC. Both listeners bind only to `127.0.0.1` on OS-assigned ports. No additional package or external service is required. The `.mjs` entry points run directly under Node.js; protocol and harness code are TypeScript. They are test fixtures, not production servers.
+
+Checkpoints and IPC acknowledgments establish test order without guessed sleep intervals. The receiver separately records headers, first body chunk, complete body and response; the gateway records reservation, last check, write call, write callback and finish. Traces are written to `artifacts/http-traces.json`, including on assertion failure. CI's existing artifact upload includes this file.
+
+Every scenario closes listeners and terminates/awaits child processes in `finally`. RPC and HTTP deadlines bound a hung test; a deadline is a test failure, never proof of cancellation. Windows OS-level suspension is not used: checkpoints and an actual child-process termination cover only the named interleavings.
+
+The deliberately defective gateway branch is enabled only by the negative-control test to reproduce a cached-permission race. Do not reuse this fixture as an application gateway. The candidate's final check plus HTTP call is ordered within one JavaScript actor; it does not establish fencing against arbitrary OS suspension or multiple Cloud Run instances. A sender's finish event is not proof the receiver consumed the body. A successful child termination does not retract already received bytes. Unknown outcomes must remain unknown.
