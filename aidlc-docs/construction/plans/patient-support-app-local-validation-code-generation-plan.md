@@ -1,6 +1,6 @@
-# U01 B案ローカル検証：コード生成計画
+﻿# U01 B案ローカル検証：コード生成計画
 
-2026-11-12。状態：計画作成済み、生成前レビュー。根拠は残課題回答6Aと[承認済み方向の具体化](../patient-support-app/nfr-design/remaining-issues-decisions.md)。本実装用のコード生成ではなく、未成立条件を調べる隔離した試作。非機能設計・インフラ設計全体を完了扱いにしない。
+2026-11-12。状態：レビュー回答Aを受領し、ローカル生成・検証を実施済み。根拠は残課題回答6Aと[承認済み方向の具体化](../patient-support-app/nfr-design/remaining-issues-decisions.md)。本実装用のコード生成ではなく、未成立条件を調べる隔離した試作。非機能設計・インフラ設計全体を完了扱いにしない。
 
 ## 対象・既存構成
 
@@ -24,14 +24,14 @@
 
 ## 生成手順
 
-- [ ] Step 1：既存変更と出力先を確認し、experiments/patient-support-safety/package.json・tsconfig.json・vitest.config.tsを作る。TypeScript・Vitest・fast-checkの整合する依存を選び、その時点の公式情報を確認する。専用lockfileを生成する。
-- [ ] Step 2：src/contracts.ts・clock.ts・scheduler.ts・ledger.tsを作る。操作ID、Prepare／Decision、世代、元期限、耐久受付とAcceptedの区別、任意の停止／復帰時点を表現する。
-- [ ] Step 3：src/business-store.ts・effects.ts・controller.tsを作る。業務禁止状態と書込みの同時判定、実開始前の失効、開始済み試行の完了例外、停止後の保存・新規返却拒否を実装する。伝播前の隙間と順序不明を消さず表現する。
-- [ ] Step 4：src/intake.ts・recovery.ts・auth-policy.tsを作る。耐久受付、再送照合、片地域停止・分断、旧実行者排除、全体／対象別再開、期限非延長、24時間超過の未達記録を実装する。
-- [ ] Step 5：tests/scenarios.test.tsで下記固定シナリオを作る。旧V1・V6・V8の変更後の合否も明示する。正常ケースだけでなく、故意に禁止判定を外した欠陥例をテスト内の対照として検出できることを確認する。欠陥例は製品コードへ混入させない。
-- [ ] Step 6：tests/properties.test.ts・generators.tsで台帳の保存往復、元期限非延長、確定記録の残存、世代単調、停止後新規作用禁止、消費済みリンクの非復活を検証する。対象・操作・世代・時刻・故障順序を構造化し、seedとpathを失敗時に出力、縮小を有効にする。部分PBTの対象である純粋モデル・保存変換に限定する。
-- [ ] Step 7：README.mdへ実行方法と証拠の限界を記載し、aidlc-docs/construction/patient-support-app/code/local-validation-summary.mdへ結果・反例・再現手順・未確認事項を記録する。専用package.jsonにtest・test:properties・typecheckを用意する。既存CIがあれば適切なローカルモデル試験ジョブを追加し、なければ専用.github/workflows/patient-support-safety-model.ymlを作成する計画とする（実サービス・秘密なし）。
-- [ ] Step 8：専用パッケージの型検査・固定試験・PBTを実行する。失敗を単に再実行して隠さず反例を保存する。ルートの設定を変更していないことと出力先を確認し、計画チェック・監査・状態を更新する。結果を設計へ戻し、採用判断と実クラウド試験の必要範囲を提示する。
+- [x] Step 1：既存変更と出力先を確認し、experiments/patient-support-safety/package.json・tsconfig.json・vitest.config.tsを作る。TypeScript・Vitest・fast-checkの整合する依存を選び、その時点の公式情報を確認する。専用lockfileを生成する。
+- [x] Step 2：src/contracts.ts・clock.ts・scheduler.ts・ledger.tsを作る。操作ID、Prepare／Decision、世代、元期限、耐久受付とAcceptedの区別、任意の停止／復帰時点を表現する。
+- [x] Step 3：src/business-store.ts・effects.ts・controller.tsを作る。業務禁止状態と書込みの同時判定、実開始前の失効、開始済み試行の完了例外、停止後の保存・新規返却拒否を実装する。伝播前の隙間と順序不明を消さず表現する。
+- [x] Step 4：src/intake.ts・recovery.ts・auth-policy.tsを作る。耐久受付、再送照合、片地域停止・分断、旧実行者排除、全体／対象別再開、期限非延長、24時間超過の未達記録を実装する。
+- [x] Step 5：tests/scenarios.test.tsで下記固定シナリオを作る。旧V1・V6・V8の変更後の合否も明示する。正常ケースだけでなく、故意に禁止判定を外した欠陥例をテスト内の対照として検出できることを確認する。欠陥例は製品コードへ混入させない。
+- [x] Step 6：tests/properties.test.ts・generators.tsで台帳の保存往復、元期限非延長、確定記録の残存、世代単調、停止後新規作用禁止、消費済みリンクの非復活を検証する。対象・操作・世代・時刻・故障順序を構造化し、seedとpathを失敗時に出力、縮小を有効にする。部分PBTの対象である純粋モデル・保存変換に限定する。
+- [x] Step 7：README.mdへ実行方法と証拠の限界を記載し、aidlc-docs/construction/patient-support-app/code/local-validation-summary.mdへ結果・反例・再現手順・未確認事項を記録する。専用package.jsonにtest・test:properties・typecheckを用意する。既存CIがあれば適切なローカルモデル試験ジョブを追加し、なければ専用.github/workflows/patient-support-safety-model.ymlを作成する計画とする（実サービス・秘密なし）。
+- [x] Step 8：専用パッケージの型検査・固定試験・PBTを実行する。失敗を単に再実行して隠さず反例を保存する。ルートの設定を変更していないことと出力先を確認し、計画チェック・監査・状態を更新する。結果を設計へ戻し、採用判断と実クラウド試験の必要範囲を提示する。
 
 Step 7のCIファイルはワークスペースルートの.github/workflows/配下に置く。ローカル実装中にこのファイルを作成しても、リモートへのpush・公開・外部実行を許可した意味にはしない。
 
@@ -60,9 +60,14 @@ Step 7のCIファイルはワークスペースルートの.github/workflows/配
 
 - [x] 6回答と変更範囲、U01のストーリー対応、既存package.jsonとソース配置を確認。
 - [x] 試作の出力先・モデル契約・8生成手順・10固定シナリオ・合否・限界を具体化。
-- [ ] この具体的なコード生成計画のレビュー回答を受領。
-- [ ] 生成・検証を実施し、実構成への外挿を避けて報告。
+- [x] この具体的なコード生成計画のレビュー回答を受領。
+- [x] 生成・検証を実施し、実構成への外挿を避けて報告。
 
 RESILIENCY-03：承認・変更根拠を記録。08・10〜13：実構成未成立を維持。本試作は調査に限り、阻害事項を残した本実装着手を許可しない。PBT-02・03・07・08・09：生成手順6〜8に反映し、実行評価は未着手。PBT-01・04〜06・10：固定例と反例対照を含め助言として反映。セキュリティ拡張は無効につき適用省略。
 
 レビュー質問は[ローカル検証計画レビュー](patient-support-app-local-validation-review-questions.md)へ記載する。段階完了の報告ではない。
+
+
+
+
+

@@ -1,5 +1,7 @@
 # B案ローカル検証コード生成計画のレビュー
 
+> 回答Aを確認し計画実行の承認を受領。ローカル試作を実装し、型検査・固定20件・PBT6件が成功。[結果報告](../patient-support-app/code/local-validation-summary.md)。本実装採用・実クラウド試験の承認には含めない。
+
 2026-11-12。残課題の検討結果と6回答の承認は受領済みで、再承認は求めない。今回はそこから具体化した[8手順のコード生成計画](patient-support-app-local-validation-code-generation-plan.md)が対象。
 
 ## 質問1：具体的な試作コード生成計画

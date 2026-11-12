@@ -1,0 +1,38 @@
+name: Patient support safety model
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'experiments/patient-support-safety/**'
+      - '.github/workflows/patient-support-safety-model.yml'
+  pull_request:
+    paths:
+      - 'experiments/patient-support-safety/**'
+      - '.github/workflows/patient-support-safety-model.yml'
+permissions:
+  contents: read
+jobs:
+  model:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: experiments/patient-support-safety
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: experiments/patient-support-safety/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - name: Model scenarios and properties
+        env:
+          FC_SEED: '20261112'
+        run: npx --no-install vitest run --reporter=default --reporter=json --outputFile=artifacts/tests.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: safety-model-results
+          path: experiments/patient-support-safety/artifacts/
+          if-no-files-found: warn
