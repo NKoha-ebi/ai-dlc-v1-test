@@ -1,5 +1,7 @@
 # B案の残課題：検討結果と確認質問
 
+> 回答確認済み：1B・2B・3B・4B・5A・6A。未回答・選択肢不正・相互矛盾なし。検討結果の明示承認を受領し、[変更差分と具体契約](../patient-support-app/nfr-design/remaining-issues-decisions.md)へ反映。以下の空欄説明・旧方針は質問作成時の履歴。次は[具体的なローカル検証計画](patient-support-app-local-validation-code-generation-plan.md)のレビュー。
+
 2026-11-12。非機能設計の補完中。費用の確定とは分けて、方式成立に影響する判断を確認する。
 
 [現行の残課題](../patient-support-app/nfr-design/safety-control-comparison.md)第7〜12節と、インフラレビュー回答1A・2A・3B・4Bを入力とする。この質問票への回答は設計方針の選択であり、実装・契約・課金・外部送信の許可や段階完了ではない。既存質問票の回答は変更しない。
