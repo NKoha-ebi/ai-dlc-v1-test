@@ -5049,3 +5049,25 @@ Bやとどれくらい？"
 **Context**: 既存概算の算術説明。新規料金・構成採用・課金・実送信なし。通常Markdownを確認、図・コードなし。
 
 ---
+
+## 費用による候補A棄却
+**Timestamp**: 2026-11-12T11:15:34Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/infrastructure-design/cost-estimate-100-consultations.md
+
+## Open tabs:
+- cost-estimate-100-consultations.md: aidlc-docs/construction/patient-support-app/infrastructure-design/cost-estimate-100-consultations.md
+- safety-control-comparison.md: aidlc-docs/construction/patient-support-app/nfr-design/safety-control-comparison.md
+- patient-support-app-infrastructure-review-questions.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-review-questions.md
+- infrastructure-design.md: aidlc-docs/construction/patient-support-app/infrastructure-design/infrastructure-design.md
+- patient-support-app-infrastructure-design-plan.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+
+## My request:
+費用：候補Aを棄却"
+**AI Response**: 候補Aを費用により棄却し、既存の方式・金額は履歴として保持。候補Aの単価調査・追加設計検証・試験計画を終了し、今後の対象を候補Bへ限定。比較・費用・関連設計・状態・計画を更新。
+**Context**: 明示された棄却決定を実行。候補Bの構成／予算採用とはしない。RESILIENCY-03は決定記録適合、08・10〜13は未成立を維持。部分PBT実行N/A、無効セキュリティ拡張は省略。図・埋め込みコードなし、通常Markdownの追記と表ラベルを事前確認。
+
+---
+
+検証結果：更新7文書のUTF-8・棄却記録・表列・相対参照が適合。文書変更のみにつきアプリのビルド／試験N/A。
