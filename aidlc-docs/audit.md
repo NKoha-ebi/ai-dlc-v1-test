@@ -4902,3 +4902,150 @@ C) その他（現時点では有料試作を予定せずローカル検討だ�
 **Context**: 回答反映・比較補完。完了承認は未取得。
 
 ---
+
+## A・B方式比較と設計検証の方針承認
+**Timestamp**: 2026-11-12T10:59:47Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/nfr-design/safety-control-comparison.md
+
+## Active selection of the file:
+# U01 安全変更保護・判定基盤の再比較
+
+2026-11-12。インフラレビュー回答1A・2A・3B・4Bを反映。質問2Aに従う非機能設計の補完であり、構成採用・段階完了の承認対象にはまだ達していない。
+
+## 1. 維持する条件
+
+月100相談、登録100人、同時20人。一般データRPO最大4時間、安全変更の確定後無損失、最大2秒の送信順序調整、国内優先、翌営業日着手・開始後24時間以内の復旧目標を維持する。安全停止と復旧目標達成は別判定。案2とmin0・max4・concurrency8、AI2枠／PDF1枠は比較候補。旧850 USD／月・100 USD試作枠は採用しない。
+
+メール確認・不正試行制限・運営TOTPは設計方針として採用。患者MFA一律必須化は行わず、初期制限値・回復手順・標準再設定経路の迂回防止は検証対象のまま維持する。
+
+## 2. 配置と比較
+
+| 候補 | 具体構成と確定点 | 地域喪失・分断 | 負担・判断 |
+| --- | --- | --- | --- |
+| 旧案 | 大阪Firestoreに制御正本、他地域は非同期追従 | 大阪永久喪失時に確定済み安全変更を失い得る | 必須条件不適合。本実装候補から除外し比較履歴のみ |
+| A：国内同期DB | 本文なし制御台帳をSpanner Enterprise Plusのdual-region-japan1へ分離。東京／大阪の受信・判定経路が同じ台帳を使用。通常時は両地域を含むcommit成功後に意図保存を確定 | 単一地域喪失時のDB保護を製品に委ねる。DB不通時は新規作用を拒否し受付状態を保留。DB復帰だけでアプリを再開しない | 同期・競合処理の自作範囲を減らせる第一比較候補。固定計算資源費と利用可能な最小容量の確認が必要 |
+| B：2地域の同期確認台帳 | 東京／大阪それぞれ別プロジェクトのFirestoreとCloud Run。単一書込者が連番・前項hash・要求ID・制御世代を付与し、両地域の耐久記録完了後だけ確定応答。片側保存は未確定として停止側へ倒す | 同期確認不能時は確定応答しない。片地域からの単独昇格を禁止。旧書込者の失効と確定末尾を証明できなければ再開しない | 従量主体を狙えるが、2DBを1トランザクションにはできない。確定結果喪失、再試行、世代交代のプロトコル検証が重い。復旧目標内の再開可能性は未成立 |
+
+Aの東京／大阪配置・強整合・地域障害時のRPO0は[公式構成仕様](https://docs.cloud.google.com/spanner/docs/instance-configurations)に基づく。製品の保証範囲をアプリ全体へ拡張しない。単一地域quorumへの切替後は独立保護が縮退するため、新規安全変更を従来と同じ保証で確定してよいとは扱わない。両地域保護の回復または別の成立済み保護先ができるまで該当確定を保留する。この停止が復旧目標を超えるならAも不採用として再設計する。
+
+Bは本資料で提案する未実証方式。応答前に両側へ保存しても、復旧側が確定末尾や旧実行者排除を識別できることは別問題。hashは改ざん・欠番検出の補助であり、合意・フェンス・永続化を代替しない。
+
+## 3. 共通の確定手順と判定責務
+
+1. 独立した権利請求入口を両地域へ配置する。要求ID・最小参照・受信段階を記録し、本人未確認と本人確認済み意図を分ける。記録前切断も含め、到達し得る入口と未記録区間を追跡する。耐久化後の応答だけを見て受信完全性を証明しない。
+2. 本人確認後、対象・目的・新制御世代・新規処理禁止を保護台帳へ保存する。Aは同期commit、Bは両側の耐久確認を必要条件にする。タイムアウトは成功扱いせず要求IDで照合する。
+3. 最終実行経路が書込・送信・返却を仲介する。業務経路には直接DB書込権限・外部API秘密を与えない。全作用を実行世代と対象版で照合し、古い世代・判定不能・期限切れは拒否する。
+4. 実行中作用の順序を確定し、未開始作用を拒否できた証拠を保存して利用遮断を確定する。許可確認と実送出の間で停止する競合、既存接続、予約済み処理、遅延書込・返却を含む。許可トークンの短いTTLや直前再読込だけで2秒保証を成立済みにしない。
+5. 利用遮断と独立耐久保護の両条件が揃ったときだけ削除等の受付確定を返す。最大2秒で順序を確定できない場合は新規作用を停止して保留表示。送出済みデータの取消と、その結果の保存・適用・表示拒否を区別する。
+6. 地域喪失後は受信到達点、未処理要求、制御末尾、旧世代の実行不能、復元物の隔離を別担当が確認して開放する。東京なし・大阪なしを別試験にする。一般データの復元点と制御台帳の無損失を混同しない。
+
+DBと外部HTTP送信を原子的にcommitできるとは仮定しない。判定後に停止した旧プロセスが再開して実送出できる構成は不合格。全最終作用を覆う排他・世代失効と実行機構の設計が共通の残課題であり、Aの採用だけでは解消しない。
+
+## 4. 費用の積算と接続候補
+
+通常月の正本は[月100相談概算](../infrastructure-design/cost-estimate-100-consultations.md)。既存47.218〜62.718 USDは固定network・追加独立保護を除く比較基準であり、完成構成総額ではない。
+
+| 候補 | 通常月の追加・置換費目 | 未確定値の決め方 |
+| --- | --- | --- |
+| A | Spanner計算容量・保存・backup・複製・通信、2地域の入口／仲介実行・監視 | 日本dual-region・Enterprise Plusの最小許容容量とSKU単価を取得。計算費は稼働時間×容量node換算×構成の時間単価。既存制御Firestore分を特定して差し引く |
+| B | 2地域の台帳read/write・保存・PITR／backup・照合通信・入口／仲介／監視実行 | 通常監視も含む操作数、記録サイズ、保持日数、再試行率を測定。地域別・日次無料枠を重複控除しない |
+| 共通network | 認証付きHTTPS、またはVPC・NAT／proxy等の制限経路 | HTTPS認証だけでは秘密を持つ実行者の任意送信を防げない。権限分離と宛先制限を満たす最小構成を先に固定。旧55 USDを部品価格として流用しない |
+
+Spannerは計算資源以外に保存・backup・複製・転送が課金対象。[公式料金](https://cloud.google.com/spanner/pricing)。現行表を地域・構成別に確定できていないため、汎用regional単価や推定最小容量から月額を断定しない。固定IPが必要なCloud Run経路は[VPCとCloud NATを使う公式構成](https://docs.cloud.google.com/run/docs/configuring/static-outbound-ip)を比較するが、固定IP自体を送信フェンスと呼ばない。
+
+全体総額＝既存小計－重複する旧制御費＋採用候補の制御費＋確定network費。試験月は必要試験のCPU秒・DB操作・保存／転送・実AI回数を別加算。総額・試験上限は未決定。新たな費用専用ファイルは作成しない。
+
+## 5. 検証順序・合否・戻り先
+
+最初に両候補の状態遷移と最終作用フェンスを紙上で検証し、反例のある候補を除外する。次にローカルモデルで重複・逆順・片側保存・commit後応答喪失・停止プロセス再開を検証する。ローカル合格は実クラウドIAM・地域喪失・実外部送信の合格を代替しない。
+
+実試験計画では遮断・受信完全性・東京なし復元・大阪喪失・認証迂回を必須とし、合成データのみ使用。確定安全変更の消失、遮断後の不正作用、受信済み要求の見落とし、認証の旧リンク更新は1件でも不合格。復旧目標・通常API性能・同時20人も独立判定する。実AI試行数は目的別に積み上げ、旧枠を転記しない。
+
+失敗時は本非機能設計へ戻る。要件緩和が必要なら要件／機能設計へ戻して明示レビューする。クラウド資源作成・課金・契約・実送信に入る前に実施範囲と使用量・費用上限を具体化してレビューする。
+
+## 6. 拡張評価と現在地
+
+| 規則 | 評価 |
+| --- | --- |
+| RESILIENCY-01・02・03 | 適合（本補完の文書範囲）。責務・目標・変更履歴を維持 |
+| RESILIENCY-04〜07・09・14・15 | 本変更の詳細再設計はN/A。配備・容量・監視・試験・運営の既存設計を継承。実設定・実行は未実施 |
+| RESILIENCY-08 | 未適合。Aの製品上の2地域保護は確認、実行経路全体の独立性・縮退時保証は未成立 |
+| RESILIENCY-10 | 未適合。最終作用の競合と認証迂回は未解消 |
+| RESILIENCY-11 | 未適合。候補別の費用・縮退時再開と復旧目標の両立は未確認 |
+| RESILIENCY-12 | 未適合。東京なしの一般復元元・期限消去と安全台帳の構成実証待ち |
+| RESILIENCY-13 | 未適合。開放証拠・旧実行者排除・受信完全性の成立確認待ち |
+| PBT-02・03・07・08 | 保存往復・単調世代・遮断後作用禁止の性質を継承。構造化生成器・縮小・seed/pathを試験計画へ。実行N/A（文書のみ） |
+| PBT-09 | fast-check／Vitestを継承。依存設定N/A（コード未生成） |
+| セキュリティ拡張 | 無効につき適用省略。元の認証・同意・秘密保護要件は継続 |
+
+方式比較は進めたが段階完了とはしない。次の作業は最終作用フェンスと受信境界の具体化、候補Aの容量／SKU取得、候補Bの復旧時確定手順の反例検証。追加のユーザー選択を求める前に成立性と全費目を比較可能にする。
+
+## Open tabs:
+- safety-control-comparison.md: aidlc-docs/construction/patient-support-app/nfr-design/safety-control-comparison.md
+- patient-support-app-infrastructure-review-questions.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-review-questions.md
+- cost-estimate-100-consultations.md: aidlc-docs/construction/patient-support-app/infrastructure-design/cost-estimate-100-consultations.md
+- infrastructure-design.md: aidlc-docs/construction/patient-support-app/infrastructure-design/infrastructure-design.md
+- patient-support-app-infrastructure-design-plan.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+
+## My request:
+追加記載を、A・Bの方式比較と設計検証を進める方針として承認します。次回レビューでは、最大2秒の判定と停止手順、地域喪失時の再開条件と復旧目標、権利請求の受信境界を具体化し、候補別の費用とあわせて提示してください。構成採用・段階完了、および課金を伴うクラウド試験や外部送信の承認は、具体案を確認したうえで別途判断します。"
+**AI Response**: 承認は方式比較・設計検証に限定して受領。2秒判定・停止、地域喪失後の再開、受信境界と候補別費用の具体レビューを作成する。
+**Context**: 構成採用・段階完了・有料クラウド試験・外部送信は別途判断。セキュリティ拡張は無効につき適用省略。
+
+---
+
+## A・B具体設計レビュー案の作成
+**Timestamp**: 2026-11-12T11:04:52Z
+**AI Response**: 方式比較第7〜12節へ2秒起算・配分・停止と保留、A／B確定手順、地域喪失／分断の再開条件、24時間の作業配分、受信境界、V1〜V8の設計反例を記載。簡易3順序モデルは許可読取→遮断→送出に反例1件、他2順序では反例なし。費用正本第5節へ100／1000PU・台帳操作・NATの候補別感度と未算入部品を追記。日本SKUの単価選択未確認を明示し、Australiaの表示料金を日本料金へ転用しない。
+**Context**: 文書の構造・表・リンク・式を事前確認。図・埋め込みコードなし。RESILIENCY-08・10〜13は最終作用・独立保護再構成・受信完全性・復旧目標両立の未成立により段階完了を阻止。部分PBT実行N/A、無効セキュリティ拡張は省略。構成採用・段階完了・課金・実送信なし。費用は感度小計であり完成総額ではない。
+
+---
+
+## 次回レビュー案の内容検証・提示
+**Timestamp**: 2026-11-12T11:05:24Z
+**AI Response**: 更新7文書のUTF-8・Markdown表列・相対リンク42件、候補別小計6端点を検証しエラー0。具体レビュー案を提示。A・Bとも最終作用フェンス・受信境界の未成立、日本SKU・最終ゲート費用の未確定を明示。
+**Context**: 計画チェックを同じ対話で更新。完成構成・全費目総額のレビュー項目は未完了を維持。文書のみのためアプリのビルド／製品試験N/A。
+
+---
+
+## 利用ゼロ時の維持費の説明
+**Timestamp**: 2026-11-12T11:10:21Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/infrastructure-design/cost-estimate-100-consultations.md
+
+## Open tabs:
+- cost-estimate-100-consultations.md: aidlc-docs/construction/patient-support-app/infrastructure-design/cost-estimate-100-consultations.md
+- safety-control-comparison.md: aidlc-docs/construction/patient-support-app/nfr-design/safety-control-comparison.md
+- patient-support-app-infrastructure-review-questions.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-review-questions.md
+- infrastructure-design.md: aidlc-docs/construction/patient-support-app/infrastructure-design/infrastructure-design.md
+- patient-support-app-infrastructure-design-plan.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+
+## My request:
+これってさ、稼働しなくても維持費で月どれだけかかる？"
+**AI Response**: 利用者アクセス0・定時監視継続の前提で既存資料を分解。共通メール約6・DNS／ドメイン2・実AI監視10.368で約18 USD。Aは100PUと仮単価の既存感度ならDB計算216〜360を加え約234〜378 USD、Bは計算容量固定費なしの比較で約18 USD。両者とも保存・通常監視・network・未選定ゲート等を別加算する部分額で総額は未確定。固定IP2個を残す案なら更に7.20 USD／月、gateway等は別。監視も停止する場合は実AI監視分を除くが資源存続費は残る。
+**Context**: 既存見積りの仮定を説明し、新しい料金確定・構成変更・停止操作は行わない。文書の単純追記のみ、図・コードなし。
+
+---
+
+## B案の利用ゼロ時の概算補足
+**Timestamp**: 2026-11-12T11:11:51Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/infrastructure-design/cost-estimate-100-consultations.md
+
+## Open tabs:
+- cost-estimate-100-consultations.md: aidlc-docs/construction/patient-support-app/infrastructure-design/cost-estimate-100-consultations.md
+- safety-control-comparison.md: aidlc-docs/construction/patient-support-app/nfr-design/safety-control-comparison.md
+- patient-support-app-infrastructure-review-questions.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-review-questions.md
+- infrastructure-design.md: aidlc-docs/construction/patient-support-app/infrastructure-design/infrastructure-design.md
+- patient-support-app-infrastructure-design-plan.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+
+## My request:
+Bやとどれくらい？"
+**AI Response**: Bの既存比較小計61.688〜154.548から相談AI22.50だけを引くと39.188〜132.048 USD。利用ゼロ・監視継続で他の仮枠を残す暫定比較として約40〜130 USD／月＋未価格部品と説明。前の約18 USDは共通費の一部で総額ではない。利用依存の他費目は未再積算、日本SKU・最終ゲート等は未確定のため、固定維持費の確定範囲／上限とはしない。
+**Context**: 既存概算の算術説明。新規料金・構成採用・課金・実送信なし。通常Markdownを確認、図・コードなし。
+
+---
