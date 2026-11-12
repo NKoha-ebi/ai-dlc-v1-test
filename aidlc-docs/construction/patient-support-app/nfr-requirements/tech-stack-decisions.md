@@ -1,5 +1,7 @@
 # U01 技術選定
 
+2026-11-09：[インフラ設計案](../infrastructure-design/infrastructure-design.md)で配置・初期値・費用を具体化し、[追加認証補完案](authentication-supplement.md)を提示した。どちらも未採用。既存承認を追加認証や大阪制御正本の成立承認に読み替えない。
+
 2026-11-05調査。レビュー案。OpenAI Responses API／Firebaseは既定、以下の製品・モデル・ライブラリーは提案。既存React 19・TypeScript 6・Vite 8のひな形を維持する。契約・依存導入・外部接続は未実施。
 
 ## 選定案と比較
