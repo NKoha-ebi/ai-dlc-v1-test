@@ -5745,3 +5745,33 @@ C) その他（希望する進め方を補足）。
 **最終報告**: 承認済み8手順の検証資材作成とローカル検査を完了しました。新規43試験・既存38試験はすべて成功しました。ただし停止後に旧処理が送信・返却する反例を再現したため、切替は保留です。旧版遮断の証拠がそろうまで新版を開きません。クラウド実行・課金・実AI／メール送信は行っていません。結果資料を案内します。
 
 ---
+## 残課題の解消案・確認質問の依頼
+**Timestamp**: 2026-11-12T13:50:26Z
+**User Input**:
+```text
+# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/code/gate-preparation-summary.md
+
+## Open tabs:
+- gate-preparation-summary.md: aidlc-docs/construction/patient-support-app/code/gate-preparation-summary.md
+- patient-support-app-gate-preparation-review-questions.md: aidlc-docs/construction/plans/patient-support-app-gate-preparation-review-questions.md
+- gate-evidence-and-cutover.md: aidlc-docs/construction/patient-support-app/nfr-design/gate-evidence-and-cutover.md
+- patient-support-app-gate-cloud-validation-plan.md: aidlc-docs/construction/plans/patient-support-app-gate-cloud-validation-plan.md
+- production-gate-design.md: aidlc-docs/construction/patient-support-app/nfr-design/production-gate-design.md
+
+## My request:
+残課題を解消するための案または未明瞭な点は質問をしてください
+```
+**AI Response**: 残課題と既存の決定を照合し、解消案を整理します。技術的に未成立の点と、方針の選択が必要な点を分け、確認事項は質問ファイルにまとめます。
+**Context**: NFR設計補完。D/W/G判断・旧版遮断後に新版のみ開く条件は維持。コード変更・クラウド実行の依頼とは解釈しない。
+
+---
+## 残課題解消案と4問の提示
+**Timestamp**: 2026-11-12T13:52:46Z
+**AI Response**: 現行結果とD/W/G判断・旧版遮断条件を照合。PG-01/02は再確認追加では解消しないため、Cloud Run案の限界と専用VM等による最終主体の基盤停止を比較候補として整理した。公式Compute Engine停止／lifecycleとCloud Run timeout仕様を照合。VM停止完了だけで全経路・対象別停止・G-01順序を保証するとは主張せず、再起動／再作成制限、TLS終端・proxy・既存接続、管理制御面不通の保留、二地域保護の成立条件を残した。PG-03の資格・宛先・DB境界表、PG-04のゲート停止切替／通常アプリCanary分離、構成成立見込み後の費用比較を提案。構成変更範囲、Canary対象、計画停止上限、費用制約の4問を専用ファイルへ作成。回答だけで成立・採用・支出許可と扱わない。
+**追加の途中報告**: 中心の課題は、旧プロセスが止まって復帰しても、最後の送信・返却を開始できない仕組みです。再確認を増やすだけでは解消しないため、実行基盤から旧主体を停止する方式も比較候補に加えます。成立を断定せず、構成変更の許容範囲とCanaryの扱いなど、4点を確認する形に整理しています。
+**Context**: 共通ルールとNFR設計質問規則を使用。図・コードブロックなしの通常Markdown、4回答欄と各A/B/Cの意味・空行・その他選択肢・相対参照を確認。進捗checkboxを更新。RESILIENCY-03変更追跡、04・08・10〜13本構成未適合継続、その他今回範囲外理由を案に記載。部分PBT追加実行N/A、無効セキュリティ拡張省略。実装・導入・課金なし。AGENTS.mdとcommon/question-format-guide.mdの質問ファイル指定に従い回答依頼をファイルへ置く。
+**最終回答**: 解消案と確認4問を作成しました。推奨は、最終送信・返却を基盤から停止できる構成も比較し、ゲートの停止切替と通常アプリのCanaryを分けて設計することです。方式の成立は未確定です。質問ファイルの各[Answer]:に回答してください。
+
+---

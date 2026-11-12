@@ -821,3 +821,11 @@ privacy-policy-design-changes.mdを共通差分の正本とする。18歳以上�
 - [ ] 実環境・SKU・数量・総額・実試験ドライバーと将来の実施許可。
 
 結果正本：construction/patient-support-app/code/gate-preparation-summary.md。Terraform／Docker実検査、実Firestore／IAM／ネットワーク／OS停止／災害復旧／リモートCIは未実施。クラウド作成・課金・実AI／メール送信なし。RESILIENCY-04・08・10〜13の阻害事項は継続、部分PBT必須5規則は今回の純粋変換で適合、無効セキュリティ拡張は適用省略。本実装・非機能設計／インフラ設計全体完了とはしない。
+
+## 最新：残課題の解消案と方針確認（2026-11-12）
+
+- [x] gate-remediation-options.mdにPG-01/02の実行基盤停止を含む比較候補、PG-03経路／権限、PG-04のゲート停止切替と通常アプリCanary分離案を整理。
+- [x] patient-support-app-gate-remediation-questions.mdに構成変更の範囲・Canary適用対象・計画停止時間・費用制約の4問を作成。
+- [ ] 4回答を確認し具体設計・故障モデル・受入証拠・費用比較へ反映する。
+
+現在はNFR設計補完の方針回答待ち。専用VMは比較候補で採用・成立は未決定。旧版送信／返却遮断の証拠不足なら新版閉鎖を維持。コード変更・試験追加実行・クラウド作成・課金・外部送信なし。RESILIENCY-04・08・10〜13の未適合を保持。部分PBT追加実行N/A、無効セキュリティ拡張は省略。
