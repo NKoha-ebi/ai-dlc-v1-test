@@ -5093,3 +5093,97 @@ Bやとどれくらい？"
 ---
 
 検証結果：更新7文書の不要候補記述不在・UTF-8・表列・相対参照を確認しエラー0。アプリのビルド／試験N/A（文書整理のみ）。
+
+## B案の費用内訳の説明
+**Timestamp**: 2026-11-12T11:22:00Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- nfr-design-patterns.md: aidlc-docs/construction/patient-support-app/nfr-design/nfr-design-patterns.md
+- infrastructure-design.md: aidlc-docs/construction/patient-support-app/infrastructure-design/infrastructure-design.md
+- patient-support-app-infrastructure-design-plan.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+- patient-support-app-infrastructure-review-questions.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-review-questions.md
+- safety-control-comparison.md: aidlc-docs/construction/patient-support-app/nfr-design/safety-control-comparison.md
+
+## My request:
+B案の内訳もうちょい見せて"
+**AI Response**: 現行費用正本を確認し、月100相談の内訳を表示。相談AI22.50、AI監視10.368、基盤実行3〜10、既存保存2〜5、メール6.05、ドメイン2、他既存1.30〜6.80、B台帳1.50〜3、追加保存0.50〜3、追加実行5〜15、NAT／IP7.47〜70.83で小計61.688〜154.548 USD。NAT／IPの幅をIP7.20・仮処理0.27・gateway0〜63.36に分解。下限は稼働可能な最低費ではなく算術境界、日本SKU未確定・ゲート等未算入を明記。利用ゼロ時は相談AIのみ差し引く暫定39.188〜132.048 USDで、他費目再積算前と説明。
+**Context**: 既存文書の内訳説明のみ。構成・金額・課金許可の新規判断なし。通常Markdown表を確認、図・埋め込みコードなし。
+
+---
+
+## メール費用の算定根拠の説明
+**Timestamp**: 2026-11-12T11:24:22Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- nfr-design-patterns.md: aidlc-docs/construction/patient-support-app/nfr-design/nfr-design-patterns.md
+- infrastructure-design.md: aidlc-docs/construction/patient-support-app/infrastructure-design/infrastructure-design.md
+- patient-support-app-infrastructure-design-plan.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+- patient-support-app-infrastructure-review-questions.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-review-questions.md
+- safety-control-comparison.md: aidlc-docs/construction/patient-support-app/nfr-design/safety-control-comparison.md
+
+## My request:
+メールってどういう原理でその金額？何にお金を払っているの？"
+**AI Response**: 6.05 USDは受信用mailbox1席の仮枠6 USDとアプリ自動送信500通×仮単価0.10 USD／千通＝0.05の合算。前者はアプリ停止中にも問い合わせ・削除等の請求を受信／保存／閲覧するメールサービス、後者は送信APIによる配信の対価。6 USDは未選定の仮値で契約料金ではない。患者100人分のメールアカウント費やドメイン代ではない。既存窓口を要件に沿って利用できれば追加mailbox費を削減できるが、現時点で0とはしない。
+**Context**: 現行見積りの仮定の説明のみ。新たな料金保証・契約・要件変更・実送信なし。
+
+---
+
+## 構築前に残る判断事項の説明
+**Timestamp**: 2026-11-12T11:26:32Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- nfr-design-patterns.md: aidlc-docs/construction/patient-support-app/nfr-design/nfr-design-patterns.md
+- infrastructure-design.md: aidlc-docs/construction/patient-support-app/infrastructure-design/infrastructure-design.md
+- patient-support-app-infrastructure-design-plan.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+- patient-support-app-infrastructure-review-questions.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-review-questions.md
+- safety-control-comparison.md: aidlc-docs/construction/patient-support-app/nfr-design/safety-control-comparison.md
+
+## My request:
+費用の他、あと実際に構築するまでに決めないといけないのは何？"
+**AI Response**: 現行状態・回答済みレビュー・B案の未成立条件を確認。費用以外では、安全遮断・受信完全性・地域喪失後再開の成立方式、認証の具体設定、環境構成、外部サービスとデータ取扱い、運用担当・通知先、試作と実装計画の確定が残ると説明。ユーザー判断と技術検証を区別し、試作開始と本実装・患者データ利用の条件を整理。
+**Context**: 既存設計についての説明のみ。段階移行・構成採用・課金・外部送信なし。通常Markdownを検証。無効セキュリティ拡張は適用省略、拡張の再評価・段階完了は行わない。
+
+---
+
+## 技術検証の内容の説明
+**Timestamp**: 2026-11-12T11:27:55Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- nfr-design-patterns.md: aidlc-docs/construction/patient-support-app/nfr-design/nfr-design-patterns.md
+- infrastructure-design.md: aidlc-docs/construction/patient-support-app/infrastructure-design/infrastructure-design.md
+- patient-support-app-infrastructure-design-plan.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+- patient-support-app-infrastructure-review-questions.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-review-questions.md
+- safety-control-comparison.md: aidlc-docs/construction/patient-support-app/nfr-design/safety-control-comparison.md
+
+## My request:
+技術検証って何するの？"
+**AI Response**: 合成データと必要部分だけの試作で、処理途中停止・通信断・応答喪失・片地域喪失・認証迂回を意図的に起こし、遮断後作用・受付欠落・復旧時の記録喪失や期限延長がないかを確認する作業と説明。机上検証、ローカル試作、必要時の実クラウド試験を区別し、実サービスの成立をローカルだけで証明しない。現時点は設計検証で反例が残る段階で、有料試験や外部送信は未実施。
+**Context**: 説明のみ。新規実装・段階移行・課金・外部送信なし。通常Markdownの内容を検証。無効セキュリティ拡張は適用省略。
+
+---
+
+## 非機能設計補完：残課題の検討と質問票提示
+**Timestamp**: 2026-11-12T11:31:23Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/construction/patient-support-app/nfr-design/safety-control-comparison.md
+
+## Active selection of the file:
+を対象として、最終作用の保証範囲を定めたゲートと
+## Open tabs:
+- safety-control-comparison.md: aidlc-docs/construction/patient-support-app/nfr-design/safety-control-comparison.md
+- nfr-design-patterns.md: aidlc-docs/construction/patient-support-app/nfr-design/nfr-design-patterns.md
+- infrastructure-design.md: aidlc-docs/construction/patient-support-app/infrastructure-design/infrastructure-design.md
+- patient-support-app-infrastructure-design-plan.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-design-plan.md
+- patient-support-app-infrastructure-review-questions.md: aidlc-docs/construction/plans/patient-support-app-infrastructure-review-questions.md
+
+## My request:
+現行の残課題について、あなたが考えて、不明点は質問ファイルを通して私に選択させてください。"
+**AI Response**: 現行の反例・回答済み方針を確認し、業務DB内の原子的停止判定、最終経路の集約、受付照合、旧実行者排除と独立保護再構成の補強案を検討。技術側の担当事項と利用前条件を整理し、patient-support-app-remaining-issues-questions.mdに推奨・代替・要件変更の影響を付した6問を作成した。質問は停止境界、2秒条件、受信境界、地域喪失後の保護先、部分再開、検証計画。各[Answer]:へ選択肢の文字を記入し、その他の場合は希望を補足して、回答完了を知らせるよう案内。計画チェック・状態を更新し、6問・回答タグ・その他・UTF-8・相対参照を確認。
+**Context**: 質問票の提示であり承認依頼や段階完了ではない。RESILIENCY-08・10〜13の阻害事項を継続し、実行N/Aと設計適合を区別。無効セキュリティ拡張は適用省略。既存要件・構成採用・予算の変更、実装・課金・外部送信なし。
+
+---
