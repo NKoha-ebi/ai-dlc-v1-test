@@ -5825,3 +5825,12 @@ C) その他（希望する進め方を補足）。
 **Context**: 状況確認と受領記録のみ。通常Markdownとして内容を検証、図・複雑構文なし。新規設計・コード・段階移行・課金・実送信なし。回復力既存阻害事項継続、新規適合評価とPBT実行はN/A。無効セキュリティ拡張は適用省略。IDE contextのActive fileはaidlc-docs/construction/plans/patient-support-app-gate-remediation-questions.md、Open tabsは同ファイルとaidlc-docs/construction/plans/patient-support-app-ai-context-plan.md。
 
 ---
+
+## NFR設計補完：残課題と追加確認質問
+**Timestamp**: 2026-11-13T14:34:50Z
+**User Input**: "残課題は後何がありますか？残課題があれば、そちらの課題を解消するための確認質問ファイルを作成してください"
+**AI Response**: 残課題と回答済みの方針を照合。遮断・迂回禁止・二地域復旧・一括切替・検証資材改修・費用・外部依存と運用の7分類を整理し、patient-support-app-gate-remaining-constraints-questions.mdを作成。停止影響範囲、運用担当等の具体化、外部サービス契約制約の3問。既存の翌営業日着手、別担当確認、VM比較許容、積算後の停止時間／費用判断を再確認しない。旧解消案の回答受領チェックとstateを更新。回答欄3件と全ローカル参照先の存在を検査成功。
+**Context**: 共通内容検証・質問形式・NFR設計規則と拡張設定を参照。RESILIENCY-03適合、04・08・10〜13未適合継続。他規則は質問票内にN/A根拠記載。部分PBT必須5規則はコード変更なしで追加実行N/A。無効セキュリティ拡張は適用省略。図・コードブロックなしのMarkdownを検証。質問票チェックと最新状態を同一対話で更新。設計全体完了・実装・実試験・課金・外部送信は行わない。
+**最終案内**: 主な残課題を一覧で説明し、追加確認3問のファイルで各[Answer]:への回答を依頼する。
+
+---
