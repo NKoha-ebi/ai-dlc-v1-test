@@ -1,5 +1,14 @@
 # AI-DLC 進捗管理
 
+## 最新優先：AI定時監視を60分へ削減（2026-11-15）
+
+- [x] 実利用時のエラー・遅延監視を中心とし、定時実AI確認を5分から60分へ変更。
+- [x] NFR・論理部品・インフラ・公開後監視・費用を整合。
+- [x] 数量・算術・参照・UTF-8を検証し監査へ記録。
+
+正本はconstruction/patient-support-app/nfr-design/nfr-design-patterns.md第7節。30日・1経路720回、既存単価仮定で0.864 USD／月、旧案比9.504 USD減。実利用なしの障害検出は次の確認まで最大約60分＋試行／通知時間。通常1分監視と安全制御、公開前受入・公開後15分集中監視と毎分報告は維持。実装・クラウド・実AI送信は未変更。既存阻害事項・NFR全体未完了を維持。詳細・拡張評価はconstruction/plans/patient-support-app-ai-monitoring-change-plan.md。
+
+
 ## 最新優先：費用を理由にゲートを共通化（2026-11-15）
 
 ユーザー指示「費用の面で、ゲートを共通にします。設計の内容を変更して下さい」を受領し、共通送信pool・共通返却poolへ設計方針を変更した。正本はconstruction/patient-support-app/nfr-design/shared-gate-design.md。本節は旧利用者別VMの比較・費用数量・優先検討の記述に優先する。一括公開の決定と無関係な既存条件は維持する。

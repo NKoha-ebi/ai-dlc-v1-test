@@ -41,7 +41,7 @@ DBと外部HTTP送信を原子的にcommitできるとは仮定しない。判�
 
 ## 4. 費用の積算と接続候補
 
-通常月の正本は[月100相談概算](../infrastructure-design/cost-estimate-100-consultations.md)。既存47.218〜62.718 USDは固定network・追加独立保護を除く比較基準であり、完成構成総額ではない。
+通常月の正本は[月100相談概算](../infrastructure-design/cost-estimate-100-consultations.md)。監視頻度変更後の37.714〜53.214 USDは固定network・追加独立保護を除く比較基準であり、完成構成総額ではない。
 
 | 候補 | 通常月の追加・置換費目 | 未確定値の決め方 |
 | --- | --- | --- |
