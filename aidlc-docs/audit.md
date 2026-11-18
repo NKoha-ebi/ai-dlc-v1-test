@@ -6755,3 +6755,14 @@ Question 14 [Answer]: B。棚卸し項目と証拠不足時の保留方針は記
 **Context**: RESILIENCY-04・08〜13は未適合継続。部分PBT実行N/A。無効セキュリティ拡張は適用省略。
 
 ---
+
+## SG-13停止禁止境界の回答反映
+**Timestamp**: 2026-11-18T17:02:22Z
+**User Input**: /C:/Users/khr85/Documents/ai-dlc-v1-test/aidlc-docs/construction/plans/patient-support-app-shared-gate-stop-boundary-questions.mdこちらの質問に回答完了しました。回答を反映してください。なお、/C:/Users/khr85/Documents/ai-dlc-v1-test/aidlc-docs/construction/patient-support-app/nfr-design/shared-gate-concrete-review\.mdの内容はまだレビュー完了していません。
+
+Question 1 [Answer]: B
+
+**AI Response**: 送信・返却とも停止意図保存を禁止境界とし、SG-13の期待結果と進捗を更新。
+**Context**: 具体構成レビュー全体はレビュー中。PG-01／02およびRESILIENCY-04・08〜13は未解消。部分PBT実行N/A、無効セキュリティ拡張は適用省略。
+
+---
