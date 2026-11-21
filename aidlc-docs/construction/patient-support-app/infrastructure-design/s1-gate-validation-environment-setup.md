@@ -17,7 +17,7 @@
 | API 有効化、VPC・LB の構築、IAM 設定、検証ログの確認 | 作業者の Google アカウント            | 検証プロジェクトの初期設定権限。通常の検証ログを読む権限が不足する場合は、対象プロジェクトに Logs Viewer（`roles/logging.viewer`）を付与する。                                                                                                                                             |
 | 既存イメージの Cloud Run 配備                        | `gate-deploy`                         | 検証プロジェクトに Cloud Run Developer（`roles/run.developer`。初回作成のためプロジェクト単位）、対象イメージのリポジトリに Artifact Registry Reader（`roles/artifactregistry.reader`）、配備先で使う各実行用サービスアカウントに Service Account User（`roles/iam.serviceAccountUser`）。 |
 | LB 経由の合成リクエスト                              | `gate-test`                           | 第3節で作成した呼出し対象の return サービスごとに Cloud Run Invoker（`roles/run.invoker`）。東京・大阪のうち実際に LB の転送先になるサービスに付与する。                                                                                                                                   |
-| アプリ実行中の DB・キュー・サービス等へのアクセス    | 第2節 5項の各実行用サービスアカウント | 各役割に必要なリソースの権限と、呼出し先ごとの Invoker。                                                                                                                                                                                                                                   |
+| アプリ実行中の DB・キュー・サービス等へのアクセス    | 第2-4節の各実行用サービスアカウント | 各役割に必要なリソースの権限と、呼出し先ごとの Invoker。                                                                                                                                                                                                                                   |
 
 **初期設定（作業者の Google アカウント）**
 
@@ -26,7 +26,7 @@
 3. サービス アカウント一覧から `gate-deploy` を選択し、「権限 → アクセスを許可」で自分の Google アカウントに Service Account Token Creator（`roles/iam.serviceAccountTokenCreator`）を付与する。`gate-test` では同じ手順で Service Account OpenID Connect Identity Token Creator（`roles/iam.serviceAccountOpenIdTokenCreator`）を付与する。それぞれのサービスアカウントの IAM に設定する。
 4. 「IAM と管理 → IAM」で `gate-deploy` に Cloud Run Developer を付与する。第2節でリポジトリと実行用サービスアカウントを作ったら、Artifact Registry の対象リポジトリの「権限」で Reader を付与し、各実行用サービスアカウントの「権限」で Service Account User を付与する。[サービスアカウントの権限](https://docs.cloud.google.com/iam/docs/service-account-permissions) · [Cloud Run の配備権限](https://docs.cloud.google.com/run/docs/reference/iam/roles)
 
-**Cloud Run の配備（第3節 1項）**
+**Cloud Run の配備（第3-1節）**
 
 Console から Cloud Shell を開き、`gcloud auth list` で作業者のアカウントが有効であることを確認する。以下は東京の return の例。プレースホルダーを実際の値に置き換え、各役割と地域に合わせて第3節の設定値を適用する。
 
@@ -50,9 +50,9 @@ gcloud run deploy "$RETURN_SERVICE" --project="$PROJECT_ID" --region="$REGION" \
 
 `--impersonate-service-account` はそのコマンドの配備主体を切り替え、`--service-account` はコンテナの実行 ID を指定する。配備後は作業者の Google アカウントで Cloud Run サービスの認証設定を確認し、Invoker IAM チェックが有効で、`allUsers` や `allAuthenticatedUsers` に Invoker が付与されていないことを確認する。IAM の変更も作業者の Google アカウントで行う。[サービスアカウントの代理実行](https://docs.cloud.google.com/docs/authentication/use-service-account-impersonation) · [Direct VPC の設定](https://docs.cloud.google.com/run/docs/configuring/vpc-direct-vpc)
 
-**LB 経由の試験（第3節 2〜4項）**
+**LB 経由の試験（第3-2節・第3-3節）**
 
-1. 作業者の Google アカウントで、Cloud Run の呼出し対象となる各 return サービスの「権限」に `gate-test` を追加し、Cloud Run Invoker を付与する。内部サービス間の呼出しには第2節 5項の実行用サービスアカウントを使う。
+1. 作業者の Google アカウントで、Cloud Run の呼出し対象となる各 return サービスの「権限」に `gate-test` を追加し、Cloud Run Invoker を付与する。内部サービス間の呼出しには第2-4節の実行用サービスアカウントを使う。
 2. LB 配下で複数地域の return を使う場合は、各 return のカスタム audience に同じ値を設定する。以下では LB の HTTPS オリジン（例 `https://gate-check.example.com`）を使う。単一のバックエンドでは、そのサービスの `run.app` URL を audience にする方法も使える。どちらの場合も試験リクエストの送信先は LB の検証 URL とする。[複数地域のクライアント認証](https://docs.cloud.google.com/run/docs/multiple-regions) · [カスタム audience の設定](https://docs.cloud.google.com/run/docs/configuring/custom-audiences)
 3. Cloud Shell で下記を実行する。URL に読み取り用の合成試験パスを指定する。PG-01／02 で使う HTTP メソッドと合成ペイロードは各試験ケースに従う。
 
@@ -76,38 +76,202 @@ Cloud Shell を開き直した場合は、`PROJECT_ID` と `TEST_SA` を再設�
 
 ## 2. ネットワーク、台帳、配備先を準備する
 
-1. 「VPCネットワーク」で専用のカスタムVPCと東京・大阪の専用サブネットを作る。各地域 /24 を開始案として、既存CIDRとの衝突・予約・旧新重複を確認する。Cloud Run配備時は設計対象のサービスにDirect VPCと all-traffic を設定する。Google APIや固定の合成受信先に到達する経路を明示し、任意の外向き宛先へ到達できないことを確認する。[Direct VPCの設定](https://docs.cloud.google.com/run/docs/configuring/vpc-direct-vpc)
-2. Firestore Nativeの名前付き安全DBを東京と大阪に1つずつ作成し、DB IDとlocationを記録する。例えば認証済みCloud Shellで、専用プロジェクトIDを PROJECT_ID に入れ、次を実行する。先に同名DBがある場合は既存のlocationと用途を確認する。[Firestoreの作成コマンド](https://docs.cloud.google.com/sdk/gcloud/reference/firestore/databases/create) · [DBのロケーション](https://docs.cloud.google.com/firestore/native/docs/locations)
+以下は **Cloud Shell の Bash** 用。Windows の VS Code から作業する場合も Bash で実行する。各ブロックを順に実行し、作成コマンドが失敗したら原因を確認してから次へ進む。すでにある資源は一覧と設定を照合して再利用する。
 
-   ```sh
-   gcloud firestore databases create --project="$PROJECT_ID" --database=gate-safety-t --location=asia-northeast1 --type=firestore-native
-   gcloud firestore databases create --project="$PROJECT_ID" --database=gate-safety-o --location=asia-northeast2 --type=firestore-native
-   gcloud firestore databases list --project="$PROJECT_ID"
-   ```
+```bash
+PROJECT_ID='Consoleで確認したS1のプロジェクトID'
+T_REGION=asia-northeast1
+O_REGION=asia-northeast2
+VPC=s1-gate-vpc
+T_SUBNET=s1-gate-t
+O_SUBNET=s1-gate-o
+REPO=s1-gate
+DEPLOY_SA="gate-deploy@${PROJECT_ID}.iam.gserviceaccount.com"
+TEST_SA="gate-test@${PROJECT_ID}.iam.gserviceaccount.com"
 
-3. 必要な検証ケースに合わせて業務用Firestore、Cloud Tasksの地域別キュー、PDF用の非公開バケット、Secret Managerの検証用シークレットを作る。安全DBは本文を保存しない。要求台帳とSlotは、検証する候補と配置が決まった時点で作る。
-4. Artifact Registryにコンテナ用リポジトリを用意する。地域障害や再作成も検証する場合は、大阪側で東京に依存せず同じ成果物を取得できるように準備する。イメージはダイジェストで固定する。
-5. return、business、writer、send、safety、PDF用のサービスアカウントを分ける。業務DB書込みはwriter、安全DB更新はsafety、PDF保管はPDF、合成AI受信先への送信はsendに限定する。サービス間のInvokerは呼出し元ごとに付与する。
+gcloud auth list --filter=status:ACTIVE
+gcloud projects describe "$PROJECT_ID" --format='table(projectId,name,lifecycleState)'
+gcloud compute networks subnets list --project="$PROJECT_ID"
+gcloud firestore databases list --project="$PROJECT_ID"
+gcloud artifacts repositories list --project="$PROJECT_ID"
+gcloud iam service-accounts list --project="$PROJECT_ID"
+```
 
-ここまでが先行して用意できる基盤。現行の[Terraform](../../../../experiments/patient-support-gate-cloud/infra/main.tf)は準備用で、readiness条件により apply が止まる。後続の配備には、両地域の保存と初回本文引渡しを順序付ける部品、および旧世代・既存接続を遮断する候補の実装とイメージが必要。
+### 2-1. 専用 VPC とサブネット
+
+以下の CIDR は開始案。既存・接続予定のネットワークと重複せず、旧新リビジョンが同時稼働しても収まることを確認する。Private Google Access を有効にする。配備前に Google API と固定の合成受信先への DNS・ルート・宛先制御を確定し、許可先だけに到達することを検証する。Private Google Access と `all-traffic` の設定だけでは宛先制御は成立しない。
+
+```bash
+gcloud compute networks create "$VPC" --project="$PROJECT_ID" --subnet-mode=custom
+gcloud compute networks subnets create "$T_SUBNET" --project="$PROJECT_ID" \
+  --network="$VPC" --region="$T_REGION" --range=10.74.10.0/24 --enable-private-ip-google-access
+gcloud compute networks subnets create "$O_SUBNET" --project="$PROJECT_ID" \
+  --network="$VPC" --region="$O_REGION" --range=10.74.20.0/24 --enable-private-ip-google-access
+```
+
+### 2-2. 安全 DB とイメージ格納先
+
+```bash
+gcloud firestore databases create --project="$PROJECT_ID" --database=gate-safety-t \
+  --location="$T_REGION" --type=firestore-native
+gcloud firestore databases create --project="$PROJECT_ID" --database=gate-safety-o \
+  --location="$O_REGION" --type=firestore-native
+gcloud firestore databases list --project="$PROJECT_ID"
+
+for region in "$T_REGION" "$O_REGION"; do
+  gcloud artifacts repositories create "$REPO" --project="$PROJECT_ID" \
+    --location="$region" --repository-format=docker || break
+  gcloud artifacts repositories add-iam-policy-binding "$REPO" --project="$PROJECT_ID" \
+    --location="$region" --member="serviceAccount:$DEPLOY_SA" \
+    --role=roles/artifactregistry.reader || break
+done
+```
+
+安全 DB は本文を保存しない。大阪側の独立した再作成を検証する場合は、大阪のリポジトリにも同じ成果物を用意し、地域ごとに配備するダイジェストを記録する。
+
+### 2-3. 検証ケースに応じた資源
+
+業務 DB の配置、キューの配送先と上限、PDF バケット名、シークレットの用途を候補設定で確認してから選択して実行する。キューは試験開始まで停止しておく。要求台帳と Slot は候補の初期化手順で作る。
+
+```bash
+BUSINESS_DB='設計で確定した業務DBのID'
+BUSINESS_REGION='設計で確定した業務DBの地域'
+PDF_BUCKET='全GCSで一意のS1用バケット名'
+SECRET_ID='候補設定に合わせた合成試験用シークレット名'
+
+gcloud firestore databases create --project="$PROJECT_ID" --database="$BUSINESS_DB" \
+  --location="$BUSINESS_REGION" --type=firestore-native
+for region in "$T_REGION" "$O_REGION"; do
+  gcloud tasks queues create s1-gate --project="$PROJECT_ID" --location="$region" || break
+  gcloud tasks queues pause s1-gate --project="$PROJECT_ID" --location="$region" || break
+done
+gcloud storage buckets create "gs://$PDF_BUCKET" --project="$PROJECT_ID" \
+  --location="$T_REGION" --uniform-bucket-level-access --public-access-prevention
+gcloud secrets create "$SECRET_ID" --project="$PROJECT_ID" --replication-policy=user-managed \
+  --locations="$T_REGION,$O_REGION"
+# 必要な場合のみ、SYNTHETIC_SECRET_FILE に合成試験用ファイルのパスを設定して登録
+gcloud secrets versions add "$SECRET_ID" --project="$PROJECT_ID" --data-file="$SYNTHETIC_SECRET_FILE"
+```
+
+### 2-4. 実行用サービスアカウント
+
+```bash
+for role in return business writer send safety pdf; do
+  sa="s1-$role@${PROJECT_ID}.iam.gserviceaccount.com"
+  gcloud iam service-accounts create "s1-$role" --project="$PROJECT_ID" || break
+  gcloud iam service-accounts add-iam-policy-binding "$sa" --project="$PROJECT_ID" \
+    --member="serviceAccount:$DEPLOY_SA" --role=roles/iam.serviceAccountUser || break
+done
+```
+
+候補の呼出し表に従って権限を割り当てる。業務 DB の書込みは writer、安全 DB の更新は safety、PDF 保管は pdf、合成 AI 受信先への送信は send に限定する。Firestore の権限は対象 DB への条件付きバインディング等で絞り、広域の権限で代用しない。PDF がオブジェクトを新規作成するだけの場合の例を示す。読取りや削除が必要なら候補の契約に合わせる。
+
+```bash
+gcloud storage buckets add-iam-policy-binding "gs://$PDF_BUCKET" --project="$PROJECT_ID" \
+  --member="serviceAccount:s1-pdf@${PROJECT_ID}.iam.gserviceaccount.com" \
+  --role=roles/storage.objectCreator
+```
+
+現行の[Terraform](../../../../experiments/patient-support-gate-cloud/infra/main.tf)は準備用で、readiness 条件により apply が止まる。第3節は、両地域の保存と初回本文引渡しを順序付ける部品、旧世代・既存接続を遮断する候補、役割別の設定が揃ってから実行する。
 
 ## 3. 検証候補を配備する
 
-1. 候補イメージのダイジェストと役割設定が揃ったら、第1節 5項の手順で配備用サービスアカウントを使い、各地域に6役割を配備する。大阪の業務5役割は閉鎖した状態で配置し、safetyは東京・大阪の両方を稼働対象にする。サービスは原則認証必須とし、内部役割は内部ingressと宛先別Invokerを使う。
+### 3-1. 役割ごとの Cloud Run 配備
 
-   | 役割                             | vCPU | メモリー | min／max | concurrency |
-   | -------------------------------- | ---: | -------: | -------: | ----------: |
-   | return・business・writer・safety |    1 |  512 MiB |     0／4 |           8 |
-   | send                             |    1 |  512 MiB |     0／4 |           2 |
-   | PDF                              |    1 |    1 GiB |     0／2 |           1 |
+以下の関数は1サービスずつ配備する。候補が実際に読み込む役割別の環境変数ファイルと、対象地域の Artifact Registry にあるダイジェスト付きイメージを渡す。大阪の業務5役割は設計上の閉鎖設定を投入し、safety は両地域で稼働させる。初回は東京 return だけを LB に接続する。大阪 return の追加は大阪側で閉鎖・開放を制御できることを確認した比較試験時に行う。
 
-   表は試験開始値。AI全体2枠・PDF全体1枠はアプリ側の台帳で扱う。
+```bash
+HOST='管理しているS1用のDNSホスト名'
+AUDIENCE="https://$HOST"
 
-2. 返却経路のS1比較では、外部Application Load BalancerにHTTPSの検証用ホスト名・証明書を設定し、returnに向けた地域別serverless NEGを接続する。returnのingressは内部およびCloud Load Balancingに制限し、検証用クライアントだけが認証して本文に到達できるようにする。他の業務役割への外部ルートは作成しない。[Cloud Runのネットワーク境界](https://docs.cloud.google.com/run/docs/securing/security)
-3. sendの固定宛先に合成AI受信サービスを接続し、返却側には実際にLB経由で受け取る合成クライアントを置く。最終送出部品を追加する案では、その部品を含めたTLS終端・接続・バッファの実経路を記録し、既存の直通経路を閉じる。実患者データ、実AIの鍵、メール配信先は接続しない。
-4. 入口、実際の送出点、合成受信先で、操作・試行・接続ID、世代、最初の耐久保存結果、最初の本文引渡し、因果順序を照合できることを確かめる。ログは本文なしとする。接続を保持する試験、旧revisionを使う試験、合成操作単位で地域間伝播を保留する試験を、閉じた検証環境で実行できる状態にする。
+deploy_role() {
+  local region="$1" subnet="$2" service="$3" role="$4" image="$5" env_file="$6"
+  local ingress=internal memory=512Mi max=4 concurrency=8
+  local -a audiences=()
+  [[ "$image" =~ @sha256:[0-9a-f]{64}$ && -r "$env_file" ]] || return 2
+  case "$role" in
+    return) ingress=internal-and-cloud-load-balancing; audiences=(--add-custom-audiences="$AUDIENCE") ;;
+    send) concurrency=2 ;;
+    pdf) memory=1Gi; max=2; concurrency=1 ;;
+    business|writer|safety) ;;
+    *) return 2 ;;
+  esac
+  gcloud run deploy "$service" --project="$PROJECT_ID" --region="$region" \
+    --impersonate-service-account="$DEPLOY_SA" --image="$image" \
+    --service-account="s1-$role@${PROJECT_ID}.iam.gserviceaccount.com" \
+    --env-vars-file="$env_file" --ingress="$ingress" \
+    --invoker-iam-check --no-allow-unauthenticated \
+    --network="$VPC" --subnet="$subnet" --vpc-egress=all-traffic \
+    --cpu=1 --memory="$memory" --min-instances=0 --max-instances="$max" \
+    --concurrency="$concurrency" "${audiences[@]}"
+}
+
+# 候補の東京 return を配備する例
+deploy_role "$T_REGION" "$T_SUBNET" s1-return-t return "$T_IMAGE" "$T_RETURN_ENV_FILE"
+```
+
+新規作成後、作業者の Google アカウントで宛先別の Invoker を付与する。以下は東京 return の試験用。内部サービスも、呼出し表に載る実行 ID だけを各宛先に付与する。既存サービスを再利用する場合は先に IAM を照合し、公開メンバーがないことを確認する。
+
+```bash
+gcloud run services add-iam-policy-binding s1-return-t --project="$PROJECT_ID" \
+  --region="$T_REGION" --member="serviceAccount:$TEST_SA" --role=roles/run.invoker
+gcloud run services get-iam-policy s1-return-t --project="$PROJECT_ID" --region="$T_REGION"
+```
+
+### 3-2. HTTPS ロードバランサ
+
+次はグローバル外部 Application Load Balancer の例。東京 return の認証と閉鎖設定を確認後に実行する。既存 LB を使う場合は名前と構成を照合し、以下の新規作成は必要な資源に限る。[Google Cloud の構築例](https://docs.cloud.google.com/load-balancing/docs/https/setup-global-ext-https-serverless)
+
+```bash
+gcloud compute addresses create s1-gate-ip --project="$PROJECT_ID" --global --ip-version=IPV4
+gcloud compute network-endpoint-groups create s1-return-t-neg --project="$PROJECT_ID" \
+  --region="$T_REGION" --network-endpoint-type=serverless --cloud-run-service=s1-return-t
+gcloud compute backend-services create s1-return-backend --project="$PROJECT_ID" \
+  --global --load-balancing-scheme=EXTERNAL_MANAGED --protocol=HTTP
+gcloud compute backend-services add-backend s1-return-backend --project="$PROJECT_ID" \
+  --global --network-endpoint-group=s1-return-t-neg --network-endpoint-group-region="$T_REGION"
+gcloud compute url-maps create s1-return-map --project="$PROJECT_ID" \
+  --global --default-service=s1-return-backend
+gcloud compute ssl-certificates create s1-return-cert --project="$PROJECT_ID" \
+  --global --domains="$HOST"
+gcloud compute target-https-proxies create s1-return-https --project="$PROJECT_ID" \
+  --global --url-map=s1-return-map --ssl-certificates=s1-return-cert
+gcloud compute forwarding-rules create s1-return-443 --project="$PROJECT_ID" \
+  --global --load-balancing-scheme=EXTERNAL_MANAGED --address=s1-gate-ip \
+  --target-https-proxy=s1-return-https --ports=443
+gcloud compute addresses describe s1-gate-ip --project="$PROJECT_ID" \
+  --global --format='value(address)'
+```
+
+表示された IP に向けて、管理している DNS ゾーンで `$HOST` の A レコードを設定する。Cloud DNS を使う場合の例を示す。既存レコードがある場合は内容と用途を確認してから変更する。
+
+```bash
+DNS_ZONE='管理対象のCloud DNSゾーン名'
+LB_IP="$(gcloud compute addresses describe s1-gate-ip --project="$PROJECT_ID" --global --format='value(address)')"
+gcloud dns record-sets create "${HOST}." --project="$PROJECT_ID" \
+  --zone="$DNS_ZONE" --type=A --ttl=300 --rrdatas="$LB_IP"
+gcloud compute ssl-certificates describe s1-return-cert --project="$PROJECT_ID" \
+  --global --format='yaml(managed.status,managed.domainStatus)'
+```
+
+DNS が別プロジェクトまたは別事業者にある場合は、その DNS の管理手段で設定する。証明書が `ACTIVE` になったら第1節の認証あり・なしの合成リクエストを実施する。大阪を比較対象にする際は、対象 return に同じ audience と試験用 Invoker を設定し、大阪の serverless NEG を同じバックエンドに追加する。
+
+### 3-3. 合成試験と証拠
+
+send の固定宛先に合成 AI 受信サービスを接続し、返却側には LB 経由の合成クライアントを置く。候補に最終送出部品がある場合は TLS 終端・接続・バッファの実経路を記録し、既存直通経路を閉じる。入口・送出点・合成受信先で操作・試行・接続 ID、世代、最初の耐久保存と本文引渡しの順序を照合する。本文はログに残さない。旧 revision・保持接続・地域間伝播保留は候補の合成試験ドライバーで実施する。
 
 ## 4. 検証担当へ引き渡す
+
+引渡し時には次の読み取り専用コマンドで構成を照合する。収集した実行結果を引渡し記録に添え、トークンやシークレット値は含めない。
+
+```bash
+gcloud firestore databases list --project="$PROJECT_ID"
+for region in "$T_REGION" "$O_REGION"; do
+  gcloud run services list --project="$PROJECT_ID" --region="$region"
+done
+gcloud compute backend-services describe s1-return-backend --project="$PROJECT_ID" --global
+gcloud compute forwarding-rules describe s1-return-443 --project="$PROJECT_ID" --global
+```
 
 - [ ] プロジェクトID、両地域のサービス名・接続先、安全DB ID、検証用ホスト名、合成受信先。
 - [ ] 構成リビジョン、イメージダイジェスト、LB／NEG・TLS終端・最終送出部品の対応、地域設定、ログの参照先。

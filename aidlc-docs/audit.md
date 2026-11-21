@@ -6864,3 +6864,12 @@ C:\Users\khr85\Documents\ai-dlc-v1-test\aidlc-docs\construction\patient-support-
 **Context**: 継続中のインフラ設計の文書差分。PG-01／02の実経路検証は保留。無効なセキュリティ拡張は適用省略。部分PBTは追加対象なし。
 
 ---
+
+## S1 構築手順の gcloud 化
+**Timestamp**: 2026-11-21T05:24:49Z
+**User Input**: このS1環境の構築って全部手動じゃなきゃダメ？gcloud cliにしてもらいたいんだけど、2節以降やってもらえるかな
+
+**AI Response**: 第2節以降に Cloud Shell 向けの gcloud コマンドと事前条件を追記。東京 return のみを初回に LB へ接続する例とし、大阪は比較試験時に追加する。
+**Context**: 構築手順の改訂。クラウド資源は変更していない。
+
+---
