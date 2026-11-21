@@ -7,7 +7,7 @@
 1. Google Cloud Consoleの「IAMと管理 → プロジェクトの作成」で、既存β・本番と別の検証専用プロジェクトを作成する。環境IDには gate-check- で始まる名前を使う。プロジェクトID、所有者、終了予定日を記録する。
 2. 「お支払い」で検証用の課金先を紐づけ、プロジェクト単位の予算アラートと通知先を設定する。予算アラートは自動停止を行わないため、費用枠に到達した場合の停止担当も決めておく。
 3. 「APIとサービス → ライブラリ」で Cloud Run、Compute Engine、Artifact Registry、Firestore、Cloud Tasks、Cloud Storage、Secret Manager、Cloud Logging、Cloud Monitoring を有効化する。Cloud Buildでイメージを作る場合はCloud Buildも有効化する。LBで証明書を管理する方式に合わせてCertificate Managerを追加する。
-4. 「IAMと管理 → 割り当てとシステム上限」で、東京（asia-northeast1）と大阪（asia-northeast2）のCloud Run CPU・メモリー・Direct VPCの地域枠を確認する。第5節の実測枠を前提とし、第3節の予算と現在の割当使用量を配備前に照合する。
+4. 「IAMと管理 → 割り当てとシステム上限」で、東京（asia-northeast1）と大阪（asia-northeast2）のCloud Run CPU・メモリー・Direct VPCの地域枠を確認する。目安は旧新重複を含め地域当たり44 vCPU・24 GiB。実際の割当値を記録する。
 5. 作業者は1人なので、Console と Cloud Shell には同じ Google アカウントでログインする。初期設定と IAM 管理はそのアカウントで行い、Cloud Run の配備と合成リクエストの試験では、操作ごとに下記の専用サービスアカウントを使う。
 
 ### 1-5. 作業者1人での IAM 設定と ID の使い分け
@@ -45,7 +45,7 @@ gcloud run deploy "$RETURN_SERVICE" --project="$PROJECT_ID" --region="$REGION" \
   --impersonate-service-account="$DEPLOY_SA" --image="$IMAGE" \
   --service-account="$RUNTIME_SA" --ingress=internal-and-cloud-load-balancing \
   --network="$VPC" --subnet="$SUBNET" --vpc-egress=all-traffic \
-  --cpu=1 --memory=512Mi --min-instances=0 --max-instances=2 --concurrency=8 --no-cpu-boost
+  --cpu=1 --memory=512Mi --min-instances=0 --max-instances=4 --concurrency=8
 ```
 
 `--impersonate-service-account` はそのコマンドの配備主体を切り替え、`--service-account` はコンテナの実行 ID を指定する。配備後は作業者の Google アカウントで Cloud Run サービスの認証設定を確認し、Invoker IAM チェックが有効で、`allUsers` や `allAuthenticatedUsers` に Invoker が付与されていないことを確認する。IAM の変更も作業者の Google アカウントで行う。[サービスアカウントの代理実行](https://docs.cloud.google.com/docs/authentication/use-service-account-impersonation) · [Direct VPC の設定](https://docs.cloud.google.com/run/docs/configuring/vpc-direct-vpc)
@@ -97,41 +97,21 @@ Cloud Shell を開き直した場合は、`PROJECT_ID` と `TEST_SA` を再設�
 
    | 役割                             | vCPU | メモリー | min／max | concurrency |
    | -------------------------------- | ---: | -------: | -------: | ----------: |
-   | return                           |    1 |  512 MiB |     0／2 |           8 |
-   | business・writer・safety         |    1 |  512 MiB |     0／1 |           8 |
-   | send                             |    1 |  512 MiB |     0／2 |           2 |
-   | PDF                              |    1 |    1 GiB |     0／1 |           1 |
+   | return・business・writer・safety |    1 |  512 MiB |     0／4 |           8 |
+   | send                             |    1 |  512 MiB |     0／4 |           2 |
+   | PDF                              |    1 |    1 GiB |     0／2 |           1 |
 
-   地域ごとのCPU予算と重複試験の進め方は第3-1節を参照する。
+   表は試験開始値。AI全体2枠・PDF全体1枠はアプリ側の台帳で扱う。
 
 2. 返却経路のS1比較では、外部Application Load BalancerにHTTPSの検証用ホスト名・証明書を設定し、returnに向けた地域別serverless NEGを接続する。returnのingressは内部およびCloud Load Balancingに制限し、検証用クライアントだけが認証して本文に到達できるようにする。他の業務役割への外部ルートは作成しない。[Cloud Runのネットワーク境界](https://docs.cloud.google.com/run/docs/securing/security)
 3. sendの固定宛先に合成AI受信サービスを接続し、返却側には実際にLB経由で受け取る合成クライアントを置く。最終送出部品を追加する案では、その部品を含めたTLS終端・接続・バッファの実経路を記録し、既存の直通経路を閉じる。実患者データ、実AIの鍵、メール配信先は接続しない。
 4. 入口、実際の送出点、合成受信先で、操作・試行・接続ID、世代、最初の耐久保存結果、最初の本文引渡し、因果順序を照合できることを確かめる。ログは本文なしとする。接続を保持する試験、旧revisionを使う試験、合成操作単位で地域間伝播を保留する試験を、閉じた検証環境で実行できる状態にする。
-
-   表はPG-01／02の合成試験用。各地域で return・send を各2、残り4役割を各1とし、6役割の設定合計は **8 vCPU・4.5 GiB**。1インスタンス1 vCPUはサイドカーを含む合計とし、すべての対象revisionで起動時CPUブーストを無効化する。AI全体2枠・PDF全体1枠はアプリ側の台帳で扱う。並列負荷・性能の評価は別枠とする。
-
-### 3-1. 地域別のCPU予算と試験順序
-
-| 各地域の内訳 | vCPU | メモリー |
-| --- | ---: | ---: |
-| 6役割の基準構成 | 8 | 4.5 GiB |
-| PG-02で旧新を重ねるreturn・sendの追加分（各2台まで） | 4 | 2 GiB |
-| 最終送出部品・合成受信先など、同じCloud Run地域枠を使う追加分の予算 | 2 | 2 GiB |
-| 計画上の最大配備分 | **14** | **8.5 GiB** |
-| 20 vCPUの地域枠との差（未配分） | **6** | — |
-
-- 配備前と試験切替前に、対象プロジェクトの地域別の消費量と、既存サービス・ジョブ等の同一枠の利用、対象revisionのCPU・最大台数・タグ・配信設定を確認する。既存のmax4設定のrevisionは試験対象にせず、受付と配送を閉じた状態で縮小済みの基準revisionを作る。旧設定のrevisionへのトラフィック・タグ・処理が残っている間は重複試験を開始しない。
-- PG-01では基準構成で両地域のsafetyを使い、東京先行・大阪先行それぞれで送信と返却を検証する。PG-02では対象のreturn／sendだけ旧・新各1 revisionを稼働対象にし、他役割の更新を同時に行わない。旧経路を保持した上で、新版の本文送出を閉じたまま試験し、旧経路の遮断証拠を確認してから新版のみを開く。次の重複試験は前試行の対象外revision・接続・配送が片付いてから始める。
-- PG-02では必要なケースごとにrevision ID・起動ID・接続IDを記録する。複数instanceのケースでは実際に別起動IDを観測し、旧接続・休止復帰のケースでは該当経路への試行到達を確かめる。必要な経路が再現できない場合や、容量エラー・入口停止だけで拒否された場合は保留とする。
-- 追加部品の構成は確定時に地域別予算へ計上する。2 vCPU・2 GiBに収まらない場合は、必要な観測部品を維持したまま送信と返却の重複試験を直列化して再計算する。計画値に収まらない構成は配備前に見直す。
-- 最大台数は一時超過し得る。地域別の割当CPU・revision別台数とquotaエラーを監視し、枠の80%（16 vCPU）到達、容量起因の拒否、予期しないrevision稼働のいずれかを確認したら新規試行・配備を止め、該当試行を保留にする。使用量が戻り原因と証拠を確認してから再開する。[最大インスタンス数の挙動](https://docs.cloud.google.com/run/docs/configuring/max-instances-limits) · [起動時CPUブースト](https://docs.cloud.google.com/run/docs/configuring/services/cpu)
 
 ## 4. 検証担当へ引き渡す
 
 - [ ] プロジェクトID、両地域のサービス名・接続先、安全DB ID、検証用ホスト名、合成受信先。
 - [ ] 構成リビジョン、イメージダイジェスト、LB／NEG・TLS終端・最終送出部品の対応、地域設定、ログの参照先。
 - [ ] 認証済みアクセス、使える試験時間帯、費用枠、停止担当、試験後に停止・撤去する資源一覧。
-- [ ] 地域別の利用可能枠、実revisionごとのCPU／最大台数／ブースト設定、追加部品の消費量、地域別の監視と停止条件。
 - [ ] 両地域で合成データの基準ケースが通り、旧経路・分断を再現する手段と証拠取得点が確認済み。
 
 引渡し後、PG-01は東京先行・大阪先行の両方向で、片側保存後かつ未反映の間に送信・返却の新規本文が始まらないことを確認する。PG-02は旧revision・旧instance・休止復帰・既存接続からの新規送出を確認する。保存と引渡しの因果順序または旧経路の証拠が欠けた試行は保留。試験後は入口と配送を閉じ、本文なしの証拠を保全して、LB・IP・サービス等の残存課金を点検する。
