@@ -7006,3 +7006,12 @@ C:\Users\khr85\Documents\ai-dlc-v1-test\aidlc-docs\construction\patient-support-
 **Context**: クラウド接続要件は承認済み。受入条件の更新計画を提示。クラウド資源とアプリコードの変更なし。
 
 ---
+
+## User Stories — 独立したクラウド検証の受入条件
+**Timestamp**: 2026-11-21T11:02:19Z
+**User Input**: "回答を完了しました。該当計画で作業を進めてください"
+**Question File Answer**: 既存のストーリーを更新するのではなく、この計画を別枠で今から作業して。また後で、既存ストーリーの受け入れ条件に戻るから
+**AI Response**: 独立した受入条件 CV-01〜07 を作成。内容を確認し、承認する場合はレビュー用ファイルの [Answer]: に A を記入してください。
+**Context**: 受入条件の文書作業。合成データ限定の実装・配備は後続。
+
+---
