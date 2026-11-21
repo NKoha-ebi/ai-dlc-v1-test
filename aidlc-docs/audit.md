@@ -6998,3 +6998,11 @@ C:\Users\khr85\Documents\ai-dlc-v1-test\aidlc-docs\construction\patient-support-
 **Context**: 既存プロジェクトの継続。合成データでの初回検証を提案。回復力の実環境判定は後続。部分PBTは要件段階で対象外。無効セキュリティ拡張は適用省略。クラウド変更なし。
 
 ---
+
+## User Stories — クラウド接続要件の承認と受入条件の更新計画
+**Timestamp**: 2026-11-21T10:58:31Z
+**User Input**: "承認。作業を始めてください"
+**AI Response**: 要件承認を記録し、既存患者ストーリーの受入条件更新計画を作成。計画に同意する場合は story-generation-plan.md の末尾の [Answer]: に A を記入するよう依頼。
+**Context**: クラウド接続要件は承認済み。受入条件の更新計画を提示。クラウド資源とアプリコードの変更なし。
+
+---
