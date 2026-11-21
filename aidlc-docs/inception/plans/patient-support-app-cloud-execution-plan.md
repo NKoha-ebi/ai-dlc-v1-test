@@ -1,4 +1,4 @@
-﻿# 患者支援アプリの独立クラウド構築計画
+# 患者支援アプリの独立クラウド構築計画
 
 [承認済み要件](../requirements/patient-support-app-cloud-integration.md)と[受入条件 CV-01〜07](../user-stories/patient-support-app-cloud-validation.md)に基づき、get-check-1120 の東京を初回候補として、アクセス限定で合成データを使う。
 
@@ -6,7 +6,7 @@
 
 - [x] 既存アプリ、クラウド接続要件、独立受入条件を照合。
 - [x] 構築範囲と工程を整理。
-- [ ] 実行計画を承認。
+- [x] 実行計画を承認。
 - [ ] アプリケーション設計と作業単位を定義。既存 React 画面を使い、Vite から切り出すサーバー入口、Firebase Authentication／専用 Firestore、OpenAI アダプター、配備資材の責任範囲を定める。
 - [ ] 機能・非機能・インフラを設計。本人認証、同意、保存と再試行、退会と削除、注意事項の選別、API 異常時の復帰を具体化。Cloud Run、Secret Manager、テスター認証、HTTPS ロードバランサー、費用・容量・監視・停止を設計する。
 - [ ] コード生成。認証・保存の契約を決めた後に OpenAI を接続し、配備前にローカルで統合確認。
