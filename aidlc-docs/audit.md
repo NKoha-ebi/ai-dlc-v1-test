@@ -6982,3 +6982,19 @@ C:\Users\khr85\Documents\ai-dlc-v1-test\aidlc-docs\construction\patient-support-
 **Context**: 患者の悩み一覧での配置変更。ブラウザー表示は未確認。
 
 ---
+
+## Construction — クラウド配備状況と対象確認
+**Timestamp**: 2026-11-21T10:54:37Z
+**User Input**: "現在クラウド環境はどこまでしていますか？cloud run配備とロードバランサ―の構築は終わっていますか？クラウド実装したいです"
+**AI Response**: get-check-1120 を読み取り確認。S1 の部分基盤は作成済み。Cloud Run、LB 関連一覧、S1 イメージは空。配備対象の回答欄を作成。
+**Context**: 既定プロジェクトのみを照会。クラウド資源の変更なし。回復力の実経路評価は保留。部分PBTは対象外。無効セキュリティ拡張は適用省略。
+
+---
+
+## Requirements Analysis — 患者支援アプリのクラウド接続
+**Timestamp**: 2026-11-21T10:57:05Z
+**User Input**: "google cloud console内のget-check-1120プロジェクトを活用して、現在ローカルで動く患者支援アプリについて、openAIのAPIを使って動かせし、データを保存できるようにしたい。"
+**AI Response**: 既存 API と承認済みの OpenAI／Firebase 方針を照合し、初回クラウド接続要件を作成。要件の承認または修正を依頼。
+**Context**: 既存プロジェクトの継続。合成データでの初回検証を提案。回復力の実環境判定は後続。部分PBTは要件段階で対象外。無効セキュリティ拡張は適用省略。クラウド変更なし。
+
+---
