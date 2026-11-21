@@ -15,6 +15,8 @@ export type Run = {
   mode: 'short' | 'deep'
   answers: string[]
   result: string
+  reply?: string
+  draft?: string
   status: 'active' | 'confirmed' | 'skipped'
 }
 

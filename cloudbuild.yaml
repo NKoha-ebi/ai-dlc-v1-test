@@ -1,0 +1,11 @@
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - --tag
+      - asia-northeast1-docker.pkg.dev/$PROJECT_ID/s1-gate/patient-support:validation
+      - .
+images:
+  - asia-northeast1-docker.pkg.dev/$PROJECT_ID/s1-gate/patient-support:validation
+options:
+  logging: GCS_ONLY

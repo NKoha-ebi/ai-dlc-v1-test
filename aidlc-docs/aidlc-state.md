@@ -1058,3 +1058,10 @@ RESILIENCY-05・09の今回の設計項目として、地域別監視、上限�
 - [x] 実行計画承認を確認。
 - [x] アプリケーション設計計画を作成。
 - [ ] 構成を確認し、設計成果物を作成・レビュー。
+
+## 独立クラウド構築の途中経過
+
+- [x] 一括承認を受領。クラウド接続実装、ローカル確認、Cloud Build 資材を追加。
+- [x] 東京のアプリ専用 Firestore と OpenAI 用シークレットの入れ物を作成。
+- [ ] Firebase 権限および OpenAI キー。Cloud Run、ロードバランサー、合成データの CV-01〜07 実証。
+- [x] 東京の Artifact Registry への Cloud Build と push を確認。ビルド dfd73cfe-3839-4e9e-870f-5c3fba185e9d、イメージ sha256:fe6b49f06e8e5364cc733ce21e38d32b3d724baf7f8e0c844b82cf16eb3be184。

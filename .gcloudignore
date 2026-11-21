@@ -1,0 +1,13 @@
+.gcloudignore
+.git
+.env*
+node_modules
+dist
+aidlc-docs/*
+!aidlc-docs/inception
+aidlc-docs/inception/*
+!aidlc-docs/inception/requirements
+aidlc-docs/inception/requirements/*
+!aidlc-docs/inception/requirements/privacy policy.txt
+experiments
+*.log

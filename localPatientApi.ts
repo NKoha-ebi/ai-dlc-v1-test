@@ -26,12 +26,12 @@ function extract(text: string): { extraction: string; recommendation: ModuleId }
   }
 }
 
-function respond(response: ServerResponse, status: number, value: unknown) {
+export function respond(response: ServerResponse, status: number, value: unknown) {
   response.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' })
   response.end(JSON.stringify(value))
 }
 
-async function readBody(request: IncomingMessage): Promise<Record<string, unknown>> {
+export async function readBody(request: IncomingMessage): Promise<Record<string, unknown>> {
   request.setEncoding('utf8')
   let body = ''
   for await (const chunk of request) {
@@ -43,7 +43,7 @@ async function readBody(request: IncomingMessage): Promise<Record<string, unknow
   return value
 }
 
-function applyAction(concerns: Map<string, Concern>, action: Record<string, unknown>) {
+export function applyAction(concerns: Map<string, Concern>, action: Record<string, unknown>) {
   const { id, type } = action
   if (typeof id !== 'string' || !/^[a-f0-9-]{36}$/i.test(id)) throw new Error('整理IDが無効です。')
   const current = concerns.get(id)
@@ -124,16 +124,16 @@ function applyAction(concerns: Map<string, Concern>, action: Record<string, unkn
 }
 
 type Account = { profile: LocalProfile; salt: Buffer; passwordHash: Buffer; concerns: Map<string, Concern> }
-const guest: LocalProfile = { signedIn: false, email: null, consentedAt: null, cancers: [] }
+export const guest: LocalProfile = { signedIn: false, email: null, consentedAt: null, cancers: [] }
 
-function validateCancers(cancers: unknown) {
+export function validateCancers(cancers: unknown) {
   if (!Array.isArray(cancers) || !cancers.length || cancers.some((item) => !cancerTypes.includes(item))) {
     throw new Error('がん種を1件以上選んでください。')
   }
   return cancerTypes.filter((item) => cancers.includes(item))
 }
 
-function credentials(action: Record<string, unknown>) {
+export function credentials(action: Record<string, unknown>) {
   const email = typeof action.email === 'string' ? action.email.trim().toLowerCase() : ''
   if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     throw new Error('メールアドレスを確認してください。')

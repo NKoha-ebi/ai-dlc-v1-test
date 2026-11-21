@@ -27,3 +27,12 @@ B) 修正を依頼する。変更または追加する工程を記入する。
 C) その他（希望する進め方を記入する）。
 
 [Answer]: A
+
+## 一括承認後の実行記録
+
+- [x] 個別の工程レビューを省略して、単一 Cloud Run サービスを想定した実装に着手。
+- [x] サーバー、Firebase Authentication／Firestore、OpenAI 応答、コンテナとクラウドビルド定義を実装。
+- [x] ローカルのビルド、変更ファイルの lint、患者 HTTP 導線、クラウドサーバーの起動、模擬 AI 接続を確認。
+- [x] 東京に patient-validation を作成。クラウドビルド用 ID と保護バケット、OpenAI 用の値未登録シークレットを作成。
+- [ ] Firebase 設定、OpenAI キー登録、アクセス限定配備、HTTPS ロードバランサーと CV-01〜07 の実環境判定。
+- [x] 東京の Artifact Registry への Cloud Build と push を確認。ビルド dfd73cfe-3839-4e9e-870f-5c3fba185e9d、イメージ sha256:fe6b49f06e8e5364cc733ce21e38d32b3d724baf7f8e0c844b82cf16eb3be184。

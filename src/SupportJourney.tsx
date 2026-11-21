@@ -94,10 +94,11 @@ function Dialogue({ run, concern, send, busy, onFinish }: Omit<Props, 'onList'> 
   const question = questions[index] ?? (run.mode === 'deep' && index === questions.length ? extraQuestion : undefined)
   const reviewing = result !== undefined || !question
   const base = { id: concern.id, module: run.module }
+  const draft = run.draft ?? run.answers.join('\n')
 
   async function finish(type: 'confirm' | 'skip') {
     const updated = await send(type === 'skip' ? { ...base, type } :
-      { ...base, type, text: result ?? run.answers.join('\n') })
+      { ...base, type, text: result ?? draft })
     if (updated) onFinish()
   }
 
@@ -112,12 +113,13 @@ function Dialogue({ run, concern, send, busy, onFinish }: Omit<Props, 'onList'> 
       {run.answers.length > 0 && <details><summary>これまでの回答</summary>
         <ol className="saved-list">{run.answers.map((text, index) => <li key={index}>{text}</li>)}</ol>
       </details>}
+      {run.reply && <p className="saved-list">{run.reply}</p>}
       {reviewing ? (
         <form className="flow-form" onSubmit={(event) => { event.preventDefault(); void finish('confirm') }}>
           <label htmlFor="support-result">まとめ案を確認・修正する</label>
           <p id="support-notice" className="help">{privacyNotice}</p>
           <textarea id="support-result" aria-describedby="support-notice" rows={5} maxLength={4000} required
-            value={result ?? run.answers.join('\n')} onChange={(event) => setResult(event.target.value)} />
+            value={result ?? draft} onChange={(event) => setResult(event.target.value)} />
           <button className="primary" disabled={busy}>内容を確認して保存</button>
         </form>
       ) : (
@@ -130,7 +132,7 @@ function Dialogue({ run, concern, send, busy, onFinish }: Omit<Props, 'onList'> 
           <textarea id="support-answer" aria-describedby="support-notice" rows={4} maxLength={1000} required
             value={answer} onChange={(event) => setAnswer(event.target.value)} />
           <button className="primary" disabled={busy}>回答を保存して進む</button>
-          {minimumMet && <button type="button" disabled={busy} onClick={() => setResult(run.answers.join('\n'))}>ここまででまとめる</button>}
+          {minimumMet && <button type="button" disabled={busy} onClick={() => setResult(draft)}>ここまででまとめる</button>}
         </form>
       )}
       <button type="button" disabled={busy} onClick={() => void finish('skip')}>この支援を省略</button>
