@@ -6836,3 +6836,12 @@ C:\Users\khr85\Documents\ai-dlc-v1-test\aidlc-docs\construction\patient-support-
 **Context**: 設計補完。PG-01／02は実経路検証待ち。
 
 ---
+
+## S1 検証環境の IAM 手順補足
+**Timestamp**: 2026-11-20T14:47:41Z
+**User Input**: 1-5について、作業者は一人であるため、接続するgoogle accountはひとつであるが、作業ごとにIDを変えるべきならば、その手順を詳細に記載してください
+
+**AI Response**: Google アカウント1つで初期設定を行い、配備と合成試験に専用サービスアカウントを使う手順を追記。権限設定、短期認証、LB 経由の試験、および第3節の参照を更新。
+**Context**: 既存の構築手順の補足。実環境への設定や配備は未実施。
+
+---
