@@ -10,8 +10,30 @@
 
 .header img { display: block; max-width: 88px; max-height: 64px; object-fit: contain; }
 .layout { display: flex; }
-nav { inline-size: 224px; padding: 16px; background: #e5f3f0; }
-nav button { width: 100%; }
+nav { display: none; inline-size: 224px; flex: none; padding: 16px; background: #e5f3f0; }
+nav[data-open="true"] { display: flex; flex-direction: column; gap: 8px; }
+nav button { width: 100%; text-align: start; }
+nav [aria-current="page"] { background: #c4e4df; font-weight: 700; }
+.menu-logout { margin-block-start: 12px; }
+.policy-window {
+  block-size: 240px;
+  overflow: auto;
+  overflow-wrap: anywhere;
+  overscroll-behavior: contain;
+  border: 1px solid #748a84;
+  border-radius: 8px;
+  padding: 12px;
+  margin-block-start: 8px;
+}
+.policy-window p { white-space: pre-line; margin-block-end: 12px; }
+.credential-input {
+  width: 100%;
+  min-height: 48px;
+  padding: 8px 14px;
+  border: 1px solid #748a84;
+  border-radius: 8px;
+  font: inherit;
+}
 
 main {
   width: min(100%, 784px);
@@ -38,6 +60,15 @@ h2 { font-size: 20px; }
 
 .primary { background: #167d78; border-color: #167d78; color: white; justify-self: start; }
 .primary:hover { background: #10635f; }
+.primary:disabled {
+  background: #505856;
+  border-color: #505856;
+  color: #fff;
+  cursor: not-allowed;
+}
+.danger, .danger-outline { border-color: #a6382a; justify-self: start; }
+.danger { color: #fff; background: #a6382a; }
+.danger-outline { color: #a6382a; }
 .notice { background: #fff2cf; color: #795510; padding: 8px 12px; border-radius: 8px; }
 .help, .notice { font-size: 14px; }
 .help { color: #5d6966; }
@@ -48,7 +79,26 @@ fieldset { min-inline-size: 0; border: 1px solid #d7e4df; border-radius: 8px; }
 .option input { accent-color: #167d78; width: 18px; height: 18px; flex: none; }
 [role="alert"] { color: #a6382a; }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.flow-form { display: grid; gap: 12px; }
+.card select { display: block; margin-block-start: 6px; }
 .saved-list { margin: 0; padding-inline-start: 24px; overflow-wrap: anywhere; white-space: pre-wrap; }
+.concern-list { display: grid; gap: 12px; list-style: none; padding: 0; margin: 0; }
+.concern-card {
+  display: grid;
+  gap: 8px;
+  padding: 12px 16px;
+  border: 1px solid #d7e4df;
+  border-radius: 10px;
+  overflow-wrap: anywhere;
+}
+.concern-card-action {
+  justify-self: end;
+  align-self: end;
+  min-height: 44px;
+  padding: 4px 10px;
+  font-size: 14px;
+  color: #116b67;
+}
 dialog { border: 0; border-radius: 12px; padding: 0; max-width: min(440px, calc(100% - 32px)); }
 dialog::backdrop { background: rgb(48 59 57 / 48%); }
 
