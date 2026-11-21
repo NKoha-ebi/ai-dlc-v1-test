@@ -7,7 +7,7 @@
 1. Google Cloud Consoleの「IAMと管理 → プロジェクトの作成」で、既存β・本番と別の検証専用プロジェクトを作成する。環境IDには gate-check- で始まる名前を使う。プロジェクトID、所有者、終了予定日を記録する。
 2. 「お支払い」で検証用の課金先を紐づけ、プロジェクト単位の予算アラートと通知先を設定する。予算アラートは自動停止を行わないため、費用枠に到達した場合の停止担当も決めておく。
 3. 「APIとサービス → ライブラリ」で Cloud Run、Compute Engine、Artifact Registry、Firestore、Cloud Tasks、Cloud Storage、Secret Manager、Cloud Logging、Cloud Monitoring を有効化する。Cloud Buildでイメージを作る場合はCloud Buildも有効化する。LBで証明書を管理する方式に合わせてCertificate Managerを追加する。
-4. 「IAMと管理 → 割り当てとシステム上限」で、東京（asia-northeast1）と大阪（asia-northeast2）のCloud Run CPU・メモリー・Direct VPCの地域枠を確認する。目安は旧新重複を含め地域当たり44 vCPU・24 GiB。実際の割当値を記録する。
+4. 「IAMと管理 → 割り当てとシステム上限」で、東京（asia-northeast1）と大阪（asia-northeast2）のCloud Run CPU・メモリー・Direct VPCの地域枠を確認する。20 vCPU枠での検証は第3節の地域当たり14 vCPUの計画値を使う。実際の割当値を記録する。
 5. 作業者は1人なので、Console と Cloud Shell には同じ Google アカウントでログインする。初期設定と IAM 管理はそのアカウントで行い、Cloud Run の配備と合成リクエストの試験では、操作ごとに下記の専用サービスアカウントを使う。
 
 ### 1-5. 作業者1人での IAM 設定と ID の使い分け
@@ -45,7 +45,7 @@ gcloud run deploy "$RETURN_SERVICE" --project="$PROJECT_ID" --region="$REGION" \
   --impersonate-service-account="$DEPLOY_SA" --image="$IMAGE" \
   --service-account="$RUNTIME_SA" --ingress=internal-and-cloud-load-balancing \
   --network="$VPC" --subnet="$SUBNET" --vpc-egress=all-traffic \
-  --cpu=1 --memory=512Mi --min-instances=0 --max-instances=4 --concurrency=8
+  --cpu=1 --memory=512Mi --min-instances=0 --max-instances=2 --concurrency=8
 ```
 
 `--impersonate-service-account` はそのコマンドの配備主体を切り替え、`--service-account` はコンテナの実行 ID を指定する。配備後は作業者の Google アカウントで Cloud Run サービスの認証設定を確認し、Invoker IAM チェックが有効で、`allUsers` や `allAuthenticatedUsers` に Invoker が付与されていないことを確認する。IAM の変更も作業者の Google アカウントで行う。[サービスアカウントの代理実行](https://docs.cloud.google.com/docs/authentication/use-service-account-impersonation) · [Direct VPC の設定](https://docs.cloud.google.com/run/docs/configuring/vpc-direct-vpc)
@@ -178,6 +178,8 @@ gcloud storage buckets add-iam-policy-binding "gs://$PDF_BUCKET" --project="$PRO
 
 ### 3-1. 役割ごとの Cloud Run 配備
 
+地域ごとに return・send は最大2、business・writer・safety・PDF は最大1とし、1インスタンス当たり1 vCPUとする。6役割の8 vCPU、return・sendの旧新重複4 vCPU、追加部品2 vCPUを合わせ、計画値は地域当たり14 vCPU。使用量が16 vCPUに達した地域では新規試行を止め、必要な資源や試験証拠を確保できなければ判定を保留する。
+
 以下の関数は1サービスずつ配備する。候補が実際に読み込む役割別の環境変数ファイルと、対象地域の Artifact Registry にあるダイジェスト付きイメージを渡す。大阪の業務5役割は設計上の閉鎖設定を投入し、safety は両地域で稼働させる。初回は東京 return だけを LB に接続する。大阪 return の追加は大阪側で閉鎖・開放を制御できることを確認した比較試験時に行う。
 
 ```bash
@@ -186,13 +188,13 @@ AUDIENCE="https://$HOST"
 
 deploy_role() {
   local region="$1" subnet="$2" service="$3" role="$4" image="$5" env_file="$6"
-  local ingress=internal memory=512Mi max=4 concurrency=8
+  local ingress=internal memory=512Mi max=1 concurrency=8
   local -a audiences=()
   [[ "$image" =~ @sha256:[0-9a-f]{64}$ && -r "$env_file" ]] || return 2
   case "$role" in
-    return) ingress=internal-and-cloud-load-balancing; audiences=(--add-custom-audiences="$AUDIENCE") ;;
-    send) concurrency=2 ;;
-    pdf) memory=1Gi; max=2; concurrency=1 ;;
+    return) ingress=internal-and-cloud-load-balancing; max=2; audiences=(--add-custom-audiences="$AUDIENCE") ;;
+    send) max=2; concurrency=2 ;;
+    pdf) memory=1Gi; concurrency=1 ;;
     business|writer|safety) ;;
     *) return 2 ;;
   esac
