@@ -1,6 +1,6 @@
 # U01 インフラ設計案
 
-> **具体構成・容量レビュー（2026-11-15）**：[Cloud Run第一候補／共有VM第二候補](../nfr-design/shared-gate-concrete-review.md)と[費用第8節](cost-estimate-100-consultations.md)を追加。地域別6サービスの試験設定、通常最大22 vCPU・12 GiBと新旧重複、/24比較案、二地域復旧条件を示す。実quota・初期容量・最終フェンス・総額は未確定で、構築可能性の保証ではない。
+> **具体構成・容量レビュー（2026-11-15）**：[Cloud Run第一候補／共有VM第二候補](../nfr-design/shared-gate-concrete-review.md)と[費用第8節](cost-estimate-100-consultations.md)を追加。地域別6サービスの性能比較設定、/24比較案、二地域復旧条件を示す。合成試験の配備は[20 vCPU枠に合わせたS1環境構築手順](s1-gate-validation-environment-setup.md)を参照。実quota・初期容量・最終フェンス・総額は未確定で、構築可能性の保証ではない。
 
 ## 現行差分：共通ゲート（2026-11-15）
 
