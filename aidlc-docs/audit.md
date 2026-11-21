@@ -6845,3 +6845,13 @@ C:\Users\khr85\Documents\ai-dlc-v1-test\aidlc-docs\construction\patient-support-
 **Context**: 既存の構築手順の補足。実環境への設定や配備は未実施。
 
 ---
+
+
+## build ブランチ作成と基準ビルド
+**Timestamp**: 2026-11-21T04:32:59Z
+**User Input**: この時点で、'build'ブランチを切って、そっちのブランチで現時点での設計書を基にビルドしてもらいたい。
+
+**AI Response**: 272916f から build ブランチを作成。フロントエンドのビルド、検証用2パッケージの型検査、既存テスト81件が成功。build-branch-plan.md に S1 検証候補の作業を記録し、計画の承認または修正指示を依頼。
+**Context**: 既存 AI-DLC プロジェクトの構築を継続。PG-01／02 の実装と実経路判定は未完了。
+
+---
