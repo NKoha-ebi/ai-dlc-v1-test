@@ -1,4 +1,4 @@
-import { harness, operation } from './harness.ts';
+﻿import { harness, operation } from './harness.ts';
 import { Writer } from '../src/roles/writer.ts';
 import { Coordinator } from '../src/roles/coordinator.ts';
 import { mayOpenNew, type CutoverProof, type Event } from '../src/evidence.ts';
@@ -10,7 +10,8 @@ export async function scenario(id: number, fault: boolean): Promise<Result> {
   let open = true;
   const h = await harness({ allowed: () => open, checkpoint: async point => { if (id === 5 && fault && point === 'after-check') open = false; } });
   const op = operation();
-  let observed = '', verdict: Verdict = 'PENDING';
+  let observed: string;
+  let verdict: Verdict = 'PENDING';
   try {
     if (id === 1) {
       const r = await h.request('final-send', '/send', 'business', fault ? { ...op, url: 'https://arbitrary.invalid/' } : op);

@@ -1,4 +1,4 @@
-import { fork, type ChildProcess } from 'node:child_process';
+﻿import { fork, type ChildProcess } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { isEvent, isReply, type ChildEvent } from './protocol';
 
@@ -91,11 +91,20 @@ export class Peer {
 
 export async function withPeers<T>(run: (gateway: Peer, receiver: Peer) => Promise<T>): Promise<T> {
   const gateway = new Peer('gateway'), receiver = new Peer('receiver');
-  try { return await run(gateway, receiver); }
-  finally {
-    const results = await Promise.allSettled([gateway.close(), receiver.close()]);
-    const failure = results.find(r => r.status === 'rejected');
-    if (failure?.status === 'rejected') throw failure.reason;
-    if (gateway.errors.length || receiver.errors.length) throw new Error([...gateway.errors, ...receiver.errors].join('\n'));
+  const [outcome] = await Promise.allSettled([
+    Promise.resolve().then(() => run(gateway, receiver)),
+  ]);
+  const cleanup = await Promise.allSettled([gateway.close(), receiver.close()]);
+  const failures: unknown[] = [];
+  for (const result of cleanup) {
+    if (result.status === 'rejected') failures.push(result.reason);
   }
+  const diagnostics = [...gateway.errors, ...receiver.errors];
+  if (diagnostics.length > 0) failures.push(new Error(diagnostics.join('\n')));
+
+  if (outcome.status === 'rejected') failures.unshift(outcome.reason);
+  if (failures.length > 1) throw new AggregateError(failures, 'Peer validation failed');
+  if (outcome.status === 'rejected') throw outcome.reason;
+  if (failures.length === 1) throw failures[0];
+  return outcome.value;
 }
